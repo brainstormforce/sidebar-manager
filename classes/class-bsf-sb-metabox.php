@@ -35,7 +35,24 @@ if ( ! class_exists( 'BSF_SB_Metabox' ) ) {
 		 * Constructor
 		 */
 		public function __construct() {
+			/* Title filter */
+			add_filter( 'enter_title_here', array( $this, 'change_post_name_palceholder' ), 10, 1 );
+
+			/* Setup metabox */
 			add_action( 'admin_menu', array( $this, 'metabox_actions' ), 25 );
+		}
+
+		/**
+		 * Replace sidebar metabox.
+		 *
+		 * @since 1.0.0
+		 * @return void
+		 */
+		public function change_post_name_palceholder( $title ) {
+			if ( get_post_type() == BSF_SB_POST_TYPE ) {
+				$title = __( 'Enter sidebar title here', 'bsfsidebars' );
+			}
+			return $title;
 		}
 
 		/**
@@ -45,8 +62,29 @@ if ( ! class_exists( 'BSF_SB_Metabox' ) ) {
 		 * @return void
 		 */
 		public function metabox_actions() {
+			/* Replace sidebar metabox */
 			add_meta_box( 'replace-this-sidebar', __( 'Sidebar To Replace', 'bsfsidebars' ), array( $this, 'replace_this_sidebar' ), BSF_SB_POST_TYPE, 'side', 'low' );
+
+			/* Remove the "Excerpt" meta box for the sidebars. */
+			remove_meta_box( 'postexcerpt', BSF_SB_POST_TYPE, 'normal' );
+			
+			/* Sidebar Info */
+			add_meta_box( 'sidebar-description', __( 'Description', 'bsfsidebars' ), array( $this, 'sidebar_description' ), BSF_SB_POST_TYPE, 'normal', 'core' );
 		}
+
+		/**
+		 * Replace sidebar metabox.
+		 *
+		 * @since 1.0.0
+		 * @return void
+		 */
+		public function sidebar_description( $post ) {
+			$output  = '<label class="screen-reader-text" for="excerpt">' . __( 'Description', 'bsfsidebars' ) . '</label>';
+			$output .= '<textarea rows="1" cols="40" name="excerpt" tabindex="6" id="excerpt">' . $post->post_excerpt . '</textarea>';
+			$output .= '<p>' . sprintf( __( 'Add an optional description fot the %sWidgets%s screen.', 'bsfsidebars' ), '<a href="' . esc_url( admin_url( 'widgets.php' ) ) . '">', '</a>' ) . '</p>';
+
+			echo $output;
+		}	
 
 		/**
 		 * Replace sidebar metabox.
