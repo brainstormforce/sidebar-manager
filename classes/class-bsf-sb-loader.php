@@ -1,18 +1,18 @@
 <?php
 /**
- * BSF_CS_Loader
+ * BSF_SB_Loader
  *
  * @package BSF Custom Sidebars
  */
 
-if ( ! class_exists( 'BSF_CS_Loader' ) ) {
+if ( ! class_exists( 'BSF_SB_Loader' ) ) {
 
 	/**
-	 * BSF_CS_Loader initial setup
+	 * BSF_SB_Loader initial setup
 	 *
 	 * @since 1.0.0
 	 */
-	final class BSF_CS_Loader {
+	final class BSF_SB_Loader {
 
 		/**
 		 * Member Variable
@@ -46,10 +46,12 @@ if ( ! class_exists( 'BSF_CS_Loader' ) ) {
 		 * @return void
 		 */
 		private function define_constants() {
-			define('BSF_CS_VER', '0.1.0');
-			define('BSF_CS_FILE', trailingslashit(dirname(dirname(__FILE__))) . 'custom-sidebars.php');
-			define('BSF_CS_DIR', plugin_dir_path(BSF_CS_FILE));
-			define('BSF_CS_URL', plugins_url('/', BSF_CS_FILE));
+			define('BSF_SB_VER', '0.1.0');
+			define('BSF_SB_FILE', trailingslashit(dirname(dirname(__FILE__))) . 'custom-sidebars.php');
+			define('BSF_SB_DIR', plugin_dir_path(BSF_SB_FILE));
+			define('BSF_SB_URL', plugins_url('/', BSF_SB_FILE));
+			define('BSF_SB_PREFIX', 'bsf-sb');
+			define('BSF_SB_POST_TYPE', 'bsf-sidebar');
 		}
 
 		/**
@@ -58,12 +60,11 @@ if ( ! class_exists( 'BSF_CS_Loader' ) ) {
 		 * @since 1.0.0
 		 * @return void
 		 */
-		static private function load_files()
-		{
+		private function load_files() {
 			/* Classes */
-			//require_once BSF_CS_DIR . 'classes/class-bsf-cs-model.php';
+			require_once BSF_SB_DIR . 'classes/class-bsf-sb-post-type.php';
 		}
 	}
 }
 
-BSF_CS_Loader::get_instance();
+BSF_SB_Loader::get_instance();

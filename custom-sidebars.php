@@ -12,4 +12,4 @@
  * @package         Custom_Sidebars
  */
 
-require_once 'classes/class-bsf-cs-loader.php';
+require_once 'classes/class-bsf-sb-loader.php';
