@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name:     Custom Sidebars
+ * Plugin Name:     BSF Custom Sidebars
  * Plugin URI:      PLUGIN SITE HERE
  * Description:     PLUGIN DESCRIPTION HERE
  * Author:          YOUR NAME HERE
@@ -11,3 +11,5 @@
  *
  * @package         Custom_Sidebars
  */
+
+require_once 'classes/class-bsf-cs-loader.php';
