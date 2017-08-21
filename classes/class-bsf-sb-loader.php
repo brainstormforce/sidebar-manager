@@ -63,6 +63,7 @@ if ( ! class_exists( 'BSF_SB_Loader' ) ) {
 		private function load_files() {
 			/* Classes */
 			require_once BSF_SB_DIR . 'classes/class-bsf-sb-post-type.php';
+			require_once BSF_SB_DIR . 'classes/class-bsf-sb-metabox.php';
 		}
 	}
 }
