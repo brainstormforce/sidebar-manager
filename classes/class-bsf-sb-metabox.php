@@ -40,6 +40,9 @@ if ( ! class_exists( 'BSF_SB_Metabox' ) ) {
 
 			/* Setup metabox */
 			add_action( 'admin_menu', array( $this, 'metabox_actions' ), 25 );
+
+			/* Save meta data */
+			add_action( 'save_post', array( $this, 'metabox_save' ), 10, 1 );
 		}
 
 		/**
@@ -72,6 +75,35 @@ if ( ! class_exists( 'BSF_SB_Metabox' ) ) {
 			add_meta_box( 'sidebar-description', __( 'Description', 'bsfsidebars' ), array( $this, 'sidebar_description' ), BSF_SB_POST_TYPE, 'normal', 'core' );
 		}
 
+		/**
+		 * Replace sidebar metabox.
+		 *
+		 * @since 1.0.0
+		 * @return void
+		 */
+		public function metabox_save( $post_id ) {
+
+			if ( get_post_type() != BSF_SB_POST_TYPE
+				|| ( isset( $_POST[ BSF_SB_POST_TYPE . '-nonce'] ) && ! wp_verify_nonce( $_POST[ BSF_SB_POST_TYPE . '-nonce'], BSF_SB_POST_TYPE ) )
+			) {
+				return $post_id;
+			}
+
+			// Verify if this is an auto save routine.
+      		if ( defined('DOING_AUTOSAVE') && DOING_AUTOSAVE ) 
+        		return $post_id;
+
+			if ( ! current_user_can( 'edit_post', $post_id ) ) {
+				return $post_id;
+			}
+
+			if ( isset( $_POST['replace_this_sidebar'] ) ) {
+				
+				$replace_sidebar = esc_attr( $_POST['replace_this_sidebar'] );
+				
+				update_post_meta( $post_id, '_replace_this_sidebar', $replace_sidebar );
+			}
+		}
 		/**
 		 * Replace sidebar metabox.
 		 *
