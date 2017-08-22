@@ -90,6 +90,7 @@ if ( ! class_exists( 'BSF_SB_Sidebar' ) ) {
 			if ( !is_admin() ) {
 				
 				if ( NULL === self::$global_sidebar ) {
+					global $post;
 
 					$args = array(
 						'post_type' 		=> BSF_SB_POST_TYPE,
@@ -124,7 +125,9 @@ if ( ! class_exists( 'BSF_SB_Sidebar' ) ) {
 							}
 						}
 
-						self::$global_sidebar = $sidebars;
+						if ( null !== $post ) {
+							self::$global_sidebar = $sidebars;
+						}
 					}
 				}else{
 					
