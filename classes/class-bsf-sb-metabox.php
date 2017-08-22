@@ -134,6 +134,11 @@ if ( ! class_exists( 'BSF_SB_Metabox' ) ) {
 			if ( !empty( $sidebars ) ) {
 				$output .= '<select name="replace_this_sidebar" class="widefat">';
 					foreach ( $sidebars as $slug => $name ) {
+						
+						if ( strrpos( $slug, BSF_SB_PREFIX ) !== false ) {
+							continue;
+						}
+
 						$output .= '<option value="' . $slug . '"' . selected( $selected, $slug, false ) . '>' . $name . '</option>';
 					}
 				$output .= '</select>';
@@ -157,7 +162,6 @@ if ( ! class_exists( 'BSF_SB_Metabox' ) ) {
 			global $wp_registered_sidebars;
 
 			$sidebars_show = array();
-			$sidebars_skip = array();
 
 			if ( is_array( $wp_registered_sidebars ) ) {
 				
