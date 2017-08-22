@@ -54,8 +54,9 @@ if ( ! class_exists( 'BSF_SB_Sidebar' ) ) {
 		private function load_actions() {
 			/* Register Sidebars */
 			add_action( 'widgets_init', array( $this, 'register_sidebars' ) );
-			/* Replace Sidebars */
-			add_filter( 'sidebars_widgets', array( $this, 'replace_sidebars' ), 10, 1 );
+
+			/* Init Sidebars */
+			add_action( 'get_header', array( $this, 'init_replace_sidebar' ) );
 		}
 
 		/**
@@ -78,6 +79,17 @@ if ( ! class_exists( 'BSF_SB_Sidebar' ) ) {
 					) );
 				}
 			}
+		}
+
+		/**
+		 * Init Replace Sidebars.
+		 *
+		 * @access public
+		 * @return void
+		 */
+		public function init_replace_sidebar() {
+			/* Replace Sidebars */
+			add_filter( 'sidebars_widgets', array( $this, 'replace_sidebars' ), 10, 1 );
 		}
 
 		/**
@@ -125,9 +137,7 @@ if ( ! class_exists( 'BSF_SB_Sidebar' ) ) {
 							}
 						}
 
-						if ( null !== $post ) {
-							self::$global_sidebar = $sidebars;
-						}
+						self::$global_sidebar = $sidebars;
 					}
 				}else{
 					
