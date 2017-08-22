@@ -204,7 +204,8 @@ if ( ! class_exists( 'BSF_SB_Target_Rules_Fields' ) ) {
 		 * @param string $hook string parameter.
 		 */
 		public function admin_styles( $hook ) {
-			if ( 'post.php' == $hook && 'bsf-sidebar' == get_post_type() ) {
+			
+			if ( false !== strrpos( $hook, 'post' ) && 'bsf-sidebar' == get_post_type() ) {
 				
 				wp_enqueue_script( 'bsf-sb-select2', BSF_SB_URL . 'classes/modules/target-rule/select2.js', array( 'jquery' ), BSF_SB_VER, true );
 				wp_enqueue_script(
