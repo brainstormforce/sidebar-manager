@@ -22,6 +22,13 @@ if ( ! class_exists( 'BSF_SB_Sidebar' ) ) {
 		private static $instance;
 
 		/**
+		 * Member Variable
+		 *
+		 * @var instance
+		 */
+		private static $global_sidebar = null;
+
+		/**
 		 *  Initiator
 		 */
 		public static function get_instance() {
@@ -82,32 +89,46 @@ if ( ! class_exists( 'BSF_SB_Sidebar' ) ) {
 		public function replace_sidebars( $sidebars ) {
 			if ( !is_admin() ) {
 				
-				$args = array(
-					'post_type' 		=> BSF_SB_POST_TYPE,
-					'posts_per_page' 	=> -1,
-					'suppress_filters' 	=> false,
-					'meta_query' 		=> array(
-											array(
-												'key' => '_replace_this_sidebar',
-												'compare' => '!=',
-												'value' => ''
+				if ( NULL === self::$global_sidebar ) {
+
+					$args = array(
+						'post_type' 		=> BSF_SB_POST_TYPE,
+						'posts_per_page' 	=> -1,
+						'suppress_filters' 	=> false,
+						'meta_query' 		=> array(
+												array(
+													'key' => '_replace_this_sidebar',
+													'compare' => '!=',
+													'value' => ''
+												)
 											)
-										)
-				);
+					);
 
-				$replace_sidebars = get_posts( $args );
+					$replace_sidebars = get_posts( $args );
 
-				if ( !empty( $replace_sidebars ) ) {
-					
-					foreach ( $replace_sidebars as $i => $data ) {
-
-						$post_replace_sidebar = get_post_meta( $data->ID, '_replace_this_sidebar', true );
-						$sidebar_id = BSF_SB_PREFIX . '-' . $data->post_name;
+					if ( !empty( $replace_sidebars ) ) {
 						
-						if ( isset( $sidebars[ $post_replace_sidebar ] ) && isset( $sidebars[ $sidebar_id ] ) ) {
-							$sidebars[ $post_replace_sidebar ] = $sidebars[ $sidebar_id ];
+						foreach ( $replace_sidebars as $i => $data ) {
+
+							$post_replace_sidebar = get_post_meta( $data->ID, '_replace_this_sidebar', true );
+							$sidebar_id = BSF_SB_PREFIX . '-' . $data->post_name;
+							
+							if ( isset( $sidebars[ $post_replace_sidebar ] ) && isset( $sidebars[ $sidebar_id ] ) ) {
+								
+								$is_show = BSF_SB_Target_Rules_Fields::get_instance()->get_current_layout( $data->ID );
+
+								if ( false !== $is_show ) {
+									$sidebars[ $post_replace_sidebar ] = $sidebars[ $sidebar_id ];
+									unset( $sidebars[ $sidebar_id ] );
+								}
+							}
 						}
+
+						self::$global_sidebar = $sidebars;
 					}
+				}else{
+					
+					$sidebars = self::$global_sidebar;
 				}
 			}
 			

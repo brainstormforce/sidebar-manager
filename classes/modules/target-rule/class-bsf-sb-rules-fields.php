@@ -514,9 +514,9 @@ if ( ! class_exists( 'BSF_SB_Target_Rules_Fields' ) ) {
 			$current_layout = false;
 			$is_exclude     = false;
 			$is_user_role   = false;
-			$display_on     = get_post_meta( $layout_id, 'bsf-sb-location', true );
-			$exclude_on     = get_post_meta( $layout_id, 'bsf-sb-exclusion', true );
-			$user_roles     = get_post_meta( $layout_id, 'bsf-sb-users', true );
+			$display_on     = get_post_meta( $layout_id, '_bsf-sb-location', true );
+			$exclude_on     = get_post_meta( $layout_id, '_bsf-sb-exclusion', true );
+			$user_roles     = get_post_meta( $layout_id, '_bsf-sb-users', true );
 			/* Parse Display On Condition */
 			$is_display = $this->parse_layout_display_condition( $post_id, $display_on );
 
