@@ -1,3 +1,7 @@
+#astra_settings_meta_box{
+    display: none;
+}
+
 #sidebar-settings .inside {
     margin: 0;
     padding: 0;
