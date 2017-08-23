@@ -36,13 +36,12 @@ How to install?
 
 == Frequently Asked Questions ==
 
-= A question that someone might have =
+= How to start? =
 
-An answer to that question.
-
-= What about foo bar? =
-
-Answer to foo bar dilemma.
+1. Go to "Appearence->Sidebars"
+2. Create your new sidebar area
+3. Choose which sidebar you want to replace in meta settings.
+4. Thats It. Cheers...
 
 == Screenshots ==
 

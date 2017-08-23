@@ -46,8 +46,8 @@ if ( ! class_exists( 'BSF_SB_Loader' ) ) {
 		 * @return void
 		 */
 		private function define_constants() {
-			define('BSF_SB_VER', '0.1.0');
-			define('BSF_SB_FILE', trailingslashit(dirname(dirname(__FILE__))) . 'custom-sidebars.php');
+			define('BSF_SB_VER', '1.0.0');
+			define('BSF_SB_FILE', trailingslashit(dirname(dirname(__FILE__))) . 'sidebar-manager.php');
 			define('BSF_SB_DIR', plugin_dir_path(BSF_SB_FILE));
 			define('BSF_SB_URL', plugins_url('/', BSF_SB_FILE));
 			define('BSF_SB_PREFIX', 'bsf-sb');
