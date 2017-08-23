@@ -69,7 +69,7 @@ if ( ! class_exists( 'BSF_SB_Metabox' ) ) {
 			remove_meta_box( 'postexcerpt', BSF_SB_POST_TYPE, 'normal' );
 			
 			/* Target Rule */
-			add_meta_box( 'target-rule', __( 'Target Conditions', 'bsfsidebars' ), array( $this, 'target_rule' ), BSF_SB_POST_TYPE, 'normal', 'core' );
+			add_meta_box( 'sidebar-settings', __( 'Sidebar Settings', 'bsfsidebars' ), array( $this, 'sidebar_settings' ), BSF_SB_POST_TYPE, 'normal', 'core' );
 		}
 
 		/**
@@ -152,7 +152,7 @@ if ( ! class_exists( 'BSF_SB_Metabox' ) ) {
 		 * @since 1.0.0
 		 * @return void
 		 */
-		public function target_rule( $post ) {
+		public function sidebar_settings( $post ) {
 			
 			$post_id = $post->ID;
 
