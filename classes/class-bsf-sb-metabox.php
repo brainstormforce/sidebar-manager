@@ -170,7 +170,7 @@ if ( ! class_exists( 'BSF_SB_Metabox' ) ) {
 					$out .= '<tr class="bsf-sb-row">';
 						$out .= '<td class="bsf-sb-row-heading">';
 							$out .= '<label>' . esc_html__( 'Sidebar To Replace', 'bsfsidebars' ) . '</label>';
-							$out .= '<i class="bsf-sb-help dashicons dashicons-editor-help" title="' . esc_attr__( 'Add locations for where this sidebar should appear.', 'bsfsidebars' ) . '"></i>';
+							$out .= '<i class="bsf-sb-help dashicons dashicons-editor-help" title="' . esc_attr__( 'Choose which sidebar you want to replace. Select None to disable this sidebar.', 'bsfsidebars' ) . '"></i>';
 						$out .= '</td>';
 						$out .= '<td class="bsf-sb-row-content">';
 
