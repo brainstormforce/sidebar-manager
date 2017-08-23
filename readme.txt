@@ -12,10 +12,9 @@ Create custom sidebar and display it to specific post, page, archive, category e
 
 == Description ==
 
-This custom sidebar plugin gives you lots of feature to display sidebar. You can display sidebar with spcific conditions.
+Sidebar manager plugin gives you lots of feature to display sidebar according to your need. You can display sidebar with specific conditions.
 
-For backwards compatibility, if this section is missing, the full length of the short description will be used, and
-Markdown parsed.
+You can configure sidebar according to you context. You can show any sidebar without any restriction. This plugin does not have any restriction. You can use full features.
 
 Features:
 
@@ -41,7 +40,7 @@ How to install?
 1. Go to "Appearence->Sidebars"
 2. Create your new sidebar area
 3. Choose which sidebar you want to replace in meta settings.
-4. Thats It. Cheers...
+4. You done it. Cheers...
 
 == Screenshots ==
 
