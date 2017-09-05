@@ -69,7 +69,7 @@ if ( ! class_exists( 'BSF_SB_Target_Rules_Fields' ) ) {
 		 * @var $location_selection
 		 */
 		private static $location_selection;
-		
+
 		/**
 		 * Initiator
 		 *
@@ -408,9 +408,9 @@ if ( ! class_exists( 'BSF_SB_Target_Rules_Fields' ) ) {
 		 * @param string $hook string parameter.
 		 */
 		public function admin_styles( $hook ) {
-			
+
 			if ( false !== strrpos( $hook, 'post' ) && 'bsf-sidebar' == get_post_type() ) {
-				
+
 				wp_enqueue_script( 'bsf-sb-select2', BSF_SB_URL . 'classes/modules/target-rule/select2.js', array( 'jquery' ), BSF_SB_VER, true );
 				wp_enqueue_script(
 					'bsf-sb-target-rule', BSF_SB_URL . 'classes/modules/target-rule/target-rule.js', array(
@@ -427,7 +427,7 @@ if ( ! class_exists( 'BSF_SB_Target_Rules_Fields' ) ) {
 				wp_enqueue_style( 'bsf-sb-select2', BSF_SB_URL . 'classes/modules/target-rule/select2.css', '', BSF_SB_VER );
 				wp_enqueue_style( 'bsf-sb-target-rule', BSF_SB_URL . 'classes/modules/target-rule/target-rule.css', '', BSF_SB_VER );
 			}
-			
+
 		}
 
 		/**
@@ -450,7 +450,7 @@ if ( ! class_exists( 'BSF_SB_Target_Rules_Fields' ) ) {
 			if ( isset( self::$location_selection ) || empty( self::$location_selection ) ) {
 				self::$location_selection = self::get_location_selections();
 			}
-			
+
 			$selection_options = self::$location_selection;
 
 			/* WP Template Format */
@@ -520,7 +520,7 @@ if ( ! class_exists( 'BSF_SB_Target_Rules_Fields' ) ) {
 				$all_archive = sprintf( __( 'All %s Archive', 'bsfsidebars' ), $post_label );
 				/* translators: %s post label */
 				$post_option[ $post_name . '|all|archive' ] = $all_archive;
-				
+
 			}
 
 			foreach ( $taxonomies as $taxonomy ) {
@@ -852,7 +852,7 @@ if ( ! class_exists( 'BSF_SB_Target_Rules_Fields' ) ) {
 			if ( ! isset( self::$user_selection ) || empty( self::$user_selection ) ) {
 				self::$user_selection = self::get_user_selections();
 			}
-			
+
 			$selection_options = self::$user_selection;
 
 			/* WP Template Format */
@@ -1111,9 +1111,9 @@ if ( ! class_exists( 'BSF_SB_Target_Rules_Fields' ) ) {
 
 			foreach ( $posts as $local_post ) {
 				self::$current_page_data[ $post_type ][ $local_post->ID ] = array(
-					'id'       		=> $local_post->ID,
+					'id'            => $local_post->ID,
 					'post_name'     => $local_post->post_name,
-					'location' 		=> unserialize( $local_post->meta_value ),
+					'location'      => unserialize( $local_post->meta_value ),
 				);
 			}
 

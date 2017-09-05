@@ -66,17 +66,25 @@ if ( ! class_exists( 'BSF_SB_Sidebar' ) ) {
 		 * @return void
 		 */
 		public function register_sidebars() {
-			
-			$to_register = get_posts( array( 'post_type' => BSF_SB_POST_TYPE, 'posts_per_page' => -1, 'suppress_filters' => 'false' ) );
 
-			if ( !empty( $to_register ) ) {
+			$to_register = get_posts(
+				array(
+					'post_type' => BSF_SB_POST_TYPE,
+					'posts_per_page' => -1,
+					'suppress_filters' => 'false',
+				)
+			);
+
+			if ( ! empty( $to_register ) ) {
 				foreach ( $to_register as $index => $data ) {
-					
-					register_sidebar( array(
-						'name' 			=> $data->post_title,
-						'id' 			=> BSF_SB_PREFIX . '-' . $data->post_name,
-						'description' 	=> $data->post_excerpt
-					) );
+
+					register_sidebar(
+						array(
+							'name'          => $data->post_title,
+							'id'            => BSF_SB_PREFIX . '-' . $data->post_name,
+							'description'   => $data->post_excerpt,
+						)
+					);
 				}
 			}
 		}
@@ -96,12 +104,13 @@ if ( ! class_exists( 'BSF_SB_Sidebar' ) ) {
 		 * Replace Sidebars.
 		 *
 		 * @access public
-		 * @return void
+		 * @param array $sidebars array of current sidebars.
+		 * @return array
 		 */
 		public function replace_sidebars( $sidebars ) {
-			if ( !is_admin() ) {
-				
-				if ( NULL === self::$global_sidebar ) {
+			if ( ! is_admin() ) {
+
+				if ( null === self::$global_sidebar ) {
 					global $post;
 
 					$option = array(
@@ -109,23 +118,23 @@ if ( ! class_exists( 'BSF_SB_Sidebar' ) ) {
 						'exclusion' => '_bsf-sb-exclusion',
 						'users'     => '_bsf-sb-users',
 					);
-					
+
 					$replace_sidebars = BSF_SB_Target_Rules_Fields::get_instance()->get_posts_by_conditions( BSF_SB_POST_TYPE, $option );
-					
-					if ( !empty( $replace_sidebars ) ) {
-						
+
+					if ( ! empty( $replace_sidebars ) ) {
+
 						foreach ( $replace_sidebars as $i => $data ) {
 
 							$post_replace_sidebar = get_post_meta( $data['id'], '_replace_this_sidebar', true );
-							
+
 							if ( false === $post_replace_sidebar || '' == $post_replace_sidebar ) {
 								continue;
 							}
 
 							$sidebar_id = BSF_SB_PREFIX . '-' . $data['post_name'];
-							
+
 							if ( isset( $sidebars[ $post_replace_sidebar ] ) && isset( $sidebars[ $sidebar_id ] ) ) {
-								
+
 								$sidebars[ $post_replace_sidebar ] = $sidebars[ $sidebar_id ];
 								unset( $sidebars[ $sidebar_id ] );
 							}
@@ -133,12 +142,12 @@ if ( ! class_exists( 'BSF_SB_Sidebar' ) ) {
 
 						self::$global_sidebar = $sidebars;
 					}
-				}else{
-					
+				} else {
+
 					$sidebars = self::$global_sidebar;
 				}
 			}
-			
+
 			return $sidebars;
 		}
 	}
