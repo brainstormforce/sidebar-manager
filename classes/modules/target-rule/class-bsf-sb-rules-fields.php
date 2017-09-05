@@ -1050,7 +1050,7 @@ if ( ! class_exists( 'BSF_SB_Target_Rules_Fields' ) ) {
 
 			self::$current_page_data[ $post_type ] = array();
 
-			$query = "SELECT p.ID, pm.meta_value FROM {$wpdb->postmeta} as pm
+			$query = "SELECT p.ID, p.post_name, pm.meta_value FROM {$wpdb->postmeta} as pm
 					   INNER JOIN {$wpdb->posts} as p ON pm.post_id = p.ID
 					   WHERE pm.meta_key = '{$location}'
 					   AND p.post_type = '{$post_type}'
@@ -1111,8 +1111,9 @@ if ( ! class_exists( 'BSF_SB_Target_Rules_Fields' ) ) {
 
 			foreach ( $posts as $local_post ) {
 				self::$current_page_data[ $post_type ][ $local_post->ID ] = array(
-					'id'       => $local_post->ID,
-					'location' => unserialize( $local_post->meta_value ),
+					'id'       		=> $local_post->ID,
+					'post_name'     => $local_post->post_name,
+					'location' 		=> unserialize( $local_post->meta_value ),
 				);
 			}
 
