@@ -35,6 +35,42 @@ if ( ! class_exists( 'BSF_SB_Target_Rules_Fields' ) ) {
 		private static $meta_option;
 
 		/**
+		 * Current page type
+		 *
+		 * @since  1.0.0
+		 *
+		 * @var $current_page_type
+		 */
+		private static $current_page_type = null;
+
+		/**
+		 * CUrrent page data
+		 *
+		 * @since  1.0.0
+		 *
+		 * @var $current_page_data
+		 */
+		private static $current_page_data = array();
+
+		/**
+		 * User Selection Option
+		 *
+		 * @since  1.0.0
+		 *
+		 * @var $user_selection
+		 */
+		private static $user_selection;
+
+		/**
+		 * Location Selection Option
+		 *
+		 * @since  1.0.0
+		 *
+		 * @var $location_selection
+		 */
+		private static $location_selection;
+		
+		/**
 		 * Initiator
 		 *
 		 * @since  1.0.0
@@ -53,8 +89,176 @@ if ( ! class_exists( 'BSF_SB_Target_Rules_Fields' ) ) {
 		 * @since 1.0.0
 		 */
 		public function __construct() {
+			add_action( 'admin_action_edit', array( $this, 'initialize_options' ) );
 			add_action( 'admin_enqueue_scripts', array( $this, 'admin_styles' ) );
 			add_action( 'wp_ajax_bsf_sb_get_posts_by_query', array( $this, 'get_posts_by_query' ) );
+		}
+
+		/**
+		 * Initialize member variables.
+		 *
+		 * @return void
+		 */
+		public function initialize_options() {
+			self::$user_selection = self::get_user_selections();
+			self::$location_selection = self::get_location_selections();
+		}
+
+		/**
+		 * Get location selection options.
+		 *
+		 * @return array
+		 */
+		public static function get_location_selections() {
+
+			$args = array(
+				'public'   => true,
+				'_builtin' => true,
+			);
+
+			$post_types = get_post_types( $args, 'objects' );
+			unset( $post_types['attachment'] );
+
+			$args['_builtin'] = false;
+			$custom_post_type  = get_post_types( $args, 'objects' );
+
+			$post_types = apply_filters( 'astra_location_rule_post_types', array_merge( $post_types, $custom_post_type ) );
+
+			$selection_options = array(
+				'basic' => array(
+					'label' => __( 'Basic', 'astra-addon' ),
+					'value' => array(
+						'basic-global'    => __( 'Entire Website', 'astra-addon' ),
+						'basic-singulars' => __( 'All Singulars', 'astra-addon' ),
+						'basic-archives'  => __( 'All Archives', 'astra-addon' ),
+					),
+				),
+
+				'special-pages' => array(
+					'label' => __( 'Special Pages', 'astra-addon' ),
+					'value' => array(
+						'special-404'    => __( '404 Page', 'astra-addon' ),
+						'special-search' => __( 'Search Page', 'astra-addon' ),
+						'special-blog'   => __( 'Blog / Posts Page', 'astra-addon' ),
+						'special-front'  => __( 'Front Page', 'astra-addon' ),
+						'special-date'   => __( 'Date Archive', 'astra-addon' ),
+						'special-author' => __( 'Author Archive', 'astra-addon' ),
+					),
+				),
+			);
+
+			/* post types */
+			foreach ( $post_types as $post_type ) {
+
+				$args = array(
+					'public'   => true,
+					'object_type' => array( $post_type->name ),
+				);
+				$taxonomies = get_taxonomies( $args, 'objects' );
+				unset( $taxonomies['post_format'] );
+
+				$post_opt = self::get_post_target_rule_options( $post_type, $taxonomies );
+
+				$selection_options[ $post_opt['post_key'] ] = array(
+					'label' => $post_opt['label'],
+					'value' => $post_opt['value'],
+				);
+			}
+
+			$selection_options['specific-target'] = array(
+				'label' => __( 'Specific Target', 'astra-addon' ),
+				'value' => array(
+					'specifics' => __( 'Specific Pages / Posts / Taxanomies, etc.', 'astra-addon' ),
+				),
+			);
+
+			return $selection_options;
+		}
+
+		/**
+		 * Get user selection options.
+		 *
+		 * @return array
+		 */
+		public static function get_user_selections() {
+			$selection_options = array(
+				'basic' => array(
+					'label' => __( 'Basic', 'astra-addon' ),
+					'value' => array(
+						'all'           => __( 'All', 'astra-addon' ),
+						'logged-in'     => __( 'Logged In', 'astra-addon' ),
+						'logged-out'    => __( 'Logged Out', 'astra-addon' ),
+					),
+				),
+
+				'advanced' => array(
+					'label' => __( 'Advanced', 'astra-addon' ),
+					'value' => array(),
+				),
+			);
+
+			/* User roles */
+			$roles = get_editable_roles();
+
+			foreach ( $roles as $slug => $data ) {
+				$selection_options['advanced']['value'][ $slug ] = $data['name'];
+			}
+
+			return $selection_options;
+		}
+
+		/**
+		 * Get location label by key.
+		 *
+		 * @param string $key Location option key.
+		 * @return string
+		 */
+		public static function get_location_by_key( $key ) {
+			if ( ! isset( self::$location_selection ) || empty( self::$location_selection ) ) {
+				self::$location_selection = self::get_location_selections();
+			}
+			$location_selection = self::$location_selection;
+
+			foreach ( $location_selection as $location_grp ) {
+				if ( isset( $location_grp['value'][ $key ] ) ) {
+					return $location_grp['value'][ $key ];
+				}
+			}
+
+			if ( strpos( $key, 'post-' ) !== false ) {
+				$post_id    = (int) str_replace( 'post-', '', $key );
+				return get_the_title( $post_id );
+			}
+
+			// taxonomy options.
+			if ( strpos( $key, 'tax-' ) !== false ) {
+				$tax_id        = (int) str_replace( 'tax-', '', $key );
+				$term          = get_term( $tax_id );
+				$term_taxonomy = ucfirst( str_replace( '_', ' ', $term->taxonomy ) );
+				return $term->name . ' - ' . $term_taxonomy;
+			}
+
+			return $key;
+		}
+
+		/**
+		 * Get user label by key.
+		 *
+		 * @param string $key User option key.
+		 * @return string
+		 */
+		public static function get_user_by_key( $key ) {
+			if ( ! isset( self::$user_selection ) || empty( self::$user_selection ) ) {
+				self::$user_selection = self::get_user_selections();
+			}
+			$user_selection = self::$user_selection;
+
+			if ( isset( $user_selection['basic']['value'][ $key ] ) ) {
+				return $user_selection['basic']['value'][ $key ];
+			} elseif ( $user_selection['advanced']['value'][ $key ] ) {
+				return $user_selection['advanced']['value'][ $key ];
+			}
+			return $key;
 		}
 
 		/**
@@ -243,74 +447,11 @@ if ( ! class_exists( 'BSF_SB_Target_Rules_Fields' ) ) {
 			$saved_values   = $value;
 			$output         = '';
 
-			$args = array(
-				'public'   => true,
-				'_builtin' => true,
-			);
-
-			$builtin_post_types = get_post_types( $args, 'objects' );
-			unset( $builtin_post_types['attachment'] );
-			$builtin_taxonomies = get_taxonomies( $args, 'objects' );
-			unset( $builtin_taxonomies['post_format'] );
-
-			$args = array(
-				'public'   => true,
-				'_builtin' => false,
-			);
-
-			$custom_post_type  = get_post_types( $args, 'objects' );
-			$custom_taxonomies = get_taxonomies( $args, 'objects' );
-
-			$selection_options = array(
-				'basic' => array(
-					'label' => __( 'Basic', 'bsfsidebars' ),
-					'value' => array(
-						'basic-global'    => __( 'Entire Website', 'bsfsidebars' ),
-						'basic-singulars' => __( 'All Singulars', 'bsfsidebars' ),
-						'basic-archives'  => __( 'All Archives', 'bsfsidebars' ),
-					),
-				),
-
-				'special-pages' => array(
-					'label' => __( 'Special Pages', 'bsfsidebars' ),
-					'value' => array(
-						'special-404'    => __( '404 Page', 'bsfsidebars' ),
-						'special-search' => __( 'Search Page', 'bsfsidebars' ),
-						'special-blog'   => __( 'Blog / Posts Page', 'bsfsidebars' ),
-						'special-front'  => __( 'Front Page', 'bsfsidebars' ),
-						'special-date'   => __( 'Date Archive', 'bsfsidebars' ),
-						'special-author' => __( 'Author Archive', 'bsfsidebars' ),
-					),
-				),
-			);
-
-			/* Builtin post types */
-			foreach ( $builtin_post_types as $post_type ) {
-
-				$post_opt = self::get_post_target_rule_options( $post_type, $builtin_taxonomies );
-
-				$selection_options[ $post_opt['post_key'] ] = array(
-					'label' => $post_opt['label'],
-					'value' => $post_opt['value'],
-				);
+			if ( isset( self::$location_selection ) || empty( self::$location_selection ) ) {
+				self::$location_selection = self::get_location_selections();
 			}
-
-			/* Custom post types */
-			foreach ( $custom_post_type as $c_post_type ) {
-				$post_opt = self::get_post_target_rule_options( $c_post_type, $custom_taxonomies );
-
-				$selection_options[ $post_opt['post_key'] ] = array(
-					'label' => $post_opt['label'],
-					'value' => $post_opt['value'],
-				);
-			}
-
-			$selection_options['specific-target'] = array(
-				'label' => __( 'Specific Target', 'bsfsidebars' ),
-				'value' => array(
-					'specifics' => __( 'Specific Pages / Posts / Taxanomies, etc.', 'bsfsidebars' ),
-				),
-			);
+			
+			$selection_options = self::$location_selection;
 
 			/* WP Template Format */
 			$output .= '<script type="text/html" id="tmpl-bsf-sb-target-rule-' . $rule_type . '-condition">';
@@ -372,11 +513,15 @@ if ( ! class_exists( 'BSF_SB_Target_Rules_Fields' ) ) {
 
 			/* translators: %s percentage */
 			$all_posts = sprintf( __( 'All %s', 'bsfsidebars' ), $post_label );
-			/* translators: %s percentage */
-			$all_archive = sprintf( __( 'All %s Archive', 'bsfsidebars' ), $post_label );
-
 			$post_option[ $post_name . '|all' ]         = $all_posts;
-			$post_option[ $post_name . '|all|archive' ] = $all_archive;
+
+			if ( 'pages' != $post_key ) {
+				/* translators: %s percentage */
+				$all_archive = sprintf( __( 'All %s Archive', 'bsfsidebars' ), $post_label );
+				/* translators: %s post label */
+				$post_option[ $post_name . '|all|archive' ] = $all_archive;
+				
+			}
 
 			foreach ( $taxonomies as $taxonomy ) {
 				$tax_label = ucwords( $taxonomy->label );
@@ -704,28 +849,11 @@ if ( ! class_exists( 'BSF_SB_Target_Rules_Fields' ) ) {
 			$saved_values   = $value;
 			$output         = '';
 
-			$selection_options = array(
-				'basic' => array(
-					'label' => __( 'Basic', 'bsfsidebars' ),
-					'value' => array(
-						'all'           => __( 'All', 'bsfsidebars' ),
-						'logged-in'     => __( 'Logged In', 'bsfsidebars' ),
-						'logged-out'    => __( 'Logged Out', 'bsfsidebars' ),
-					),
-				),
-
-				'advanced' => array(
-					'label' => __( 'Advanced', 'bsfsidebars' ),
-					'value' => array(),
-				),
-			);
-
-			/* User roles */
-			$roles = get_editable_roles();
-
-			foreach ( $roles as $slug => $data ) {
-				$selection_options['advanced']['value'][ $slug ] = $data['name'];
+			if ( ! isset( self::$user_selection ) || empty( self::$user_selection ) ) {
+				self::$user_selection = self::get_user_selections();
 			}
+			
+			$selection_options = self::$user_selection;
 
 			/* WP Template Format */
 			$output .= '<script type="text/html" id="tmpl-bsf-sb-user-role-condition">';
@@ -803,9 +931,10 @@ if ( ! class_exists( 'BSF_SB_Target_Rules_Fields' ) ) {
 		 */
 		public function parse_user_role_condition( $post_id, $rules ) {
 
-			$show_popup = false;
+			$show_popup = true;
 
 			if ( is_array( $rules ) && ! empty( $rules ) ) {
+				$show_popup = false;
 
 				foreach ( $rules as $i => $rule ) {
 
@@ -850,6 +979,311 @@ if ( ! class_exists( 'BSF_SB_Target_Rules_Fields' ) ) {
 			}
 
 			return $show_popup;
+		}
+
+		/**
+		 * Get current page type
+		 *
+		 * @since  1.0.0
+		 *
+		 * @return string Page Type.
+		 */
+		public function get_current_page_type() {
+
+			if ( null === self::$current_page_type ) {
+
+				$page_type = '';
+
+				if ( is_404() ) {
+					$page_type = 'is_404';
+				} elseif ( is_search() ) {
+					$page_type = 'is_search';
+				} elseif ( is_archive() ) {
+					$page_type = 'is_archive';
+
+					if ( is_category() || is_tag() || is_tax() ) {
+						$page_type = 'is_tax';
+					}
+				} elseif ( is_home() ) {
+					$page_type = 'is_home';
+				} elseif ( is_front_page() ) {
+					$page_type = 'is_front_page';
+				} elseif ( is_date() ) {
+					$page_type = 'is_date';
+				} elseif ( is_author() ) {
+					$page_type = 'is_author';
+				} elseif ( is_singular() ) {
+					$page_type = 'is_singular';
+				}
+
+				self::$current_page_type = $page_type;
+			}
+
+			return self::$current_page_type;
+		}
+
+		/**
+		 * Get posts by conditions
+		 *
+		 * @since  1.0.0
+		 * @param  string $post_type Post Type.
+		 * @param  array  $option meta option name.
+		 *
+		 * @return object  Posts.
+		 */
+		public function get_posts_by_conditions( $post_type, $option ) {
+
+			if ( is_array( self::$current_page_data ) && isset( self::$current_page_data[ $post_type ] ) ) {
+				return self::$current_page_data[ $post_type ];
+			}
+
+			global $wpdb;
+			global $post;
+
+			$current_page_type  = $this->get_current_page_type();
+			$post_type          = $post_type ? $post_type : $post->post_type;
+			$current_post_type  = get_post_type();
+			$current_post_id    = false;
+			$q_obj              = get_queried_object();
+
+			$location = isset( $option['location'] ) ? $option['location'] : '';
+
+			self::$current_page_data[ $post_type ] = array();
+
+			$query = "SELECT p.ID, pm.meta_value FROM {$wpdb->postmeta} as pm
+					   INNER JOIN {$wpdb->posts} as p ON pm.post_id = p.ID
+					   WHERE pm.meta_key = '{$location}'
+					   AND p.post_type = '{$post_type}'
+					   AND p.post_status = 'publish'";
+
+			$orderby = ' ORDER BY p.post_date DESC';
+
+			/* Entire Website */
+			$meta_args = "pm.meta_value LIKE '%\"basic-global\"%'";
+
+			switch ( $current_page_type ) {
+				case 'is_404':
+					$meta_args .= " OR pm.meta_value LIKE '%\"special-404\"%'";
+					break;
+				case 'is_search':
+					$meta_args .= " OR pm.meta_value LIKE '%\"special-search\"%'";
+					break;
+				case 'is_archive':
+				case 'is_tax':
+					$meta_args .= " OR pm.meta_value LIKE '%\"basic-archives\"%'";
+
+					if ( 'is_tax' == $current_page_type && ( is_category() || is_tag() || is_tax() ) ) {
+
+						if ( is_object( $q_obj ) ) {
+							$meta_args .= " OR pm.meta_value LIKE '%\"{$current_post_type}|all|taxarchive|{$q_obj->taxonomy}\"%'";
+							$meta_args .= " OR pm.meta_value LIKE '%\"tax-{$q_obj->term_id}\"%'";
+						}
+					}
+					break;
+				case 'is_home':
+					$meta_args .= " OR pm.meta_value LIKE '%\"special-blog\"%'";
+					break;
+				case 'is_front_page':
+					$meta_args .= " OR pm.meta_value LIKE '%\"special-front\"%'";
+					break;
+				case 'is_date':
+					$meta_args .= " OR pm.meta_value LIKE '%\"special-date\"%'";
+					break;
+				case 'is_author':
+					$meta_args .= " OR pm.meta_value LIKE '%\"special-author\"%'";
+					break;
+				case 'is_singular':
+					$current_id         = get_the_id();
+					$current_post_id    = $current_id;
+					$meta_args .= " OR pm.meta_value LIKE '%\"basic-singulars\"%'";
+					$meta_args .= " OR pm.meta_value LIKE '%\"{$current_post_type}|all\"%'";
+					$meta_args .= " OR pm.meta_value LIKE '%\"post-{$current_id}\"%'";
+					break;
+				case '':
+					$current_post_id = get_the_id();
+					break;
+			}
+
+			// Ignore the PHPCS warning about constant declaration.
+			// @codingStandardsIgnoreStart
+			$posts  = $wpdb->get_results( $query . ' AND (' . $meta_args . ')' . $orderby );
+			// @codingStandardsIgnoreEnd
+
+			foreach ( $posts as $local_post ) {
+				self::$current_page_data[ $post_type ][ $local_post->ID ] = array(
+					'id'       => $local_post->ID,
+					'location' => unserialize( $local_post->meta_value ),
+				);
+			}
+
+			$option['current_post_id'] = $current_post_id;
+
+			$this->remove_exclusion_rule_posts( $post_type, $option );
+			$this->remove_user_rule_posts( $post_type, $option );
+
+			return self::$current_page_data[ $post_type ];
+		}
+
+		/**
+		 * Remove exclusion rule posts.
+		 *
+		 * @since  1.0.0
+		 * @param  string $post_type Post Type.
+		 * @param  array  $option meta option name.
+		 */
+		public function remove_exclusion_rule_posts( $post_type, $option ) {
+
+			$exclusion          = isset( $option['exclusion'] ) ? $option['exclusion'] : '';
+			$current_post_id    = isset( $option['current_post_id'] ) ? $option['current_post_id'] : false;
+
+			foreach ( self::$current_page_data[ $post_type ] as $c_post_id => $c_data ) {
+
+				$exclusion_rules    = get_post_meta( $c_post_id, $exclusion, true );
+				$is_exclude         = $this->parse_layout_display_condition( $current_post_id, $exclusion_rules );
+
+				if ( $is_exclude ) {
+					unset( self::$current_page_data[ $post_type ][ $c_post_id ] );
+				}
+			}
+		}
+
+		/**
+		 * Remove user rule posts.
+		 *
+		 * @since  1.0.0
+		 * @param  int   $post_type Post Type.
+		 * @param  array $option meta option name.
+		 */
+		public function remove_user_rule_posts( $post_type, $option ) {
+
+			$users              = isset( $option['users'] ) ? $option['users'] : '';
+			$current_post_id    = isset( $option['current_post_id'] ) ? $option['current_post_id'] : false;
+
+			foreach ( self::$current_page_data[ $post_type ] as $c_post_id => $c_data ) {
+
+				$user_rules = get_post_meta( $c_post_id, $users, true );
+				$is_user    = $this->parse_user_role_condition( $current_post_id, $user_rules );
+
+				if ( ! $is_user ) {
+					unset( self::$current_page_data[ $post_type ][ $c_post_id ] );
+				}
+			}
+		}
+
+		/**
+		 * Same display_on notice.
+		 *
+		 * @since  1.0.0
+		 * @param  int   $post_type Post Type.
+		 * @param  array $option meta option name.
+		 */
+		static public function same_display_on_notice( $post_type, $option ) {
+			global $wpdb;
+			global $post;
+
+			$all_rules          = array();
+			$already_set_rule   = array();
+
+			$location = isset( $option['location'] ) ? $option['location'] : '';
+
+			$all_headers = $wpdb->get_results(
+				$wpdb->prepare(
+					"SELECT p.ID, p.post_title, pm.meta_value FROM {$wpdb->postmeta} as pm
+			   INNER JOIN {$wpdb->posts} as p ON pm.post_id = p.ID
+			   WHERE pm.meta_key = '%s'
+			   AND p.post_type = '%s'
+			   AND p.post_status = 'publish'", $location,
+					$post_type
+				)
+			);
+
+			foreach ( $all_headers as $header ) {
+
+				$location_rules = unserialize( $header->meta_value );
+
+				if ( is_array( $location_rules ) && isset( $location_rules['rule'] ) ) {
+
+					foreach ( $location_rules['rule'] as $key => $rule ) {
+
+						if ( ! isset( $all_rules[ $rule ] ) ) {
+							$all_rules[ $rule ] = array();
+						}
+
+						if ( 'specifics' == $rule && isset( $location_rules['specific'] ) && is_array( $location_rules['specific'] ) ) {
+
+							foreach ( $location_rules['specific'] as $s_index => $s_value ) {
+
+								$all_rules[ $rule ][ $s_value ][ $header->ID ] = array(
+									'ID'    => $header->ID,
+									'name'  => $header->post_title,
+								);
+							}
+						} else {
+							$all_rules[ $rule ][ $header->ID ] = array(
+								'ID'    => $header->ID,
+								'name'  => $header->post_title,
+							);
+						}
+					}
+				}
+			}
+
+			$current_post_data = get_post_meta( $post->ID, $location, true );
+
+			if ( is_array( $current_post_data ) && isset( $current_post_data['rule'] ) ) {
+
+				foreach ( $current_post_data['rule'] as $c_key => $c_rule ) {
+
+					if ( ! isset( $all_rules[ $c_rule ] ) ) {
+						continue;
+					}
+
+					if ( 'specifics' === $c_rule ) {
+
+						foreach ( $current_post_data['specific'] as $s_index => $s_id ) {
+							if ( ! isset( $all_rules[ $c_rule ][ $s_id ] ) ) {
+								continue;
+							}
+
+							foreach ( $all_rules[ $c_rule ][ $s_id ] as $p_id => $data ) {
+
+								if ( $p_id == $post->ID ) {
+									continue;
+								}
+
+								$already_set_rule[] = $data['name'];
+							}
+						}
+					} else {
+
+						foreach ( $all_rules[ $c_rule ] as $p_id => $data ) {
+
+							if ( $p_id == $post->ID ) {
+								continue;
+							}
+
+							$already_set_rule[] = $data['name'];
+						}
+					}
+				}
+			}
+
+			if ( ! empty( $already_set_rule ) ) {
+				add_action(
+					'admin_notices', function() use ( $already_set_rule ) {
+
+						$rule_set_titles = '<strong>' . implode( ',', $already_set_rule ) . '</strong>';
+
+						/* translators: %s post title. */
+						$notice = sprintf( __( 'The same display setting is already exist in %s post/s.', 'astra-addon' ), $rule_set_titles );
+
+						echo '<div class="error">';
+						echo '<p>' . $notice . '</p>';
+						echo '</div>';
+
+					}
+				);
+			}
 		}
 	}
 }// End if().

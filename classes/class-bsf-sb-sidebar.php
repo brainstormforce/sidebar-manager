@@ -104,6 +104,18 @@ if ( ! class_exists( 'BSF_SB_Sidebar' ) ) {
 				if ( NULL === self::$global_sidebar ) {
 					global $post;
 
+					$option = array(
+						'location'  => 'bsf-sb-location',
+						'exclusion' => 'bsf-sb-exclusion',
+						'users'     => 'bsf-sb-users',
+					);
+					
+					$replace_sidebars = BSF_SB_Target_Rules_Fields::get_instance()->get_posts_by_conditions( BSF_SB_POST_TYPE, $option );
+					
+					echo "<pre>";
+					var_dump( $replace_sidebars );
+					echo "</pre>";
+
 					$args = array(
 						'post_type' 		=> BSF_SB_POST_TYPE,
 						'posts_per_page' 	=> -1,
@@ -119,11 +131,20 @@ if ( ! class_exists( 'BSF_SB_Sidebar' ) ) {
 
 					$replace_sidebars = get_posts( $args );
 
+					// echo "<pre>";
+					// var_dump( $replace_sidebars );
+					// echo "</pre>";
+					
 					if ( !empty( $replace_sidebars ) ) {
 						
 						foreach ( $replace_sidebars as $i => $data ) {
 
 							$post_replace_sidebar = get_post_meta( $data->ID, '_replace_this_sidebar', true );
+							
+							if ( false === $post_replace_sidebar || '' == $post_replace_sidebar ) {
+								continue;
+							}
+
 							$sidebar_id = BSF_SB_PREFIX . '-' . $data->post_name;
 							
 							if ( isset( $sidebars[ $post_replace_sidebar ] ) && isset( $sidebars[ $sidebar_id ] ) ) {
