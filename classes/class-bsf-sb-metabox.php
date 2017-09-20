@@ -99,7 +99,7 @@ if ( ! class_exists( 'BSF_SB_Metabox' ) ) {
 			$store_keys = array( 'bsf-sb-location', 'bsf-sb-exclusion' );
 
 			foreach ( $store_keys as $key ) {
-				
+
 				$meta_value = BSF_SB_Target_Rules_Fields::get_format_rule_value( $_POST, $key );
 
 				update_post_meta( $post_id, '_' . $key, $meta_value );
