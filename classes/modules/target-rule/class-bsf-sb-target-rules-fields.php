@@ -594,41 +594,32 @@ if ( ! class_exists( 'BSF_SB_Target_Rules_Fields' ) ) {
 
 				$output .= '</div>';
 
-				if ( 'specifics' != $data ) {
-					/* Specific page selection */
-					$output .= '<div class="target_rule-specific-page-wrap" style="display:none">';
-					$output .= '<select name="' . esc_attr( $input_name ) . '[specific][]" class="target-rule-select2 target_rule-specific-page form-control bsf-sb-input " multiple="multiple">';
-					$output .= '</select>';
-					$output .= '</div>';
-				}
-			}
+				/* Specific page selection */
+				$output .= '<div class="target_rule-specific-page-wrap" style="display:none">';
+				$output .= '<select name="' . esc_attr( $input_name ) . '[specific][]" class="target-rule-select2 target_rule-specific-page form-control ast-input " multiple="multiple">';
+				if ( 'specifics' == $data && isset( $saved_values['specific'] ) && null != $saved_values['specific'] && is_array( $saved_values['specific'] ) ) {
 
-			/* Specific page selection */
-			$output .= '<div class="target_rule-specific-page-wrap" style="display:none">';
-			$output .= '<select name="' . esc_attr( $input_name ) . '[specific][]" class="target-rule-select2 target_rule-specific-page form-control bsf-sb-input " multiple="multiple">';
-
-			if ( isset( $saved_values['specific'] ) && null != $saved_values['specific'] && is_array( $saved_values['specific'] ) ) {
-
-				foreach ( $saved_values['specific'] as $data_key => $sel_value ) {
-					// posts.
-					if ( strpos( $sel_value, 'post-' ) !== false ) {
-						$post_id    = (int) str_replace( 'post-', '', $sel_value );
-						$post_title = get_the_title( $post_id );
-						$output .= '<option value="post-' . $post_id . '" selected="selected" >' . $post_title . '</option>';
-					}
+					foreach ( $saved_values['specific'] as $data_key => $sel_value ) {
+						// posts.
+						if ( strpos( $sel_value, 'post-' ) !== false ) {
+							$post_id    = (int) str_replace( 'post-', '', $sel_value );
+							$post_title = get_the_title( $post_id );
+							$output .= '<option value="post-' . $post_id . '" selected="selected" >' . $post_title . '</option>';
+						}
 
 						// taxonomy options.
-					if ( strpos( $sel_value, 'tax-' ) !== false ) {
-						$tax_id        = (int) str_replace( 'tax-', '', $sel_value );
-						$term          = get_term( $tax_id );
-						$term_taxonomy = ucfirst( str_replace( '_', ' ', $term->taxonomy ) );
-						$output .= '<option value="tax-' . $tax_id . '" selected="selected" >' . $term->name . ' - ' . $term_taxonomy . '</option>';
+						if ( strpos( $sel_value, 'tax-' ) !== false ) {
+							$tax_id        = (int) str_replace( 'tax-', '', $sel_value );
+							$term          = get_term( $tax_id );
+							$term_taxonomy = ucfirst( str_replace( '_', ' ', $term->taxonomy ) );
+							$output .= '<option value="tax-' . $tax_id . '" selected="selected" >' . $term->name . ' - ' . $term_taxonomy . '</option>';
 
+						}
 					}
 				}
+				$output .= '</select>';
+				$output .= '</div>';
 			}
-			$output .= '</select>';
-			$output .= '</div>';
 
 			$output .= '</div>';
 
@@ -1003,17 +994,20 @@ if ( ! class_exists( 'BSF_SB_Target_Rules_Fields' ) ) {
 
 					if ( is_category() || is_tag() || is_tax() ) {
 						$page_type = 'is_tax';
+					} elseif ( is_date() ) {
+						$page_type = 'is_date';
+					} elseif ( is_author() ) {
+						$page_type = 'is_author';
 					}
 				} elseif ( is_home() ) {
 					$page_type = 'is_home';
 				} elseif ( is_front_page() ) {
 					$page_type = 'is_front_page';
-				} elseif ( is_date() ) {
-					$page_type = 'is_date';
-				} elseif ( is_author() ) {
-					$page_type = 'is_author';
 				} elseif ( is_singular() ) {
 					$page_type = 'is_singular';
+					$current_id = get_the_id();
+				} else {
+					$current_id = get_the_id();
 				}
 
 				self::$current_page_type = $page_type;
@@ -1041,8 +1035,8 @@ if ( ! class_exists( 'BSF_SB_Target_Rules_Fields' ) ) {
 			global $post;
 
 			$current_page_type  = $this->get_current_page_type();
-			$post_type          = $post_type ? $post_type : $post->post_type;
-			$current_post_type  = get_post_type();
+			$post_type          = $post_type ? esc_sql( $post_type ) : esc_sql( $post->post_type );
+			$current_post_type  = esc_sql( get_post_type() );
 			$current_post_id    = false;
 			$q_obj              = get_queried_object();
 
@@ -1070,7 +1064,10 @@ if ( ! class_exists( 'BSF_SB_Target_Rules_Fields' ) ) {
 					break;
 				case 'is_archive':
 				case 'is_tax':
+				case 'is_date':
+				case 'is_author':
 					$meta_args .= " OR pm.meta_value LIKE '%\"basic-archives\"%'";
+					$meta_args .= " OR pm.meta_value LIKE '%\"{$current_post_type}|all|archive\"%'";
 
 					if ( 'is_tax' == $current_page_type && ( is_category() || is_tag() || is_tax() ) ) {
 
@@ -1078,22 +1075,24 @@ if ( ! class_exists( 'BSF_SB_Target_Rules_Fields' ) ) {
 							$meta_args .= " OR pm.meta_value LIKE '%\"{$current_post_type}|all|taxarchive|{$q_obj->taxonomy}\"%'";
 							$meta_args .= " OR pm.meta_value LIKE '%\"tax-{$q_obj->term_id}\"%'";
 						}
+					} elseif ( 'is_date' == $current_page_type ) {
+						$meta_args .= " OR pm.meta_value LIKE '%\"special-date\"%'";
+					} elseif ( 'is_author' == $current_page_type ) {
+						$meta_args .= " OR pm.meta_value LIKE '%\"special-author\"%'";
 					}
 					break;
 				case 'is_home':
 					$meta_args .= " OR pm.meta_value LIKE '%\"special-blog\"%'";
 					break;
 				case 'is_front_page':
+					$current_id         = esc_sql( get_the_id() );
+					$current_post_id    = $current_id;
 					$meta_args .= " OR pm.meta_value LIKE '%\"special-front\"%'";
-					break;
-				case 'is_date':
-					$meta_args .= " OR pm.meta_value LIKE '%\"special-date\"%'";
-					break;
-				case 'is_author':
-					$meta_args .= " OR pm.meta_value LIKE '%\"special-author\"%'";
+					$meta_args .= " OR pm.meta_value LIKE '%\"{$current_post_type}|all\"%'";
+					$meta_args .= " OR pm.meta_value LIKE '%\"post-{$current_id}\"%'";
 					break;
 				case 'is_singular':
-					$current_id         = get_the_id();
+					$current_id         = esc_sql( get_the_id() );
 					$current_post_id    = $current_id;
 					$meta_args .= " OR pm.meta_value LIKE '%\"basic-singulars\"%'";
 					$meta_args .= " OR pm.meta_value LIKE '%\"{$current_post_type}|all\"%'";
@@ -1285,6 +1284,56 @@ if ( ! class_exists( 'BSF_SB_Target_Rules_Fields' ) ) {
 					}
 				);
 			}
+		}
+
+		/**
+		 * Formated rule meta value to save.
+		 *
+		 * @since  1.0.0
+		 * @param  array  $save_data PostData.
+		 * @param  string $key varaible key.
+		 *
+		 * @return array Rule data.
+		 */
+		static public function get_format_rule_value( $save_data, $key ) {
+			$meta_value = array();
+
+			if ( isset( $save_data[ $key ]['rule'] ) ) {
+				$save_data[ $key ]['rule'] = array_unique( $save_data[ $key ]['rule'] );
+				if ( isset( $save_data[ $key ]['specific'] ) ) {
+					$save_data[ $key ]['specific'] = array_unique( $save_data[ $key ]['specific'] );
+				}
+
+				// Unset the specifics from rule. This will be readded conditionally in next condition.
+				$index = array_search( '', $save_data[ $key ]['rule'] );
+				if ( false !== $index ) {
+					unset( $save_data[ $key ]['rule'][ $index ] );
+				}
+				$index = array_search( 'specifics', $save_data[ $key ]['rule'] );
+				if ( false !== $index ) {
+					unset( $save_data[ $key ]['rule'][ $index ] );
+
+					// Only re-add the specifics key if there are specific rules added.
+					if ( isset( $save_data[ $key ]['specific'] ) && is_array( $save_data[ $key ]['specific'] ) ) {
+						array_push( $save_data[ $key ]['rule'], 'specifics' );
+					}
+				}
+
+				foreach ( $save_data[ $key ] as $meta_key => $value ) {
+					if ( ! empty( $value ) ) {
+						$meta_value[ $meta_key ] = array_map( 'esc_attr', $value );
+					}
+				}
+				if ( ! isset( $meta_value['rule'] ) || ! in_array( 'specifics', $meta_value['rule'] ) ) {
+					$meta_value['specific'] = array();
+				}
+
+				if ( empty( $meta_value['rule'] ) ) {
+					$meta_value = array();
+				}
+			}
+
+			return $meta_value;
 		}
 	}
 }// End if().
