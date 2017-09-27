@@ -66,17 +66,25 @@ if ( ! class_exists( 'BSF_SB_Sidebar' ) ) {
 		 * @return void
 		 */
 		public function register_sidebars() {
-			
-			$to_register = get_posts( array( 'post_type' => BSF_SB_POST_TYPE, 'posts_per_page' => -1, 'suppress_filters' => 'false' ) );
 
-			if ( !empty( $to_register ) ) {
+			$to_register = get_posts(
+				array(
+					'post_type' => BSF_SB_POST_TYPE,
+					'posts_per_page' => -1,
+					'suppress_filters' => 'false',
+				)
+			);
+
+			if ( ! empty( $to_register ) ) {
 				foreach ( $to_register as $index => $data ) {
-					
-					register_sidebar( array(
-						'name' 			=> $data->post_title,
-						'id' 			=> BSF_SB_PREFIX . '-' . $data->post_name,
-						'description' 	=> $data->post_excerpt
-					) );
+
+					register_sidebar(
+						array(
+							'name'          => $data->post_title,
+							'id'            => BSF_SB_PREFIX . '-' . $data->post_name,
+							'description'   => $data->post_excerpt,
+						)
+					);
 				}
 			}
 		}
@@ -99,35 +107,35 @@ if ( ! class_exists( 'BSF_SB_Sidebar' ) ) {
 		 * @return void
 		 */
 		public function replace_sidebars( $sidebars ) {
-			if ( !is_admin() ) {
-				
-				if ( NULL === self::$global_sidebar ) {
+			if ( ! is_admin() ) {
+
+				if ( null === self::$global_sidebar ) {
 					global $post;
 
 					$args = array(
-						'post_type' 		=> BSF_SB_POST_TYPE,
-						'posts_per_page' 	=> -1,
-						'suppress_filters' 	=> false,
-						'meta_query' 		=> array(
-												array(
-													'key' => '_replace_this_sidebar',
-													'compare' => '!=',
-													'value' => ''
-												)
-											)
+						'post_type'         => BSF_SB_POST_TYPE,
+						'posts_per_page'    => -1,
+						'suppress_filters'  => false,
+						'meta_query'        => array(
+							array(
+								'key' => '_replace_this_sidebar',
+								'compare' => '!=',
+								'value' => '',
+							),
+						),
 					);
 
 					$replace_sidebars = get_posts( $args );
 
-					if ( !empty( $replace_sidebars ) ) {
-						
+					if ( ! empty( $replace_sidebars ) ) {
+
 						foreach ( $replace_sidebars as $i => $data ) {
 
 							$post_replace_sidebar = get_post_meta( $data->ID, '_replace_this_sidebar', true );
 							$sidebar_id = BSF_SB_PREFIX . '-' . $data->post_name;
-							
+
 							if ( isset( $sidebars[ $post_replace_sidebar ] ) && isset( $sidebars[ $sidebar_id ] ) ) {
-								
+
 								$is_show = BSF_SB_Target_Rules_Fields::get_instance()->get_current_layout( $data->ID );
 
 								if ( false !== $is_show ) {
@@ -139,12 +147,12 @@ if ( ! class_exists( 'BSF_SB_Sidebar' ) ) {
 
 						self::$global_sidebar = $sidebars;
 					}
-				}else{
-					
+				} else {
+
 					$sidebars = self::$global_sidebar;
 				}
 			}
-			
+
 			return $sidebars;
 		}
 	}

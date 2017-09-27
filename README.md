@@ -52,3 +52,13 @@ Other plugins we found are heavy with ugly interface, non supported, developed o
 
 ### 3. Add Content to the newly created sidebar. ###
 ![Add Content to the newly created sidebar.](http://ps.w.org/lightweight-sidebar-manager/assets/screenshot-3.png)
+
+
+
+## Changelog ##
+
+v1.0.1
+* White Label support added from the [Astra Pro](https://wpastra.com/pro/) plugin.
+
+v1.0.0
+* Initial release
