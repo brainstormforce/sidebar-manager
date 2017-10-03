@@ -62,8 +62,13 @@ if ( ! class_exists( 'BSF_SB_Post_Type' ) ) {
 
 			$singular   = __( 'Sidebar', 'bsfsidebars' );
 			$plural     = __( 'Sidebars', 'bsfsidebars' );
-			$rewrite    = array( 'slug' => BSF_SB_POST_TYPE );
-			$supports   = array( 'title', 'excerpt' );
+			$rewrite    = array(
+				'slug' => BSF_SB_POST_TYPE,
+			);
+			$supports   = array(
+				'title',
+				'excerpt',
+			);
 
 			$labels = array(
 				'name'                  => _x( 'Sidebars', 'post type general name', 'bsfsidebars' ),
