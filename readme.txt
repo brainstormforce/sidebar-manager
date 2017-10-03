@@ -53,7 +53,7 @@ Other plugins we found are heavy with ugly interface, non supported, developed o
 
 v1.0.1
 * White Label support added from the [Astra Pro](https://wpastra.com/pro/) plugin.
-* Target rules optimized in Sidebar settings.
+* Optimized target rules query to be even more lightweight.
 
 v1.0.0
 * Initial release
