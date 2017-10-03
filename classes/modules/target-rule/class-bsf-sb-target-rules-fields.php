@@ -126,23 +126,23 @@ if ( ! class_exists( 'BSF_SB_Target_Rules_Fields' ) ) {
 
 			$selection_options = array(
 				'basic' => array(
-					'label' => __( 'Basic', 'astra-addon' ),
+					'label' => __( 'Basic', 'bsfsidebars' ),
 					'value' => array(
-						'basic-global'    => __( 'Entire Website', 'astra-addon' ),
-						'basic-singulars' => __( 'All Singulars', 'astra-addon' ),
-						'basic-archives'  => __( 'All Archives', 'astra-addon' ),
+						'basic-global'    => __( 'Entire Website', 'bsfsidebars' ),
+						'basic-singulars' => __( 'All Singulars', 'bsfsidebars' ),
+						'basic-archives'  => __( 'All Archives', 'bsfsidebars' ),
 					),
 				),
 
 				'special-pages' => array(
-					'label' => __( 'Special Pages', 'astra-addon' ),
+					'label' => __( 'Special Pages', 'bsfsidebars' ),
 					'value' => array(
-						'special-404'    => __( '404 Page', 'astra-addon' ),
-						'special-search' => __( 'Search Page', 'astra-addon' ),
-						'special-blog'   => __( 'Blog / Posts Page', 'astra-addon' ),
-						'special-front'  => __( 'Front Page', 'astra-addon' ),
-						'special-date'   => __( 'Date Archive', 'astra-addon' ),
-						'special-author' => __( 'Author Archive', 'astra-addon' ),
+						'special-404'    => __( '404 Page', 'bsfsidebars' ),
+						'special-search' => __( 'Search Page', 'bsfsidebars' ),
+						'special-blog'   => __( 'Blog / Posts Page', 'bsfsidebars' ),
+						'special-front'  => __( 'Front Page', 'bsfsidebars' ),
+						'special-date'   => __( 'Date Archive', 'bsfsidebars' ),
+						'special-author' => __( 'Author Archive', 'bsfsidebars' ),
 					),
 				),
 			);
@@ -166,9 +166,9 @@ if ( ! class_exists( 'BSF_SB_Target_Rules_Fields' ) ) {
 			}
 
 			$selection_options['specific-target'] = array(
-				'label' => __( 'Specific Target', 'astra-addon' ),
+				'label' => __( 'Specific Target', 'bsfsidebars' ),
 				'value' => array(
-					'specifics' => __( 'Specific Pages / Posts / Taxanomies, etc.', 'astra-addon' ),
+					'specifics' => __( 'Specific Pages / Posts / Taxanomies, etc.', 'bsfsidebars' ),
 				),
 			);
 
@@ -183,16 +183,16 @@ if ( ! class_exists( 'BSF_SB_Target_Rules_Fields' ) ) {
 		public static function get_user_selections() {
 			$selection_options = array(
 				'basic' => array(
-					'label' => __( 'Basic', 'astra-addon' ),
+					'label' => __( 'Basic', 'bsfsidebars' ),
 					'value' => array(
-						'all'           => __( 'All', 'astra-addon' ),
-						'logged-in'     => __( 'Logged In', 'astra-addon' ),
-						'logged-out'    => __( 'Logged Out', 'astra-addon' ),
+						'all'           => __( 'All', 'bsfsidebars' ),
+						'logged-in'     => __( 'Logged In', 'bsfsidebars' ),
+						'logged-out'    => __( 'Logged Out', 'bsfsidebars' ),
 					),
 				),
 
 				'advanced' => array(
-					'label' => __( 'Advanced', 'astra-addon' ),
+					'label' => __( 'Advanced', 'bsfsidebars' ),
 					'value' => array(),
 				),
 			);
@@ -1275,7 +1275,7 @@ if ( ! class_exists( 'BSF_SB_Target_Rules_Fields' ) ) {
 						$rule_set_titles = '<strong>' . implode( ',', $already_set_rule ) . '</strong>';
 
 						/* translators: %s post title. */
-						$notice = sprintf( __( 'The same display setting is already exist in %s post/s.', 'astra-addon' ), $rule_set_titles );
+						$notice = sprintf( __( 'The same display setting is already exist in %s post/s.', 'bsfsidebars' ), $rule_set_titles );
 
 						echo '<div class="error">';
 						echo '<p>' . $notice . '</p>';

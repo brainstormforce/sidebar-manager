@@ -230,10 +230,10 @@ if ( ! class_exists( 'BSF_SB_Metabox' ) ) {
 							BSF_SB_Target_Rules_Fields::target_user_role_settings_field(
 								'bsf-sb-users',
 								array(
-									'title'          => __( 'Users', 'convertpro' ),
+									'title'          => __( 'Users', 'bsfsidebars' ),
 									'value'          => '[]',
 									'tags'           => 'site,enable,target,pages',
-									'add_rule_label' => __( 'Add User Rule', 'convertpro' ),
+									'add_rule_label' => __( 'Add User Rule', 'bsfsidebars' ),
 								),
 								$users
 							);

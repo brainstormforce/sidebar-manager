@@ -9,7 +9,7 @@ module.exports = function( grunt ) {
 
 		addtextdomain: {
 			options: {
-				textdomain: 'custom-sidebars',
+				textdomain: 'bsfsidebars',
 			},
 			update_all_domains: {
 				options: {
