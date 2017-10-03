@@ -104,7 +104,8 @@ if ( ! class_exists( 'BSF_SB_Sidebar' ) ) {
 		 * Replace Sidebars.
 		 *
 		 * @access public
-		 * @return void
+		 * @param array $sidebars sidebars.
+		 * @return array $sidebars sidebars.
 		 */
 		public function replace_sidebars( $sidebars ) {
 			if ( ! is_admin() ) {

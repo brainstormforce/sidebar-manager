@@ -69,14 +69,21 @@ if ( ! class_exists( 'BSF_SB_Post_Type' ) ) {
 				'name'                  => _x( 'Sidebars', 'post type general name', 'bsfsidebars' ),
 				'singular_name'         => _x( 'Sidebar', 'post type singular name', 'bsfsidebars' ),
 				'menu_name'             => _x( 'Sidebars', 'admin menu', 'bsfsidebars' ),
-				'add_new'               => _x( 'Add New', BSF_SB_POST_TYPE, 'bsfsidebars' ),
+				'add_new'               => _x( 'Add New', 'bsfsidebars' ),
+				/* translators: %s: singular sidebar name */
 				'add_new_item'          => sprintf( __( 'Add New %s', 'bsfsidebars' ), $singular ),
+				/* translators: %s: singular sidebar name */
 				'edit_item'             => sprintf( __( 'Edit %s', 'bsfsidebars' ), $singular ),
+				/* translators: %s: singular sidebar name */
 				'new_item'              => sprintf( __( 'New %s', 'bsfsidebars' ), $singular ),
 				'all_items'             => $plural,
+				/* translators: %s: singular sidebar name */
 				'view_item'             => sprintf( __( 'View %s', 'bsfsidebars' ), $singular ),
+				/* translators: %s: plural sidebar name */
 				'search_items'          => sprintf( __( 'Search %a', 'bsfsidebars' ), $plural ),
+				/* translators: %s: plural sidebar name */
 				'not_found'             => sprintf( __( 'No %s Found', 'bsfsidebars' ), $plural ),
+				/* translators: %s: plural sidebar name */
 				'not_found_in_trash'    => sprintf( __( 'No %s Found In Trash', 'bsfsidebars' ), $plural ),
 				'parent_item_colon'     => '',
 

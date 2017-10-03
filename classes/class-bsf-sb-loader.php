@@ -48,7 +48,7 @@ if ( ! class_exists( 'BSF_SB_Loader' ) ) {
 		private function load_files() {
 
 			/* Classes */
-			require_once BSF_SB_DIR . 'classes/modules/target-rule/class-bsf-sb-rules-fields.php';
+			require_once BSF_SB_DIR . 'classes/modules/target-rule/class-bsf-sb-target-rules-fields.php';
 			require_once BSF_SB_DIR . 'classes/class-bsf-sb-post-type.php';
 			require_once BSF_SB_DIR . 'classes/class-bsf-sb-sidebar.php';
 			require_once BSF_SB_DIR . 'classes/class-bsf-sb-metabox.php';

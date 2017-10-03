@@ -49,7 +49,8 @@ if ( ! class_exists( 'BSF_SB_Metabox' ) ) {
 		 * Replace sidebar metabox.
 		 *
 		 * @since 1.0.0
-		 * @return void
+		 * @param string $title sidebar metabox title.
+		 * @return string $title updated sidebar metabox title.
 		 */
 		public function change_post_name_palceholder( $title ) {
 			if ( get_post_type() == BSF_SB_POST_TYPE ) {
@@ -76,7 +77,8 @@ if ( ! class_exists( 'BSF_SB_Metabox' ) ) {
 		 * Replace sidebar metabox.
 		 *
 		 * @since 1.0.0
-		 * @return void
+		 * @param int $post_id post_id.
+		 * @return int $post_id post_id.
 		 */
 		public function metabox_save( $post_id ) {
 
@@ -151,6 +153,7 @@ if ( ! class_exists( 'BSF_SB_Metabox' ) ) {
 		 * Target Rule.
 		 *
 		 * @since 1.0.0
+		 * @param object $post post object.
 		 * @return void
 		 */
 		public function sidebar_settings( $post ) {
@@ -279,7 +282,7 @@ if ( ! class_exists( 'BSF_SB_Metabox' ) ) {
 		 * Replace sidebar metabox.
 		 *
 		 * @since 1.0.0
-		 * @return void
+		 * @return array $sidebars_show sidebars.
 		 */
 		public function show_sidebars_to_replace() {
 			global $wp_registered_sidebars;
