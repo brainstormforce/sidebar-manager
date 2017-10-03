@@ -49,8 +49,8 @@ if ( ! class_exists( 'BSF_SB_Metabox' ) ) {
 		 * Replace sidebar metabox.
 		 *
 		 * @since 1.0.0
-		 * @param string $title sidebar metabox title.
-		 * @return string $title updated sidebar metabox title.
+		 * @param string $title post title.
+		 * @return string title
 		 */
 		public function change_post_name_palceholder( $title ) {
 			if ( get_post_type() == BSF_SB_POST_TYPE ) {
@@ -77,8 +77,7 @@ if ( ! class_exists( 'BSF_SB_Metabox' ) ) {
 		 * Replace sidebar metabox.
 		 *
 		 * @since 1.0.0
-		 * @param int $post_id post_id.
-		 * @return int $post_id post_id.
+		 * @param int $post_id current id.
 		 */
 		public function metabox_save( $post_id ) {
 
@@ -100,39 +99,8 @@ if ( ! class_exists( 'BSF_SB_Metabox' ) ) {
 			$store_keys = array( 'bsf-sb-location', 'bsf-sb-exclusion' );
 
 			foreach ( $store_keys as $key ) {
-				$meta_value = array();
-				if ( isset( $_POST[ $key ]['rule'] ) ) {
-					$_POST[ $key ]['rule'] = array_unique( $_POST[ $key ]['rule'] );
 
-					if ( isset( $_POST[ $key ]['specific'] ) ) {
-						$_POST[ $key ]['specific'] = array_unique( $_POST[ $key ]['specific'] );
-					}
-
-					// Unset the specifics from rule. This will be readded conditionally in next condition.
-					$index = array_search( '', $_POST[ $key ]['rule'] );
-					if ( false !== $index ) {
-						unset( $_POST[ $key ]['rule'][ $index ] );
-					}
-					$index = array_search( 'specifics', $_POST[ $key ]['rule'] );
-					if ( false !== $index ) {
-						unset( $_POST[ $key ]['rule'][ $index ] );
-
-						// Only re-add the specifics key if there are specific rules added.
-						if ( isset( $_POST[ $key ]['specific'] ) && is_array( $_POST[ $key ]['specific'] ) ) {
-							array_push( $_POST[ $key ]['rule'], 'specifics' );
-						}
-					}
-
-					foreach ( $_POST[ $key ] as $meta_key => $value ) {
-						$meta_value[ $meta_key ] = array_map( 'esc_attr', $value );
-					}
-					if ( ! in_array( 'specifics', $meta_value['rule'] ) ) {
-						$meta_value['specific'] = array();
-					}
-					if ( empty( $meta_value['rule'] ) ) {
-						$meta_value = array();
-					}
-				}
+				$meta_value = BSF_SB_Target_Rules_Fields::get_format_rule_value( $_POST, $key );
 
 				update_post_meta( $post_id, '_' . $key, $meta_value );
 			}
@@ -153,7 +121,7 @@ if ( ! class_exists( 'BSF_SB_Metabox' ) ) {
 		 * Target Rule.
 		 *
 		 * @since 1.0.0
-		 * @param object $post post object.
+		 * @param object $post post_object.
 		 * @return void
 		 */
 		public function sidebar_settings( $post ) {
@@ -282,7 +250,7 @@ if ( ! class_exists( 'BSF_SB_Metabox' ) ) {
 		 * Replace sidebar metabox.
 		 *
 		 * @since 1.0.0
-		 * @return array $sidebars_show sidebars.
+		 * @return array of sidebars
 		 */
 		public function show_sidebars_to_replace() {
 			global $wp_registered_sidebars;

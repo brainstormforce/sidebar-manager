@@ -38,7 +38,6 @@ if ( ! class_exists( 'BSF_SB_Loader' ) ) {
 			$this->load_files();
 		}
 
-
 		/**
 		 * Loads classes and includes.
 		 *

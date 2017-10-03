@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/custom-sidebars\n"
-"POT-Creation-Date: 2017-09-27 14:42:44+00:00\n"
+"POT-Creation-Date: 2017-10-03 10:41:53+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -24,85 +24,85 @@ msgstr ""
 "X-Poedit-Bookmarks: \n"
 "X-Textdomain-Support: yes\n"
 
-#: classes/class-bsf-sb-metabox.php:56
+#: classes/class-bsf-sb-metabox.php:57
 msgid "Enter sidebar title here"
 msgstr ""
 
-#: classes/class-bsf-sb-metabox.php:72
+#: classes/class-bsf-sb-metabox.php:73
 msgid "Sidebar Settings"
 msgstr ""
 
-#: classes/class-bsf-sb-metabox.php:172
+#: classes/class-bsf-sb-metabox.php:144
 msgid "Sidebar To Replace"
 msgstr ""
 
-#: classes/class-bsf-sb-metabox.php:173
+#: classes/class-bsf-sb-metabox.php:145
 msgid ""
 "Choose which sidebar you want to replace. Select None to disable this "
 "sidebar."
 msgstr ""
 
-#: classes/class-bsf-sb-metabox.php:179
+#: classes/class-bsf-sb-metabox.php:151
 msgid "None"
 msgstr ""
 
-#: classes/class-bsf-sb-metabox.php:189
+#: classes/class-bsf-sb-metabox.php:161
 msgid "Sidebars are not available."
 msgstr ""
 
-#: classes/class-bsf-sb-metabox.php:197
+#: classes/class-bsf-sb-metabox.php:169
 msgid "Description"
 msgstr ""
 
-#: classes/class-bsf-sb-metabox.php:198
+#: classes/class-bsf-sb-metabox.php:170
 msgid "Add an optional description fot the Widgets screen."
 msgstr ""
 
-#: classes/class-bsf-sb-metabox.php:208
+#: classes/class-bsf-sb-metabox.php:180
 msgid "Display On"
 msgstr ""
 
-#: classes/class-bsf-sb-metabox.php:209
+#: classes/class-bsf-sb-metabox.php:181
 msgid "Add locations for where this sidebar should appear."
 msgstr ""
 
-#: classes/class-bsf-sb-metabox.php:217
+#: classes/class-bsf-sb-metabox.php:189
 msgid "Display Rules"
 msgstr ""
 
-#: classes/class-bsf-sb-metabox.php:221
+#: classes/class-bsf-sb-metabox.php:193
 msgid "Add Display Rule"
 msgstr ""
 
-#: classes/class-bsf-sb-metabox.php:231
+#: classes/class-bsf-sb-metabox.php:203
 msgid "Do Not Display On"
 msgstr ""
 
-#: classes/class-bsf-sb-metabox.php:232
+#: classes/class-bsf-sb-metabox.php:204
 msgid "This Sidebar will not appear at these locations."
 msgstr ""
 
-#: classes/class-bsf-sb-metabox.php:239
+#: classes/class-bsf-sb-metabox.php:211
 msgid "Exclude On"
 msgstr ""
 
-#: classes/class-bsf-sb-metabox.php:242
+#: classes/class-bsf-sb-metabox.php:214
 msgid "Add Excludion Rule"
 msgstr ""
 
-#: classes/class-bsf-sb-metabox.php:253
+#: classes/class-bsf-sb-metabox.php:225
 msgid "User Roles"
 msgstr ""
 
-#: classes/class-bsf-sb-metabox.php:254
+#: classes/class-bsf-sb-metabox.php:226
 msgid "Target header based on user role."
 msgstr ""
 
-#: classes/class-bsf-sb-metabox.php:261
+#: classes/class-bsf-sb-metabox.php:233
 msgid "Users"
 msgstr ""
 
-#: classes/class-bsf-sb-metabox.php:264
+#: classes/class-bsf-sb-metabox.php:236
 msgid "Add User Rule"
 msgstr ""
 
@@ -114,128 +114,144 @@ msgstr ""
 msgid "Sidebars"
 msgstr ""
 
-#: classes/class-bsf-sb-post-type.php:73
+#: classes/class-bsf-sb-post-type.php:74
+msgid "Add New"
+msgstr ""
+
+#: classes/class-bsf-sb-post-type.php:76
+#. translators: %s singular
 msgid "Add New %s"
 msgstr ""
 
-#: classes/class-bsf-sb-post-type.php:74
+#: classes/class-bsf-sb-post-type.php:78
+#. translators: %s singular
 msgid "Edit %s"
 msgstr ""
 
-#: classes/class-bsf-sb-post-type.php:75
+#: classes/class-bsf-sb-post-type.php:80
+#. translators: %s singular
 msgid "New %s"
 msgstr ""
 
-#: classes/class-bsf-sb-post-type.php:77
+#: classes/class-bsf-sb-post-type.php:83
+#. translators: %s singular
 msgid "View %s"
 msgstr ""
 
-#: classes/class-bsf-sb-post-type.php:78
-msgid "Search %a"
+#: classes/class-bsf-sb-post-type.php:85
+#. translators: %s plural
+msgid "Search %s"
 msgstr ""
 
-#: classes/class-bsf-sb-post-type.php:79
+#: classes/class-bsf-sb-post-type.php:87
+#. translators: %s plural
 msgid "No %s Found"
 msgstr ""
 
-#: classes/class-bsf-sb-post-type.php:80
+#: classes/class-bsf-sb-post-type.php:89
+#. translators: %s plural
 msgid "No %s Found In Trash"
 msgstr ""
 
-#: classes/modules/target-rule/class-bsf-sb-rules-fields.php:242
-#: classes/modules/target-rule/class-bsf-sb-rules-fields.php:703
-msgid "Add Rule"
-msgstr ""
-
-#: classes/modules/target-rule/class-bsf-sb-rules-fields.php:266
-#: classes/modules/target-rule/class-bsf-sb-rules-fields.php:709
+#: classes/modules/target-rule/class-bsf-sb-target-rules-fields.php:129
+#: classes/modules/target-rule/class-bsf-sb-target-rules-fields.php:186
 msgid "Basic"
 msgstr ""
 
-#: classes/modules/target-rule/class-bsf-sb-rules-fields.php:268
+#: classes/modules/target-rule/class-bsf-sb-target-rules-fields.php:131
 msgid "Entire Website"
 msgstr ""
 
-#: classes/modules/target-rule/class-bsf-sb-rules-fields.php:269
+#: classes/modules/target-rule/class-bsf-sb-target-rules-fields.php:132
 msgid "All Singulars"
 msgstr ""
 
-#: classes/modules/target-rule/class-bsf-sb-rules-fields.php:270
+#: classes/modules/target-rule/class-bsf-sb-target-rules-fields.php:133
 msgid "All Archives"
 msgstr ""
 
-#: classes/modules/target-rule/class-bsf-sb-rules-fields.php:275
+#: classes/modules/target-rule/class-bsf-sb-target-rules-fields.php:138
 msgid "Special Pages"
 msgstr ""
 
-#: classes/modules/target-rule/class-bsf-sb-rules-fields.php:277
+#: classes/modules/target-rule/class-bsf-sb-target-rules-fields.php:140
 msgid "404 Page"
 msgstr ""
 
-#: classes/modules/target-rule/class-bsf-sb-rules-fields.php:278
+#: classes/modules/target-rule/class-bsf-sb-target-rules-fields.php:141
 msgid "Search Page"
 msgstr ""
 
-#: classes/modules/target-rule/class-bsf-sb-rules-fields.php:279
+#: classes/modules/target-rule/class-bsf-sb-target-rules-fields.php:142
 msgid "Blog / Posts Page"
 msgstr ""
 
-#: classes/modules/target-rule/class-bsf-sb-rules-fields.php:280
+#: classes/modules/target-rule/class-bsf-sb-target-rules-fields.php:143
 msgid "Front Page"
 msgstr ""
 
-#: classes/modules/target-rule/class-bsf-sb-rules-fields.php:281
+#: classes/modules/target-rule/class-bsf-sb-target-rules-fields.php:144
 msgid "Date Archive"
 msgstr ""
 
-#: classes/modules/target-rule/class-bsf-sb-rules-fields.php:282
+#: classes/modules/target-rule/class-bsf-sb-target-rules-fields.php:145
 msgid "Author Archive"
 msgstr ""
 
-#: classes/modules/target-rule/class-bsf-sb-rules-fields.php:309
+#: classes/modules/target-rule/class-bsf-sb-target-rules-fields.php:169
 msgid "Specific Target"
 msgstr ""
 
-#: classes/modules/target-rule/class-bsf-sb-rules-fields.php:311
+#: classes/modules/target-rule/class-bsf-sb-target-rules-fields.php:171
 msgid "Specific Pages / Posts / Taxanomies, etc."
 msgstr ""
 
-#: classes/modules/target-rule/class-bsf-sb-rules-fields.php:322
-#: classes/modules/target-rule/class-bsf-sb-rules-fields.php:429
-#: classes/modules/target-rule/class-bsf-sb-rules-fields.php:737
-#: classes/modules/target-rule/class-bsf-sb-rules-fields.php:769
+#: classes/modules/target-rule/class-bsf-sb-target-rules-fields.php:188
+msgid "All"
+msgstr ""
+
+#: classes/modules/target-rule/class-bsf-sb-target-rules-fields.php:189
+msgid "Logged In"
+msgstr ""
+
+#: classes/modules/target-rule/class-bsf-sb-target-rules-fields.php:190
+msgid "Logged Out"
+msgstr ""
+
+#: classes/modules/target-rule/class-bsf-sb-target-rules-fields.php:195
+msgid "Advanced"
+msgstr ""
+
+#: classes/modules/target-rule/class-bsf-sb-target-rules-fields.php:446
+#: classes/modules/target-rule/class-bsf-sb-target-rules-fields.php:839
+msgid "Add Rule"
+msgstr ""
+
+#: classes/modules/target-rule/class-bsf-sb-target-rules-fields.php:463
+#: classes/modules/target-rule/class-bsf-sb-target-rules-fields.php:574
+#: classes/modules/target-rule/class-bsf-sb-target-rules-fields.php:856
+#: classes/modules/target-rule/class-bsf-sb-target-rules-fields.php:888
 msgid "Select"
 msgstr ""
 
-#: classes/modules/target-rule/class-bsf-sb-rules-fields.php:374
+#: classes/modules/target-rule/class-bsf-sb-target-rules-fields.php:515
 #. translators: %s percentage
 msgid "All %s"
 msgstr ""
 
-#: classes/modules/target-rule/class-bsf-sb-rules-fields.php:376
-#: classes/modules/target-rule/class-bsf-sb-rules-fields.php:386
+#: classes/modules/target-rule/class-bsf-sb-target-rules-fields.php:520
+#: classes/modules/target-rule/class-bsf-sb-target-rules-fields.php:531
 #. translators: %s percentage
 msgid "All %s Archive"
 msgstr ""
 
-#: classes/modules/target-rule/class-bsf-sb-rules-fields.php:498
+#: classes/modules/target-rule/class-bsf-sb-target-rules-fields.php:634
 msgid "Add Exclusion Rule"
 msgstr ""
 
-#: classes/modules/target-rule/class-bsf-sb-rules-fields.php:711
-msgid "All"
-msgstr ""
-
-#: classes/modules/target-rule/class-bsf-sb-rules-fields.php:712
-msgid "Logged In"
-msgstr ""
-
-#: classes/modules/target-rule/class-bsf-sb-rules-fields.php:713
-msgid "Logged Out"
-msgstr ""
-
-#: classes/modules/target-rule/class-bsf-sb-rules-fields.php:718
-msgid "Advanced"
+#: classes/modules/target-rule/class-bsf-sb-target-rules-fields.php:1278
+#. translators: %s post title.
+msgid "The same display setting is already exist in %s post/s."
 msgstr ""
 
 #: includes/white-label.php:12 includes/white-label.php:17
@@ -250,17 +266,17 @@ msgstr ""
 msgid "Plugin Description:"
 msgstr ""
 
-#: classes/class-bsf-sb-post-type.php:69
+#: classes/class-bsf-sb-post-type.php:71
 msgctxt "post type general name"
 msgid "Sidebars"
 msgstr ""
 
-#: classes/class-bsf-sb-post-type.php:70
+#: classes/class-bsf-sb-post-type.php:72
 msgctxt "post type singular name"
 msgid "Sidebar"
 msgstr ""
 
-#: classes/class-bsf-sb-post-type.php:71
+#: classes/class-bsf-sb-post-type.php:73
 msgctxt "admin menu"
 msgid "Sidebars"
 msgstr ""

@@ -104,8 +104,8 @@ if ( ! class_exists( 'BSF_SB_Sidebar' ) ) {
 		 * Replace Sidebars.
 		 *
 		 * @access public
-		 * @param array $sidebars sidebars.
-		 * @return array $sidebars sidebars.
+		 * @param array $sidebars array of current sidebars.
+		 * @return array
 		 */
 		public function replace_sidebars( $sidebars ) {
 			if ( ! is_admin() ) {
@@ -113,36 +113,30 @@ if ( ! class_exists( 'BSF_SB_Sidebar' ) ) {
 				if ( null === self::$global_sidebar ) {
 					global $post;
 
-					$args = array(
-						'post_type'         => BSF_SB_POST_TYPE,
-						'posts_per_page'    => -1,
-						'suppress_filters'  => false,
-						'meta_query'        => array(
-							array(
-								'key' => '_replace_this_sidebar',
-								'compare' => '!=',
-								'value' => '',
-							),
-						),
+					$option = array(
+						'location'  => '_bsf-sb-location',
+						'exclusion' => '_bsf-sb-exclusion',
+						'users'     => '_bsf-sb-users',
 					);
 
-					$replace_sidebars = get_posts( $args );
+					$replace_sidebars = BSF_SB_Target_Rules_Fields::get_instance()->get_posts_by_conditions( BSF_SB_POST_TYPE, $option );
 
 					if ( ! empty( $replace_sidebars ) ) {
 
 						foreach ( $replace_sidebars as $i => $data ) {
 
-							$post_replace_sidebar = get_post_meta( $data->ID, '_replace_this_sidebar', true );
-							$sidebar_id = BSF_SB_PREFIX . '-' . $data->post_name;
+							$post_replace_sidebar = get_post_meta( $data['id'], '_replace_this_sidebar', true );
+
+							if ( false === $post_replace_sidebar || '' == $post_replace_sidebar ) {
+								continue;
+							}
+
+							$sidebar_id = BSF_SB_PREFIX . '-' . $data['post_name'];
 
 							if ( isset( $sidebars[ $post_replace_sidebar ] ) && isset( $sidebars[ $sidebar_id ] ) ) {
 
-								$is_show = BSF_SB_Target_Rules_Fields::get_instance()->get_current_layout( $data->ID );
-
-								if ( false !== $is_show ) {
-									$sidebars[ $post_replace_sidebar ] = $sidebars[ $sidebar_id ];
-									unset( $sidebars[ $sidebar_id ] );
-								}
+								$sidebars[ $post_replace_sidebar ] = $sidebars[ $sidebar_id ];
+								unset( $sidebars[ $sidebar_id ] );
 							}
 						}
 
