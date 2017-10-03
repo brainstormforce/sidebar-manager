@@ -54,48 +54,60 @@ if ( ! class_exists( 'BSF_SB_Post_Type' ) ) {
 		 * @access public
 		 * @return void
 		 */
-		public function register_post_type () {
+		public function register_post_type() {
 			/* Allow users who can edit theme. */
 			if ( ! current_user_can( 'edit_theme_options' ) ) {
 				return;
 			}
 
-			$singular 	= __( 'Sidebar', 'bsfsidebar' );
-			$plural 	= __( 'Sidebars', 'bsfsidebar' );
-			$rewrite 	= array( 'slug' => BSF_SB_POST_TYPE );
-			$supports 	= array( 'title', 'excerpt' );
-			
+			$singular   = __( 'Sidebar', 'bsfsidebars' );
+			$plural     = __( 'Sidebars', 'bsfsidebars' );
+			$rewrite    = array(
+				'slug' => BSF_SB_POST_TYPE,
+			);
+			$supports   = array(
+				'title',
+				'excerpt',
+			);
+
 			$labels = array(
-				'name' 					=> _x( 'Sidebars', 'post type general name', 'bsfsidebar' ),
-				'singular_name' 		=> _x( 'Sidebar', 'post type singular name', 'bsfsidebar' ),
-				'menu_name'          	=> _x( 'Sidebars', 'admin menu', 'bsfsidebar' ),
-				'add_new' 				=> _x( 'Add New', BSF_SB_POST_TYPE, 'bsfsidebar'  ),
-				'add_new_item' 			=> sprintf( __( 'Add New %s', 'bsfsidebar' ), $singular ),
-				'edit_item' 			=> sprintf( __( 'Edit %s', 'bsfsidebar' ), $singular ),
-				'new_item' 				=> sprintf( __( 'New %s', 'bsfsidebar' ), $singular ),
-				'all_items' 			=> $plural,
-				'view_item' 			=> sprintf( __( 'View %s', 'bsfsidebar' ), $singular ),
-				'search_items' 			=> sprintf( __( 'Search %a', 'bsfsidebar' ), $plural ),
-				'not_found' 			=> sprintf( __( 'No %s Found', 'bsfsidebar' ), $plural ),
-				'not_found_in_trash' 	=> sprintf( __( 'No %s Found In Trash', 'bsfsidebar' ), $plural ),
-				'parent_item_colon' 	=> '',
+				'name'                  => _x( 'Sidebars', 'post type general name', 'bsfsidebars' ),
+				'singular_name'         => _x( 'Sidebar', 'post type singular name', 'bsfsidebars' ),
+				'menu_name'             => _x( 'Sidebars', 'admin menu', 'bsfsidebars' ),
+				'add_new'               => _x( 'Add New', 'bsfsidebars' ),
+				/* translators: %s: singular sidebar name */
+				'add_new_item'          => sprintf( __( 'Add New %s', 'bsfsidebars' ), $singular ),
+				/* translators: %s: singular sidebar name */
+				'edit_item'             => sprintf( __( 'Edit %s', 'bsfsidebars' ), $singular ),
+				/* translators: %s: singular sidebar name */
+				'new_item'              => sprintf( __( 'New %s', 'bsfsidebars' ), $singular ),
+				'all_items'             => $plural,
+				/* translators: %s: singular sidebar name */
+				'view_item'             => sprintf( __( 'View %s', 'bsfsidebars' ), $singular ),
+				/* translators: %s: plural sidebar name */
+				'search_items'          => sprintf( __( 'Search %a', 'bsfsidebars' ), $plural ),
+				/* translators: %s: plural sidebar name */
+				'not_found'             => sprintf( __( 'No %s Found', 'bsfsidebars' ), $plural ),
+				/* translators: %s: plural sidebar name */
+				'not_found_in_trash'    => sprintf( __( 'No %s Found In Trash', 'bsfsidebars' ), $plural ),
+				'parent_item_colon'     => '',
 
 			);
 			$args = array(
-				'labels' 				=> $labels,
-				'public' 				=> false,
-				'publicly_queryable' 	=> true,
-				'show_ui' 				=> true,
-				'show_in_nav_menus' 	=> false,
-				'show_in_admin_bar' 	=> false,
-				'show_in_menu' 			=> 'themes.php',
-				'query_var' 			=> true,
-				'rewrite' 				=> $rewrite,
-				'capability_type' 		=> 'post',
-				'has_archive' 			=> BSF_SB_POST_TYPE,
-				'hierarchical' 			=> false,
-				'menu_position' 		=> null,
-				'supports' 				=> $supports
+				'labels'                => $labels,
+				'public'                => false,
+				'publicly_queryable'    => true,
+				'show_ui'               => true,
+				'show_in_nav_menus'     => false,
+				'show_in_admin_bar'     => false,
+				'show_in_menu'          => 'themes.php',
+				'query_var'             => true,
+				'rewrite'               => $rewrite,
+				'capability_type'       => 'post',
+				'has_archive'           => BSF_SB_POST_TYPE,
+				'hierarchical'          => false,
+				'menu_position'         => null,
+				'supports'              => $supports,
 			);
 			register_post_type( BSF_SB_POST_TYPE, $args );
 		}

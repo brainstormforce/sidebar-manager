@@ -35,24 +35,9 @@ if ( ! class_exists( 'BSF_SB_Loader' ) ) {
 		 * Constructor
 		 */
 		public function __construct() {
-			$this->define_constants();
 			$this->load_files();
 		}
 
-		/**
-		 * Define builder constants.
-		 *
-		 * @since 1.0.0
-		 * @return void
-		 */
-		private function define_constants() {
-			define('BSF_SB_VER', '1.0.0');
-			define('BSF_SB_FILE', trailingslashit(dirname(dirname(__FILE__))) . 'sidebar-manager.php');
-			define('BSF_SB_DIR', plugin_dir_path(BSF_SB_FILE));
-			define('BSF_SB_URL', plugins_url('/', BSF_SB_FILE));
-			define('BSF_SB_PREFIX', 'bsf-sb');
-			define('BSF_SB_POST_TYPE', 'bsf-sidebar');
-		}
 
 		/**
 		 * Loads classes and includes.
@@ -62,12 +47,13 @@ if ( ! class_exists( 'BSF_SB_Loader' ) ) {
 		 */
 		private function load_files() {
 
-			
 			/* Classes */
-			require_once BSF_SB_DIR . 'classes/modules/target-rule/class-bsf-sb-rules-fields.php';
+			require_once BSF_SB_DIR . 'classes/modules/target-rule/class-bsf-sb-target-rules-fields.php';
 			require_once BSF_SB_DIR . 'classes/class-bsf-sb-post-type.php';
 			require_once BSF_SB_DIR . 'classes/class-bsf-sb-sidebar.php';
 			require_once BSF_SB_DIR . 'classes/class-bsf-sb-metabox.php';
+
+			require_once BSF_SB_DIR . 'classes/class-bsf-sb-white-label.php';
 		}
 	}
 }

@@ -3,8 +3,8 @@ Contributors: BrainstormForce
 Donate link: https://www.brainstormforce.com/payment/
 Tags: custom sidebar, sidebar manager, custom widget areas, widgets, conditional sidebar
 Requires at least: 4.0
-Tested up to: 4.8
-Stable tag: trunk
+Tested up to: 4.8.2
+Stable tag: 1.0.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -47,3 +47,12 @@ Other plugins we found are heavy with ugly interface, non supported, developed o
 1. Add a New Sidebar from Appearance -> Sidebars -> Add New.
 1. Give sidebar a name, Select a sidebar that is to be replaced and locations where the sidebar should appear.
 1. Add Content to the newly created sidebar.
+
+
+== Changelog ==
+
+v1.0.1
+* White Label support added from the [Astra Pro](https://wpastra.com/pro/) plugin.
+
+v1.0.0
+* Initial release

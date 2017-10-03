@@ -1,0 +1,266 @@
+# Copyright (C) 2017 
+# This file is distributed under the same license as the  package.
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/custom-sidebars\n"
+"POT-Creation-Date: 2017-09-27 14:42:44+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2017-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"X-Generator: grunt-wp-i18n 0.5.4\n"
+"X-Poedit-KeywordsList: "
+"__;_e;_x:1,2c;_ex:1,2c;_n:1,2;_nx:1,2,4c;_n_noop:1,2;_nx_noop:1,2,3c;esc_"
+"attr__;esc_html__;esc_attr_e;esc_html_e;esc_attr_x:1,2c;esc_html_x:1,2c;\n"
+"Language: en\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-Country: United States\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-Basepath: ../\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-Bookmarks: \n"
+"X-Textdomain-Support: yes\n"
+
+#: classes/class-bsf-sb-metabox.php:56
+msgid "Enter sidebar title here"
+msgstr ""
+
+#: classes/class-bsf-sb-metabox.php:72
+msgid "Sidebar Settings"
+msgstr ""
+
+#: classes/class-bsf-sb-metabox.php:172
+msgid "Sidebar To Replace"
+msgstr ""
+
+#: classes/class-bsf-sb-metabox.php:173
+msgid ""
+"Choose which sidebar you want to replace. Select None to disable this "
+"sidebar."
+msgstr ""
+
+#: classes/class-bsf-sb-metabox.php:179
+msgid "None"
+msgstr ""
+
+#: classes/class-bsf-sb-metabox.php:189
+msgid "Sidebars are not available."
+msgstr ""
+
+#: classes/class-bsf-sb-metabox.php:197
+msgid "Description"
+msgstr ""
+
+#: classes/class-bsf-sb-metabox.php:198
+msgid "Add an optional description fot the Widgets screen."
+msgstr ""
+
+#: classes/class-bsf-sb-metabox.php:208
+msgid "Display On"
+msgstr ""
+
+#: classes/class-bsf-sb-metabox.php:209
+msgid "Add locations for where this sidebar should appear."
+msgstr ""
+
+#: classes/class-bsf-sb-metabox.php:217
+msgid "Display Rules"
+msgstr ""
+
+#: classes/class-bsf-sb-metabox.php:221
+msgid "Add Display Rule"
+msgstr ""
+
+#: classes/class-bsf-sb-metabox.php:231
+msgid "Do Not Display On"
+msgstr ""
+
+#: classes/class-bsf-sb-metabox.php:232
+msgid "This Sidebar will not appear at these locations."
+msgstr ""
+
+#: classes/class-bsf-sb-metabox.php:239
+msgid "Exclude On"
+msgstr ""
+
+#: classes/class-bsf-sb-metabox.php:242
+msgid "Add Excludion Rule"
+msgstr ""
+
+#: classes/class-bsf-sb-metabox.php:253
+msgid "User Roles"
+msgstr ""
+
+#: classes/class-bsf-sb-metabox.php:254
+msgid "Target header based on user role."
+msgstr ""
+
+#: classes/class-bsf-sb-metabox.php:261
+msgid "Users"
+msgstr ""
+
+#: classes/class-bsf-sb-metabox.php:264
+msgid "Add User Rule"
+msgstr ""
+
+#: classes/class-bsf-sb-post-type.php:63
+msgid "Sidebar"
+msgstr ""
+
+#: classes/class-bsf-sb-post-type.php:64
+msgid "Sidebars"
+msgstr ""
+
+#: classes/class-bsf-sb-post-type.php:73
+msgid "Add New %s"
+msgstr ""
+
+#: classes/class-bsf-sb-post-type.php:74
+msgid "Edit %s"
+msgstr ""
+
+#: classes/class-bsf-sb-post-type.php:75
+msgid "New %s"
+msgstr ""
+
+#: classes/class-bsf-sb-post-type.php:77
+msgid "View %s"
+msgstr ""
+
+#: classes/class-bsf-sb-post-type.php:78
+msgid "Search %a"
+msgstr ""
+
+#: classes/class-bsf-sb-post-type.php:79
+msgid "No %s Found"
+msgstr ""
+
+#: classes/class-bsf-sb-post-type.php:80
+msgid "No %s Found In Trash"
+msgstr ""
+
+#: classes/modules/target-rule/class-bsf-sb-rules-fields.php:242
+#: classes/modules/target-rule/class-bsf-sb-rules-fields.php:703
+msgid "Add Rule"
+msgstr ""
+
+#: classes/modules/target-rule/class-bsf-sb-rules-fields.php:266
+#: classes/modules/target-rule/class-bsf-sb-rules-fields.php:709
+msgid "Basic"
+msgstr ""
+
+#: classes/modules/target-rule/class-bsf-sb-rules-fields.php:268
+msgid "Entire Website"
+msgstr ""
+
+#: classes/modules/target-rule/class-bsf-sb-rules-fields.php:269
+msgid "All Singulars"
+msgstr ""
+
+#: classes/modules/target-rule/class-bsf-sb-rules-fields.php:270
+msgid "All Archives"
+msgstr ""
+
+#: classes/modules/target-rule/class-bsf-sb-rules-fields.php:275
+msgid "Special Pages"
+msgstr ""
+
+#: classes/modules/target-rule/class-bsf-sb-rules-fields.php:277
+msgid "404 Page"
+msgstr ""
+
+#: classes/modules/target-rule/class-bsf-sb-rules-fields.php:278
+msgid "Search Page"
+msgstr ""
+
+#: classes/modules/target-rule/class-bsf-sb-rules-fields.php:279
+msgid "Blog / Posts Page"
+msgstr ""
+
+#: classes/modules/target-rule/class-bsf-sb-rules-fields.php:280
+msgid "Front Page"
+msgstr ""
+
+#: classes/modules/target-rule/class-bsf-sb-rules-fields.php:281
+msgid "Date Archive"
+msgstr ""
+
+#: classes/modules/target-rule/class-bsf-sb-rules-fields.php:282
+msgid "Author Archive"
+msgstr ""
+
+#: classes/modules/target-rule/class-bsf-sb-rules-fields.php:309
+msgid "Specific Target"
+msgstr ""
+
+#: classes/modules/target-rule/class-bsf-sb-rules-fields.php:311
+msgid "Specific Pages / Posts / Taxanomies, etc."
+msgstr ""
+
+#: classes/modules/target-rule/class-bsf-sb-rules-fields.php:322
+#: classes/modules/target-rule/class-bsf-sb-rules-fields.php:429
+#: classes/modules/target-rule/class-bsf-sb-rules-fields.php:737
+#: classes/modules/target-rule/class-bsf-sb-rules-fields.php:769
+msgid "Select"
+msgstr ""
+
+#: classes/modules/target-rule/class-bsf-sb-rules-fields.php:374
+#. translators: %s percentage
+msgid "All %s"
+msgstr ""
+
+#: classes/modules/target-rule/class-bsf-sb-rules-fields.php:376
+#: classes/modules/target-rule/class-bsf-sb-rules-fields.php:386
+#. translators: %s percentage
+msgid "All %s Archive"
+msgstr ""
+
+#: classes/modules/target-rule/class-bsf-sb-rules-fields.php:498
+msgid "Add Exclusion Rule"
+msgstr ""
+
+#: classes/modules/target-rule/class-bsf-sb-rules-fields.php:711
+msgid "All"
+msgstr ""
+
+#: classes/modules/target-rule/class-bsf-sb-rules-fields.php:712
+msgid "Logged In"
+msgstr ""
+
+#: classes/modules/target-rule/class-bsf-sb-rules-fields.php:713
+msgid "Logged Out"
+msgstr ""
+
+#: classes/modules/target-rule/class-bsf-sb-rules-fields.php:718
+msgid "Advanced"
+msgstr ""
+
+#: includes/white-label.php:12 includes/white-label.php:17
+msgid "Astra SideBar Branding"
+msgstr ""
+
+#: includes/white-label.php:23
+msgid "Plugin Name:"
+msgstr ""
+
+#: includes/white-label.php:28
+msgid "Plugin Description:"
+msgstr ""
+
+#: classes/class-bsf-sb-post-type.php:69
+msgctxt "post type general name"
+msgid "Sidebars"
+msgstr ""
+
+#: classes/class-bsf-sb-post-type.php:70
+msgctxt "post type singular name"
+msgid "Sidebar"
+msgstr ""
+
+#: classes/class-bsf-sb-post-type.php:71
+msgctxt "admin menu"
+msgid "Sidebars"
+msgstr ""
