@@ -123,7 +123,6 @@ if ( ! class_exists( 'BSF_SB_Target_Rules_Fields' ) ) {
 			$custom_post_type  = get_post_types( $args, 'objects' );
 
 			$post_types = apply_filters( 'astra_location_rule_post_types', array_merge( $post_types, $custom_post_type ) );
-
 			$selection_options = array(
 				'basic' => array(
 					'label' => __( 'Basic', 'bsfsidebars' ),

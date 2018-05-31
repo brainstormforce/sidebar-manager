@@ -14,4 +14,5 @@
 
 	<exclude-pattern>*/node_modules/*</exclude-pattern>
 	<exclude-pattern>*/vendor/*</exclude-pattern>
+	<exclude-pattern>*/class-bsf-sb-target-rules-fields.php</exclude-pattern>
 </ruleset>
