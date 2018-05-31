@@ -53,9 +53,9 @@ if ( ! class_exists( 'Bsf_Sb_White_Label' ) ) :
 		 */
 		public function __construct() {
 
-			add_filter( 'all_plugins'                               , array( $this, 'plugins_page' ) );
-			add_filter( 'astra_addon_branding_options'              , __CLASS__ . '::settings' );
-			add_action( 'astra_pro_white_label_add_form'            , __CLASS__ . '::add_white_lavel_form' );
+			add_filter( 'all_plugins', array( $this, 'plugins_page' ) );
+			add_filter( 'astra_addon_branding_options', __CLASS__ . '::settings' );
+			add_action( 'astra_pro_white_label_add_form', __CLASS__ . '::add_white_lavel_form' );
 
 			if ( is_admin() ) {
 				// Display the link with the plugin meta.
@@ -145,8 +145,8 @@ if ( ! class_exists( 'Bsf_Sb_White_Label' ) ) :
 		public static function settings( $settings = array() ) {
 
 			$settings['bsf-lw-sb'] = array(
-				'name'          => '',
-				'description'   => '',
+				'name'        => '',
+				'description' => '',
 			);
 
 			return $settings;

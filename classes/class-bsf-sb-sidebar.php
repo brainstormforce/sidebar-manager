@@ -69,8 +69,8 @@ if ( ! class_exists( 'BSF_SB_Sidebar' ) ) {
 
 			$to_register = get_posts(
 				array(
-					'post_type' => BSF_SB_POST_TYPE,
-					'posts_per_page' => -1,
+					'post_type'        => BSF_SB_POST_TYPE,
+					'posts_per_page'   => -1,
 					'suppress_filters' => 'false',
 				)
 			);
@@ -80,9 +80,9 @@ if ( ! class_exists( 'BSF_SB_Sidebar' ) ) {
 
 					register_sidebar(
 						array(
-							'name'          => $data->post_title,
-							'id'            => BSF_SB_PREFIX . '-' . $data->post_name,
-							'description'   => $data->post_excerpt,
+							'name'        => $data->post_title,
+							'id'          => BSF_SB_PREFIX . '-' . $data->post_name,
+							'description' => $data->post_excerpt,
 						)
 					);
 				}

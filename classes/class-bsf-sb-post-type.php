@@ -60,51 +60,51 @@ if ( ! class_exists( 'BSF_SB_Post_Type' ) ) {
 				return;
 			}
 
-			$singular   = __( 'Sidebar', 'bsfsidebars' );
-			$plural     = __( 'Sidebars', 'bsfsidebars' );
-			$rewrite    = array(
+			$singular = __( 'Sidebar', 'bsfsidebars' );
+			$plural   = __( 'Sidebars', 'bsfsidebars' );
+			$rewrite  = array(
 				'slug' => BSF_SB_POST_TYPE,
 			);
-			$supports   = array( 'title', 'excerpt' );
+			$supports = array( 'title', 'excerpt' );
 
 			$labels = array(
-				'name'                  => _x( 'Sidebars', 'post type general name', 'bsfsidebars' ),
-				'singular_name'         => _x( 'Sidebar', 'post type singular name', 'bsfsidebars' ),
-				'menu_name'             => _x( 'Sidebars', 'admin menu', 'bsfsidebars' ),
-				'add_new'               => __( 'Add New', 'bsfsidebars' ),
+				'name'               => _x( 'Sidebars', 'post type general name', 'bsfsidebars' ),
+				'singular_name'      => _x( 'Sidebar', 'post type singular name', 'bsfsidebars' ),
+				'menu_name'          => _x( 'Sidebars', 'admin menu', 'bsfsidebars' ),
+				'add_new'            => __( 'Add New', 'bsfsidebars' ),
 				/* translators: %s singular */
-				'add_new_item'          => sprintf( __( 'Add New %s', 'bsfsidebars' ), $singular ),
+				'add_new_item'       => sprintf( __( 'Add New %s', 'bsfsidebars' ), $singular ),
 				/* translators: %s singular */
-				'edit_item'             => sprintf( __( 'Edit %s', 'bsfsidebars' ), $singular ),
+				'edit_item'          => sprintf( __( 'Edit %s', 'bsfsidebars' ), $singular ),
 				/* translators: %s singular */
-				'new_item'              => sprintf( __( 'New %s', 'bsfsidebars' ), $singular ),
-				'all_items'             => $plural,
+				'new_item'           => sprintf( __( 'New %s', 'bsfsidebars' ), $singular ),
+				'all_items'          => $plural,
 				/* translators: %s singular */
-				'view_item'             => sprintf( __( 'View %s', 'bsfsidebars' ), $singular ),
+				'view_item'          => sprintf( __( 'View %s', 'bsfsidebars' ), $singular ),
 				/* translators: %s plural */
-				'search_items'          => sprintf( __( 'Search %s', 'bsfsidebars' ), $plural ),
+				'search_items'       => sprintf( __( 'Search %s', 'bsfsidebars' ), $plural ),
 				/* translators: %s plural */
-				'not_found'             => sprintf( __( 'No %s Found', 'bsfsidebars' ), $plural ),
+				'not_found'          => sprintf( __( 'No %s Found', 'bsfsidebars' ), $plural ),
 				/* translators: %s plural */
-				'not_found_in_trash'    => sprintf( __( 'No %s Found In Trash', 'bsfsidebars' ), $plural ),
-				'parent_item_colon'     => '',
+				'not_found_in_trash' => sprintf( __( 'No %s Found In Trash', 'bsfsidebars' ), $plural ),
+				'parent_item_colon'  => '',
 
 			);
-			$args = array(
-				'labels'                => $labels,
-				'public'                => false,
-				'publicly_queryable'    => true,
-				'show_ui'               => true,
-				'show_in_nav_menus'     => false,
-				'show_in_admin_bar'     => false,
-				'show_in_menu'          => 'themes.php',
-				'query_var'             => true,
-				'rewrite'               => $rewrite,
-				'capability_type'       => 'post',
-				'has_archive'           => BSF_SB_POST_TYPE,
-				'hierarchical'          => false,
-				'menu_position'         => null,
-				'supports'              => $supports,
+			$args   = array(
+				'labels'             => $labels,
+				'public'             => false,
+				'publicly_queryable' => true,
+				'show_ui'            => true,
+				'show_in_nav_menus'  => false,
+				'show_in_admin_bar'  => false,
+				'show_in_menu'       => 'themes.php',
+				'query_var'          => true,
+				'rewrite'            => $rewrite,
+				'capability_type'    => 'post',
+				'has_archive'        => BSF_SB_POST_TYPE,
+				'hierarchical'       => false,
+				'menu_position'      => null,
+				'supports'           => $supports,
 			);
 			register_post_type( BSF_SB_POST_TYPE, $args );
 		}
