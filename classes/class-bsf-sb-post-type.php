@@ -90,7 +90,7 @@ if ( ! class_exists( 'BSF_SB_Post_Type' ) ) {
 				'parent_item_colon'  => '',
 
 			);
-			$args   = array(
+			$args = array(
 				'labels'             => $labels,
 				'public'             => false,
 				'publicly_queryable' => true,
