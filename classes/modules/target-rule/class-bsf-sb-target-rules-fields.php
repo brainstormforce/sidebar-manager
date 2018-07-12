@@ -105,6 +105,21 @@ if ( ! class_exists( 'BSF_SB_Target_Rules_Fields' ) ) {
 		}
 
 		/**
+		 * Get list of post types attached to taxonomies.
+		 *
+		 * @param string $taxonomy taxonomy name.
+		 *
+		 * @return array
+		 */
+		public static function sb_get_post_types_by_taxonomy( $taxonomy = '' ) {
+			global $wp_taxonomies;
+			if ( isset( $wp_taxonomies[ $taxonomy ] ) ) {
+				return $wp_taxonomies[ $taxonomy ]->object_type;
+			}
+			return array();
+		}
+
+		/**
 		 * Get location selection options.
 		 *
 		 * @return array
@@ -123,6 +138,20 @@ if ( ! class_exists( 'BSF_SB_Target_Rules_Fields' ) ) {
 			$custom_post_type  = get_post_types( $args, 'objects' );
 
 			$post_types = apply_filters( 'astra_location_rule_post_types', array_merge( $post_types, $custom_post_type ) );
+
+			$special_pages = array(
+				'special-404'    => __( '404 Page', 'astra-addon' ),
+				'special-search' => __( 'Search Page', 'astra-addon' ),
+				'special-blog'   => __( 'Blog / Posts Page', 'astra-addon' ),
+				'special-front'  => __( 'Front Page', 'astra-addon' ),
+				'special-date'   => __( 'Date Archive', 'astra-addon' ),
+				'special-author' => __( 'Author Archive', 'astra-addon' ),
+			);
+
+			if ( class_exists( 'WooCommerce' ) ) {
+				$special_pages['special-woo-shop'] = __( 'WooCommerce Shop Page', 'astra-addon' );
+			}
+
 			$selection_options = array(
 				'basic' => array(
 					'label' => __( 'Basic', 'bsfsidebars' ),
@@ -135,33 +164,53 @@ if ( ! class_exists( 'BSF_SB_Target_Rules_Fields' ) ) {
 
 				'special-pages' => array(
 					'label' => __( 'Special Pages', 'bsfsidebars' ),
-					'value' => array(
-						'special-404'    => __( '404 Page', 'bsfsidebars' ),
-						'special-search' => __( 'Search Page', 'bsfsidebars' ),
-						'special-blog'   => __( 'Blog / Posts Page', 'bsfsidebars' ),
-						'special-front'  => __( 'Front Page', 'bsfsidebars' ),
-						'special-date'   => __( 'Date Archive', 'bsfsidebars' ),
-						'special-author' => __( 'Author Archive', 'bsfsidebars' ),
-					),
+					'value' => $special_pages,
 				),
 			);
 
-			/* post types */
-			foreach ( $post_types as $post_type ) {
+			$args = array(
+				'public' => true,
+			);
 
-				$args = array(
-					'public'   => true,
-					'object_type' => array( $post_type->name ),
-				);
-				$taxonomies = get_taxonomies( $args, 'objects' );
-				unset( $taxonomies['post_format'] );
+			$taxonomies = get_taxonomies( $args, 'objects' );
 
-				$post_opt = self::get_post_target_rule_options( $post_type, $taxonomies );
+			if ( ! empty( $taxonomies ) ) {
+				foreach ( $taxonomies as $taxonomy ) {
 
-				$selection_options[ $post_opt['post_key'] ] = array(
-					'label' => $post_opt['label'],
-					'value' => $post_opt['value'],
-				);
+					// skip post format taxonomy.
+					if ( 'post_format' == $taxonomy->name ) {
+						continue;
+					}
+
+					$attached_post_types = self::sb_get_post_types_by_taxonomy( $taxonomy->name );
+
+					foreach ( $post_types as $post_type ) {
+
+						if ( ! in_array( $post_type->name, $attached_post_types ) ) {
+							continue;
+						}
+
+						$post_opt = self::get_post_target_rule_options( $post_type, $taxonomy );
+
+						if ( isset( $selection_options[ $post_opt['post_key'] ] ) ) {
+
+							if ( ! empty( $post_opt['value'] ) && is_array( $post_opt['value'] ) ) {
+
+								foreach ( $post_opt['value'] as $key => $value ) {
+
+									if ( ! in_array( $value, $selection_options[ $post_opt['post_key'] ]['value'] ) ) {
+										$selection_options[ $post_opt['post_key'] ]['value'][ $key ] = $value;
+									}
+								}
+							}
+						} else {
+							$selection_options[ $post_opt['post_key'] ] = array(
+								'label' => $post_opt['label'],
+								'value' => $post_opt['value'],
+							);
+						}
+					}
+				}
 			}
 
 			$selection_options['specific-target'] = array(
@@ -233,8 +282,13 @@ if ( ! class_exists( 'BSF_SB_Target_Rules_Fields' ) ) {
 			if ( strpos( $key, 'tax-' ) !== false ) {
 				$tax_id        = (int) str_replace( 'tax-', '', $key );
 				$term          = get_term( $tax_id );
-				$term_taxonomy = ucfirst( str_replace( '_', ' ', $term->taxonomy ) );
-				return $term->name . ' - ' . $term_taxonomy;
+
+				if ( ! is_wp_error( $term ) ) {
+					$term_taxonomy = ucfirst( str_replace( '_', ' ', $term->taxonomy ) );
+					return $term->name . ' - ' . $term_taxonomy;
+				} else {
+					return '';
+				}
 			}
 
 			return $key;
@@ -348,9 +402,16 @@ if ( ! class_exists( 'BSF_SB_Target_Rules_Fields' ) ) {
 
 					foreach ( $terms as $term ) {
 
+						$term_taxonomy_name = ucfirst( str_replace( '_', ' ', $taxonomy->name ) );
+
 						$data[] = array(
 							'id'   => 'tax-' . $term->term_id,
-							'text' => $term->name,
+							'text' => $term->name . ' archive page',
+						);
+
+						$data[] = array(
+							'id'   => 'tax-' . $term->term_id . '-single-' . $taxonomy->name,
+							'text' => 'All singulars from ' . $term->name,
 						);
 
 					}
@@ -503,34 +564,30 @@ if ( ! class_exists( 'BSF_SB_Target_Rules_Fields' ) ) {
 		 * @param object $post_type post type parameter.
 		 * @param object $taxonomies Taxanomies for creating the target rule markup.
 		 */
-		public static function get_post_target_rule_options( $post_type, $taxonomies ) {
+		public static function get_post_target_rule_options( $post_type, $taxonomy ) {
 
 			$post_key    = str_replace( ' ', '-', strtolower( $post_type->label ) );
 			$post_label  = ucwords( $post_type->label );
 			$post_name   = $post_type->name;
 			$post_option = array();
 
-			/* translators: %s percentage */
-			$all_posts = sprintf( __( 'All %s', 'bsfsidebars' ), $post_label );
-			$post_option[ $post_name . '|all' ]         = $all_posts;
+			/* translators: %s post label */
+			$all_posts                          = sprintf( __( 'All %s', 'astra-addon' ), $post_label );
+			$post_option[ $post_name . '|all' ] = $all_posts;
 
 			if ( 'pages' != $post_key ) {
-				/* translators: %s percentage */
-				$all_archive = sprintf( __( 'All %s Archive', 'bsfsidebars' ), $post_label );
 				/* translators: %s post label */
+				$all_archive                                = sprintf( __( 'All %s Archive', 'astra-addon' ), $post_label );
 				$post_option[ $post_name . '|all|archive' ] = $all_archive;
-
 			}
 
-			foreach ( $taxonomies as $taxonomy ) {
-				$tax_label = ucwords( $taxonomy->label );
-				$tax_name  = $taxonomy->name;
+			$tax_label = ucwords( $taxonomy->label );
+			$tax_name  = $taxonomy->name;
 
-				/* translators: %s percentage */
-				$tax_archive = sprintf( __( 'All %s Archive', 'bsfsidebars' ), $tax_label );
+			/* translators: %s taxonomy label */
+			$tax_archive = sprintf( __( 'All %s Archive', 'astra-addon' ), $tax_label );
 
-				$post_option[ $post_name . '|all|taxarchive|' . $tax_name ] = $tax_archive;
-			}
+			$post_option[ $post_name . '|all|taxarchive|' . $tax_name ] = $tax_archive;
 
 			$post_output['post_key'] = $post_key;
 			$post_output['label']    = $post_label;
@@ -683,7 +740,7 @@ if ( ! class_exists( 'BSF_SB_Target_Rules_Fields' ) ) {
 		 */
 		public function parse_layout_display_condition( $post_id, $rules ) {
 
-			$show_popup        = false;
+			$display        = false;
 			$current_post_type = get_post_type( $post_id );
 
 			if ( isset( $rules['rule'] ) && is_array( $rules['rule'] ) && ! empty( $rules['rule'] ) ) {
@@ -697,54 +754,60 @@ if ( ! class_exists( 'BSF_SB_Target_Rules_Fields' ) ) {
 
 					switch ( $rule_case ) {
 						case 'basic-global':
-							$show_popup = true;
+							$display = true;
 							break;
 
 						case 'basic-singulars':
 							if ( is_singular() ) {
-								$show_popup = true;
+								$display = true;
 							}
 							break;
 
 						case 'basic-archives':
 							if ( is_archive() ) {
-								$show_popup = true;
+								$display = true;
 							}
 							break;
 
 						case 'special-404':
 							if ( is_404() ) {
-								$show_popup = true;
+								$display = true;
 							}
 							break;
 
 						case 'special-search':
 							if ( is_search() ) {
-								$show_popup = true;
+								$display = true;
 							}
 							break;
 
 						case 'special-blog':
 							if ( is_home() ) {
-								$show_popup = true;
+								$display = true;
 							}
 							break;
 
 						case 'special-front':
 							if ( is_front_page() ) {
-								$show_popup = true;
+								$display = true;
 							}
 							break;
 
 						case 'special-date':
 							if ( is_date() ) {
-								$show_popup = true;
+								$display = true;
 							}
 							break;
 
 						case 'special-author':
 							if ( is_author() ) {
-								$show_popup = true;
+								$display = true;
+							}
+							break;
+
+						case 'special-woo-shop':
+							if ( function_exists( 'is_shop' ) && is_shop() ) {
+								$display = true;
 							}
 							break;
 
@@ -761,7 +824,7 @@ if ( ! class_exists( 'BSF_SB_Target_Rules_Fields' ) ) {
 
 								if ( false !== $post_id && $current_post_type == $post_type ) {
 
-									$show_popup = true;
+									$display = true;
 								}
 							} else {
 
@@ -770,7 +833,7 @@ if ( ! class_exists( 'BSF_SB_Target_Rules_Fields' ) ) {
 									$current_post_type = get_post_type();
 									if ( $current_post_type == $post_type ) {
 										if ( 'archive' == $archieve_type ) {
-											$show_popup = true;
+											$display = true;
 										} elseif ( 'taxarchive' == $archieve_type ) {
 
 											$obj              = get_queried_object();
@@ -780,7 +843,7 @@ if ( ! class_exists( 'BSF_SB_Target_Rules_Fields' ) ) {
 											}
 
 											if ( $current_taxonomy == $taxonomy ) {
-												$show_popup = true;
+												$display = true;
 											}
 										}
 									}
@@ -792,17 +855,31 @@ if ( ! class_exists( 'BSF_SB_Target_Rules_Fields' ) ) {
 							if ( isset( $rules['specific'] ) && is_array( $rules['specific'] ) ) {
 								foreach ( $rules['specific'] as $specific_page ) {
 
-									$specific_data      = explode( '-', $specific_page );
+									$specific_data = explode( '-', $specific_page );
+
 									$specific_post_type = isset( $specific_data[0] ) ? $specific_data[0] : false;
 									$specific_post_id   = isset( $specific_data[1] ) ? $specific_data[1] : false;
 									if ( 'post' == $specific_post_type ) {
 										if ( $specific_post_id == $post_id ) {
-											$show_popup = true;
+											$display = true;
+										}
+									} elseif ( isset( $specific_data[2] ) && ( 'single' == $specific_data[2] ) && 'tax' == $specific_post_type ) {
+
+										if ( is_singular() ) {
+											$term_details = get_term( $specific_post_id );
+
+											if ( isset( $term_details->taxonomy ) ) {
+												$has_term = has_term( (int) $specific_post_id, $term_details->taxonomy, $post_id );
+
+												if ( $has_term ) {
+													$display = true;
+												}
+											}
 										}
 									} elseif ( 'tax' == $specific_post_type ) {
 										$tax_id = get_queried_object_id();
 										if ( $specific_post_id == $tax_id ) {
-											$show_popup = true;
+											$display = true;
 										}
 									}
 								}
@@ -813,13 +890,13 @@ if ( ! class_exists( 'BSF_SB_Target_Rules_Fields' ) ) {
 							break;
 					}
 
-					if ( $show_popup ) {
+					if ( $display ) {
 						break;
 					}
 				}
 			}
 
-			return $show_popup;
+			return $display;
 		}
 
 		/**
@@ -983,6 +1060,7 @@ if ( ! class_exists( 'BSF_SB_Target_Rules_Fields' ) ) {
 			if ( null === self::$current_page_type ) {
 
 				$page_type = '';
+				$current_id = false;
 
 				if ( is_404() ) {
 					$page_type = 'is_404';
@@ -997,11 +1075,14 @@ if ( ! class_exists( 'BSF_SB_Target_Rules_Fields' ) ) {
 						$page_type = 'is_date';
 					} elseif ( is_author() ) {
 						$page_type = 'is_author';
+					} elseif ( function_exists( 'is_shop' ) && is_shop() ) {
+						$page_type = 'is_woo_shop_page';
 					}
 				} elseif ( is_home() ) {
 					$page_type = 'is_home';
 				} elseif ( is_front_page() ) {
 					$page_type = 'is_front_page';
+					$current_id = get_the_id();
 				} elseif ( is_singular() ) {
 					$page_type = 'is_singular';
 					$current_id = get_the_id();
@@ -1009,7 +1090,8 @@ if ( ! class_exists( 'BSF_SB_Target_Rules_Fields' ) ) {
 					$current_id = get_the_id();
 				}
 
-				self::$current_page_type = $page_type;
+				self::$current_page_data['ID'] = $current_id;
+				self::$current_page_type       = $page_type;
 			}
 
 			return self::$current_page_type;
@@ -1026,101 +1108,120 @@ if ( ! class_exists( 'BSF_SB_Target_Rules_Fields' ) ) {
 		 */
 		public function get_posts_by_conditions( $post_type, $option ) {
 
-			if ( is_array( self::$current_page_data ) && isset( self::$current_page_data[ $post_type ] ) ) {
-				return self::$current_page_data[ $post_type ];
-			}
-
 			global $wpdb;
 			global $post;
 
-			$current_page_type  = $this->get_current_page_type();
-			$post_type          = $post_type ? esc_sql( $post_type ) : esc_sql( $post->post_type );
-			$current_post_type  = esc_sql( get_post_type() );
-			$current_post_id    = false;
-			$q_obj              = get_queried_object();
+			$post_type = $post_type ? esc_sql( $post_type ) : esc_sql( $post->post_type );
 
-			$location = isset( $option['location'] ) ? $option['location'] : '';
+			if ( is_array( self::$current_page_data ) && isset( self::$current_page_data[ $post_type ] ) ) {
+				return apply_filters( 'astra_get_display_posts_by_conditions', self::$current_page_data[ $post_type ], $post_type );
+			}
+
+			$current_page_type = $this->get_current_page_type();
 
 			self::$current_page_data[ $post_type ] = array();
 
-			$query = "SELECT p.ID, p.post_name, pm.meta_value FROM {$wpdb->postmeta} as pm
-					   INNER JOIN {$wpdb->posts} as p ON pm.post_id = p.ID
-					   WHERE pm.meta_key = '{$location}'
-					   AND p.post_type = '{$post_type}'
-					   AND p.post_status = 'publish'";
+			$option['current_post_id'] = self::$current_page_data['ID'];
+			$meta_header               = self::get_meta_option_post( $post_type, $option );
 
-			$orderby = ' ORDER BY p.post_date DESC';
+			/* Meta option is enabled */
+			if ( false === $meta_header ) {
 
-			/* Entire Website */
-			$meta_args = "pm.meta_value LIKE '%\"basic-global\"%'";
+				$current_post_type = esc_sql( get_post_type() );
+				$current_post_id   = false;
+				$q_obj             = get_queried_object();
 
-			switch ( $current_page_type ) {
-				case 'is_404':
-					$meta_args .= " OR pm.meta_value LIKE '%\"special-404\"%'";
-					break;
-				case 'is_search':
-					$meta_args .= " OR pm.meta_value LIKE '%\"special-search\"%'";
-					break;
-				case 'is_archive':
-				case 'is_tax':
-				case 'is_date':
-				case 'is_author':
-					$meta_args .= " OR pm.meta_value LIKE '%\"basic-archives\"%'";
-					$meta_args .= " OR pm.meta_value LIKE '%\"{$current_post_type}|all|archive\"%'";
+				$location = isset( $option['location'] ) ? esc_sql( $option['location'] ) : '';
 
-					if ( 'is_tax' == $current_page_type && ( is_category() || is_tag() || is_tax() ) ) {
+				$query = "SELECT p.ID, pm.meta_value FROM {$wpdb->postmeta} as pm
+						   INNER JOIN {$wpdb->posts} as p ON pm.post_id = p.ID
+						   WHERE pm.meta_key = '{$location}'
+						   AND p.post_type = '{$post_type}'
+						   AND p.post_status = 'publish'";
 
-						if ( is_object( $q_obj ) ) {
-							$meta_args .= " OR pm.meta_value LIKE '%\"{$current_post_type}|all|taxarchive|{$q_obj->taxonomy}\"%'";
-							$meta_args .= " OR pm.meta_value LIKE '%\"tax-{$q_obj->term_id}\"%'";
+				$orderby = ' ORDER BY p.post_date DESC';
+
+				/* Entire Website */
+				$meta_args = "pm.meta_value LIKE '%\"basic-global\"%'";
+
+				switch ( $current_page_type ) {
+					case 'is_404':
+						$meta_args .= " OR pm.meta_value LIKE '%\"special-404\"%'";
+						break;
+					case 'is_search':
+						$meta_args .= " OR pm.meta_value LIKE '%\"special-search\"%'";
+						break;
+					case 'is_archive':
+					case 'is_tax':
+					case 'is_date':
+					case 'is_author':
+						$meta_args .= " OR pm.meta_value LIKE '%\"basic-archives\"%'";
+						$meta_args .= " OR pm.meta_value LIKE '%\"{$current_post_type}|all|archive\"%'";
+
+						if ( 'is_tax' == $current_page_type && ( is_category() || is_tag() || is_tax() ) ) {
+
+							if ( is_object( $q_obj ) ) {
+								$meta_args .= " OR pm.meta_value LIKE '%\"{$current_post_type}|all|taxarchive|{$q_obj->taxonomy}\"%'";
+								$meta_args .= " OR pm.meta_value LIKE '%\"tax-{$q_obj->term_id}\"%'";
+							}
+						} elseif ( 'is_date' == $current_page_type ) {
+							$meta_args .= " OR pm.meta_value LIKE '%\"special-date\"%'";
+						} elseif ( 'is_author' == $current_page_type ) {
+							$meta_args .= " OR pm.meta_value LIKE '%\"special-author\"%'";
 						}
-					} elseif ( 'is_date' == $current_page_type ) {
-						$meta_args .= " OR pm.meta_value LIKE '%\"special-date\"%'";
-					} elseif ( 'is_author' == $current_page_type ) {
-						$meta_args .= " OR pm.meta_value LIKE '%\"special-author\"%'";
-					}
-					break;
-				case 'is_home':
-					$meta_args .= " OR pm.meta_value LIKE '%\"special-blog\"%'";
-					break;
-				case 'is_front_page':
-					$current_id         = esc_sql( get_the_id() );
-					$current_post_id    = $current_id;
-					$meta_args .= " OR pm.meta_value LIKE '%\"special-front\"%'";
-					$meta_args .= " OR pm.meta_value LIKE '%\"{$current_post_type}|all\"%'";
-					$meta_args .= " OR pm.meta_value LIKE '%\"post-{$current_id}\"%'";
-					break;
-				case 'is_singular':
-					$current_id         = esc_sql( get_the_id() );
-					$current_post_id    = $current_id;
-					$meta_args .= " OR pm.meta_value LIKE '%\"basic-singulars\"%'";
-					$meta_args .= " OR pm.meta_value LIKE '%\"{$current_post_type}|all\"%'";
-					$meta_args .= " OR pm.meta_value LIKE '%\"post-{$current_id}\"%'";
-					break;
-				case '':
-					$current_post_id = get_the_id();
-					break;
+						break;
+					case 'is_home':
+						$meta_args .= " OR pm.meta_value LIKE '%\"special-blog\"%'";
+						break;
+					case 'is_front_page':
+						$current_id      = esc_sql( get_the_id() );
+						$current_post_id = $current_id;
+						$meta_args      .= " OR pm.meta_value LIKE '%\"special-front\"%'";
+						$meta_args      .= " OR pm.meta_value LIKE '%\"{$current_post_type}|all\"%'";
+						$meta_args      .= " OR pm.meta_value LIKE '%\"post-{$current_id}\"%'";
+						break;
+					case 'is_singular':
+						$current_id      = esc_sql( get_the_id() );
+						$current_post_id = $current_id;
+						$meta_args      .= " OR pm.meta_value LIKE '%\"basic-singulars\"%'";
+						$meta_args      .= " OR pm.meta_value LIKE '%\"{$current_post_type}|all\"%'";
+						$meta_args      .= " OR pm.meta_value LIKE '%\"post-{$current_id}\"%'";
+
+						$taxonomies = get_object_taxonomies( $q_obj->post_type );
+						$terms      = wp_get_post_terms( $q_obj->ID, $taxonomies );
+
+						foreach ( $terms as $key => $term ) {
+							$meta_args .= " OR pm.meta_value LIKE '%\"tax-{$term->term_id}-single-{$term->taxonomy}\"%'";
+						}
+
+						break;
+					case 'is_woo_shop_page':
+						$meta_args .= " OR pm.meta_value LIKE '%\"special-woo-shop\"%'";
+						break;
+					case '':
+						$current_post_id = get_the_id();
+						break;
+				}
+
+				// Ignore the PHPCS warning about constant declaration.
+				// @codingStandardsIgnoreStart
+				$posts  = $wpdb->get_results( $query . ' AND (' . $meta_args . ')' . $orderby );
+				// @codingStandardsIgnoreEnd
+
+				foreach ( $posts as $local_post ) {
+					self::$current_page_data[ $post_type ][ $local_post->ID ] = array(
+						'id'       => $local_post->ID,
+						'location' => unserialize( $local_post->meta_value ),
+					);
+				}
+
+				$option['current_post_id'] = $current_post_id;
+
+				$this->remove_exclusion_rule_posts( $post_type, $option );
+				$this->remove_user_rule_posts( $post_type, $option );
 			}
 
-			// Ignore the PHPCS warning about constant declaration.
-			// @codingStandardsIgnoreStart
-			$posts  = $wpdb->get_results( $query . ' AND (' . $meta_args . ')' . $orderby );
-			// @codingStandardsIgnoreEnd
-
-			foreach ( $posts as $local_post ) {
-				self::$current_page_data[ $post_type ][ $local_post->ID ] = array(
-					'id'            => $local_post->ID,
-					'post_name'     => $local_post->post_name,
-					'location'      => unserialize( $local_post->meta_value ),
-				);
-			}
-
-			$option['current_post_id'] = $current_post_id;
-
-			$this->remove_exclusion_rule_posts( $post_type, $option );
-			$this->remove_user_rule_posts( $post_type, $option );
-
-			return self::$current_page_data[ $post_type ];
+			return apply_filters( 'astra_get_display_posts_by_conditions', self::$current_page_data[ $post_type ], $post_type );
 		}
 
 		/**
@@ -1283,6 +1384,67 @@ if ( ! class_exists( 'BSF_SB_Target_Rules_Fields' ) ) {
 					}
 				);
 			}
+		}
+
+		/**
+		 * Meta option post.
+		 *
+		 * @since  1.0.0
+		 * @param  string $post_type Post Type.
+		 * @param  array  $option meta option name.
+		 *
+		 * @return false | object
+		 */
+		static public function get_meta_option_post( $post_type, $option ) {
+			$page_meta = ( isset( $option['page_meta'] ) && '' != $option['page_meta'] ) ? $option['page_meta'] : false;
+
+			if ( false !== $page_meta ) {
+				$current_post_id = isset( $option['current_post_id'] ) ? $option['current_post_id'] : false;
+				$meta_id         = get_post_meta( $current_post_id, $option['page_meta'], true );
+
+				if ( false !== $meta_id && '' != $meta_id ) {
+					self::$current_page_data[ $post_type ][ $meta_id ] = array(
+						'id'       => $meta_id,
+						'location' => '',
+					);
+
+					return self::$current_page_data[ $post_type ];
+				}
+			}
+
+			return false;
+		}
+
+		/**
+		 * Get post selection.
+		 *
+		 * @since  1.0.0
+		 * @param  string $post_type Post Type.
+		 *
+		 * @return object  Posts.
+		 */
+		static public function get_post_selection( $post_type ) {
+			$query_args = array(
+				'post_type'      => $post_type,
+				'posts_per_page' => -1,
+				'post_status'    => 'publish',
+			);
+
+			$all_headers = get_posts( $query_args );
+			$headers     = array();
+
+			if ( ! empty( $all_headers ) ) {
+				$headers = array(
+					'' => __( 'Select', 'astra-addon' ),
+				);
+
+				foreach ( $all_headers as $i => $data ) {
+
+					$headers[ $data->ID ] = $data->post_title;
+				}
+			}
+
+			return $headers;
 		}
 
 		/**
