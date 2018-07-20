@@ -9,7 +9,7 @@ module.exports = function( grunt ) {
 
 		addtextdomain: {
 			options: {
-				textdomain: 'bsfsidebars',
+				textdomain: 'sidebar-manager',
 			},
 			update_all_domains: {
 				options: {
@@ -31,8 +31,8 @@ module.exports = function( grunt ) {
 			target: {
 				options: {
 					domainPath: '/languages',
-					mainFile: 'custom-sidebars.php',
-					potFilename: 'custom-sidebars.pot',
+					mainFile: 'sidebar-manager.php',
+					potFilename: 'sidebar-manager.pot',
 					potHeaders: {
 						poedit: true,
 						'x-poedit-keywordslist': true

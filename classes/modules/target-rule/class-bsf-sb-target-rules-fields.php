@@ -140,30 +140,30 @@ if ( ! class_exists( 'BSF_SB_Target_Rules_Fields' ) ) {
 			$post_types = apply_filters( 'astra_location_rule_post_types', array_merge( $post_types, $custom_post_type ) );
 
 			$special_pages = array(
-				'special-404'    => __( '404 Page', 'astra-addon' ),
-				'special-search' => __( 'Search Page', 'astra-addon' ),
-				'special-blog'   => __( 'Blog / Posts Page', 'astra-addon' ),
-				'special-front'  => __( 'Front Page', 'astra-addon' ),
-				'special-date'   => __( 'Date Archive', 'astra-addon' ),
-				'special-author' => __( 'Author Archive', 'astra-addon' ),
+				'special-404'    => __( '404 Page', 'sidebar-manager' ),
+				'special-search' => __( 'Search Page', 'sidebar-manager' ),
+				'special-blog'   => __( 'Blog / Posts Page', 'sidebar-manager' ),
+				'special-front'  => __( 'Front Page', 'sidebar-manager' ),
+				'special-date'   => __( 'Date Archive', 'sidebar-manager' ),
+				'special-author' => __( 'Author Archive', 'sidebar-manager' ),
 			);
 
 			if ( class_exists( 'WooCommerce' ) ) {
-				$special_pages['special-woo-shop'] = __( 'WooCommerce Shop Page', 'astra-addon' );
+				$special_pages['special-woo-shop'] = __( 'WooCommerce Shop Page', 'sidebar-manager' );
 			}
 
 			$selection_options = array(
 				'basic' => array(
-					'label' => __( 'Basic', 'bsfsidebars' ),
+					'label' => __( 'Basic', 'sidebar-manager' ),
 					'value' => array(
-						'basic-global'    => __( 'Entire Website', 'bsfsidebars' ),
-						'basic-singulars' => __( 'All Singulars', 'bsfsidebars' ),
-						'basic-archives'  => __( 'All Archives', 'bsfsidebars' ),
+						'basic-global'    => __( 'Entire Website', 'sidebar-manager' ),
+						'basic-singulars' => __( 'All Singulars', 'sidebar-manager' ),
+						'basic-archives'  => __( 'All Archives', 'sidebar-manager' ),
 					),
 				),
 
 				'special-pages' => array(
-					'label' => __( 'Special Pages', 'bsfsidebars' ),
+					'label' => __( 'Special Pages', 'sidebar-manager' ),
 					'value' => $special_pages,
 				),
 			);
@@ -214,9 +214,9 @@ if ( ! class_exists( 'BSF_SB_Target_Rules_Fields' ) ) {
 			}
 
 			$selection_options['specific-target'] = array(
-				'label' => __( 'Specific Target', 'bsfsidebars' ),
+				'label' => __( 'Specific Target', 'sidebar-manager' ),
 				'value' => array(
-					'specifics' => __( 'Specific Pages / Posts / Taxanomies, etc.', 'bsfsidebars' ),
+					'specifics' => __( 'Specific Pages / Posts / Taxanomies, etc.', 'sidebar-manager' ),
 				),
 			);
 
@@ -231,16 +231,16 @@ if ( ! class_exists( 'BSF_SB_Target_Rules_Fields' ) ) {
 		public static function get_user_selections() {
 			$selection_options = array(
 				'basic' => array(
-					'label' => __( 'Basic', 'bsfsidebars' ),
+					'label' => __( 'Basic', 'sidebar-manager' ),
 					'value' => array(
-						'all'           => __( 'All', 'bsfsidebars' ),
-						'logged-in'     => __( 'Logged In', 'bsfsidebars' ),
-						'logged-out'    => __( 'Logged Out', 'bsfsidebars' ),
+						'all'           => __( 'All', 'sidebar-manager' ),
+						'logged-in'     => __( 'Logged In', 'sidebar-manager' ),
+						'logged-out'    => __( 'Logged Out', 'sidebar-manager' ),
 					),
 				),
 
 				'advanced' => array(
-					'label' => __( 'Advanced', 'bsfsidebars' ),
+					'label' => __( 'Advanced', 'sidebar-manager' ),
 					'value' => array(),
 				),
 			);
@@ -503,7 +503,7 @@ if ( ! class_exists( 'BSF_SB_Target_Rules_Fields' ) ) {
 			$type           = isset( $settings['type'] ) ? $settings['type'] : 'target_rule';
 			$class          = isset( $settings['class'] ) ? $settings['class'] : '';
 			$rule_type      = isset( $settings['rule_type'] ) ? $settings['rule_type'] : 'target_rule';
-			$add_rule_label = isset( $settings['add_rule_label'] ) ? $settings['add_rule_label'] : __( 'Add Rule', 'bsfsidebars' );
+			$add_rule_label = isset( $settings['add_rule_label'] ) ? $settings['add_rule_label'] : __( 'Add Rule', 'sidebar-manager' );
 			$saved_values   = $value;
 			$output         = '';
 
@@ -520,7 +520,7 @@ if ( ! class_exists( 'BSF_SB_Target_Rules_Fields' ) ) {
 			/* Condition Selection */
 			$output .= '<div class="target_rule-condition-wrap" >';
 			$output .= '<select name="' . esc_attr( $input_name ) . '[rule][{{data.id}}]" class="target_rule-condition form-control bsf-sb-input">';
-			$output .= '<option value="">' . __( 'Select', 'bsfsidebars' ) . '</option>';
+			$output .= '<option value="">' . __( 'Select', 'sidebar-manager' ) . '</option>';
 
 			foreach ( $selection_options as $group => $group_data ) {
 
@@ -572,12 +572,12 @@ if ( ! class_exists( 'BSF_SB_Target_Rules_Fields' ) ) {
 			$post_option = array();
 
 			/* translators: %s post label */
-			$all_posts                          = sprintf( __( 'All %s', 'astra-addon' ), $post_label );
+			$all_posts                          = sprintf( __( 'All %s', 'sidebar-manager' ), $post_label );
 			$post_option[ $post_name . '|all' ] = $all_posts;
 
 			if ( 'pages' != $post_key ) {
 				/* translators: %s post label */
-				$all_archive                                = sprintf( __( 'All %s Archive', 'astra-addon' ), $post_label );
+				$all_archive                                = sprintf( __( 'All %s Archive', 'sidebar-manager' ), $post_label );
 				$post_option[ $post_name . '|all|archive' ] = $all_archive;
 			}
 
@@ -585,7 +585,7 @@ if ( ! class_exists( 'BSF_SB_Target_Rules_Fields' ) ) {
 			$tax_name  = $taxonomy->name;
 
 			/* translators: %s taxonomy label */
-			$tax_archive = sprintf( __( 'All %s Archive', 'astra-addon' ), $tax_label );
+			$tax_archive = sprintf( __( 'All %s Archive', 'sidebar-manager' ), $tax_label );
 
 			$post_option[ $post_name . '|all|taxarchive|' . $tax_name ] = $tax_archive;
 
@@ -627,7 +627,7 @@ if ( ! class_exists( 'BSF_SB_Target_Rules_Fields' ) ) {
 				$output .= '<span class="target_rule-condition-delete dashicons dashicons-dismiss"></span>';
 				$output .= '<div class="target_rule-condition-wrap" >';
 				$output .= '<select name="' . esc_attr( $input_name ) . '[rule][' . $index . ']" class="target_rule-condition form-control bsf-sb-input">';
-				$output .= '<option value="">' . __( 'Select', 'bsfsidebars' ) . '</option>';
+				$output .= '<option value="">' . __( 'Select', 'sidebar-manager' ) . '</option>';
 
 				foreach ( $selection_options as $group => $group_data ) {
 
@@ -687,7 +687,7 @@ if ( ! class_exists( 'BSF_SB_Target_Rules_Fields' ) ) {
 			if ( 'display' == $type ) {
 				/* Add new rule */
 				$output .= '<div class="target_rule-add-exclusion-rule">';
-				$output .= '<a href="#" class="button">' . __( 'Add Exclusion Rule', 'bsfsidebars' ) . '</a>';
+				$output .= '<a href="#" class="button">' . __( 'Add Exclusion Rule', 'sidebar-manager' ) . '</a>';
 				$output .= '</div>';
 			}
 
@@ -912,7 +912,7 @@ if ( ! class_exists( 'BSF_SB_Target_Rules_Fields' ) ) {
 			$type           = isset( $settings['type'] ) ? $settings['type'] : 'target_rule';
 			$class          = isset( $settings['class'] ) ? $settings['class'] : '';
 			$rule_type      = isset( $settings['rule_type'] ) ? $settings['rule_type'] : 'target_rule';
-			$add_rule_label = isset( $settings['add_rule_label'] ) ? $settings['add_rule_label'] : __( 'Add Rule', 'bsfsidebars' );
+			$add_rule_label = isset( $settings['add_rule_label'] ) ? $settings['add_rule_label'] : __( 'Add Rule', 'sidebar-manager' );
 			$saved_values   = $value;
 			$output         = '';
 
@@ -929,7 +929,7 @@ if ( ! class_exists( 'BSF_SB_Target_Rules_Fields' ) ) {
 					/* Condition Selection */
 					$output .= '<div class="user_role-condition-wrap" >';
 						$output .= '<select name="' . esc_attr( $input_name ) . '[{{data.id}}]" class="user_role-condition form-control bsf-sb-input">';
-						$output .= '<option value="">' . __( 'Select', 'bsfsidebars' ) . '</option>';
+						$output .= '<option value="">' . __( 'Select', 'sidebar-manager' ) . '</option>';
 
 			foreach ( $selection_options as $group => $group_data ) {
 
@@ -961,7 +961,7 @@ if ( ! class_exists( 'BSF_SB_Target_Rules_Fields' ) ) {
 					/* Condition Selection */
 					$output .= '<div class="user_role-condition-wrap" >';
 						$output .= '<select name="' . esc_attr( $input_name ) . '[' . $index . ']" class="user_role-condition form-control bsf-sb-input">';
-						$output .= '<option value="">' . __( 'Select', 'bsfsidebars' ) . '</option>';
+						$output .= '<option value="">' . __( 'Select', 'sidebar-manager' ) . '</option>';
 
 				foreach ( $selection_options as $group => $group_data ) {
 
@@ -1376,7 +1376,7 @@ if ( ! class_exists( 'BSF_SB_Target_Rules_Fields' ) ) {
 						$rule_set_titles = '<strong>' . implode( ',', $already_set_rule ) . '</strong>';
 
 						/* translators: %s post title. */
-						$notice = sprintf( __( 'The same display setting is already exist in %s post/s.', 'bsfsidebars' ), $rule_set_titles );
+						$notice = sprintf( __( 'The same display setting is already exist in %s post/s.', 'sidebar-manager' ), $rule_set_titles );
 
 						echo '<div class="error">';
 						echo '<p>' . $notice . '</p>';
@@ -1436,7 +1436,7 @@ if ( ! class_exists( 'BSF_SB_Target_Rules_Fields' ) ) {
 
 			if ( ! empty( $all_headers ) ) {
 				$headers = array(
-					'' => __( 'Select', 'astra-addon' ),
+					'' => __( 'Select', 'sidebar-manager' ),
 				);
 
 				foreach ( $all_headers as $i => $data ) {
