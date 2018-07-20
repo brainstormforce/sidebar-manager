@@ -40,6 +40,9 @@ if ( ! class_exists( 'BSF_SB_Loader' ) ) {
 			add_action( 'plugins_loaded', array( $this, 'load_textdomain' ) );
 		}
 
+		/**
+		 * Load plugin textdomain.
+		 */
 		public function load_textdomain() {
 			load_plugin_textdomain( 'sidebar-manager' );
 		}
