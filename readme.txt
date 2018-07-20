@@ -3,8 +3,8 @@ Contributors: BrainstormForce
 Donate link: https://www.brainstormforce.com/payment/
 Tags: custom sidebar, sidebar manager, custom widget areas, widgets, conditional sidebar
 Requires at least: 4.0
-Tested up to: 4.8.2
-Stable tag: 1.0.1
+Tested up to: 4.9.7
+Stable tag: 1.0.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -50,6 +50,11 @@ Other plugins we found are heavy with ugly interface, non supported, developed o
 
 
 == Changelog ==
+
+v1.0.2
+* Improvement: Update target rules with support for targeting all posts inside taxonomies and terms.
+* Fix: If a taxonomy is used for multiple post types, it was not displayed in target rules.
+* Fix: Load correct textdomain and allow the plugin to be translated from translate.W.org
 
 v1.0.1
 * White Label support added from the [Astra Pro](https://wpastra.com/pro/) plugin.

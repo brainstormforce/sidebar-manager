@@ -131,7 +131,9 @@ if ( ! class_exists( 'BSF_SB_Sidebar' ) ) {
 								continue;
 							}
 
-							$sidebar_id = BSF_SB_PREFIX . '-' . $data['post_name'];
+							$post_name = isset( $data['post_name'] ) ? $data['post_name'] : '';
+
+							$sidebar_id = BSF_SB_PREFIX . '-' . $post_name;
 
 							if ( isset( $sidebars[ $post_replace_sidebar ] ) && isset( $sidebars[ $sidebar_id ] ) ) {
 

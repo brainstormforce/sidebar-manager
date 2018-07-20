@@ -60,37 +60,37 @@ if ( ! class_exists( 'BSF_SB_Post_Type' ) ) {
 				return;
 			}
 
-			$singular = __( 'Sidebar', 'bsfsidebars' );
-			$plural   = __( 'Sidebars', 'bsfsidebars' );
+			$singular = __( 'Sidebar', 'sidebar-manager' );
+			$plural   = __( 'Sidebars', 'sidebar-manager' );
 			$rewrite  = array(
 				'slug' => BSF_SB_POST_TYPE,
 			);
 			$supports = array( 'title', 'excerpt' );
 
 			$labels = array(
-				'name'               => _x( 'Sidebars', 'post type general name', 'bsfsidebars' ),
-				'singular_name'      => _x( 'Sidebar', 'post type singular name', 'bsfsidebars' ),
-				'menu_name'          => _x( 'Sidebars', 'admin menu', 'bsfsidebars' ),
-				'add_new'            => __( 'Add New', 'bsfsidebars' ),
+				'name'               => _x( 'Sidebars', 'post type general name', 'sidebar-manager' ),
+				'singular_name'      => _x( 'Sidebar', 'post type singular name', 'sidebar-manager' ),
+				'menu_name'          => _x( 'Sidebars', 'admin menu', 'sidebar-manager' ),
+				'add_new'            => __( 'Add New', 'sidebar-manager' ),
 				/* translators: %s singular */
-				'add_new_item'       => sprintf( __( 'Add New %s', 'bsfsidebars' ), $singular ),
+				'add_new_item'       => sprintf( __( 'Add New %s', 'sidebar-manager' ), $singular ),
 				/* translators: %s singular */
-				'edit_item'          => sprintf( __( 'Edit %s', 'bsfsidebars' ), $singular ),
+				'edit_item'          => sprintf( __( 'Edit %s', 'sidebar-manager' ), $singular ),
 				/* translators: %s singular */
-				'new_item'           => sprintf( __( 'New %s', 'bsfsidebars' ), $singular ),
+				'new_item'           => sprintf( __( 'New %s', 'sidebar-manager' ), $singular ),
 				'all_items'          => $plural,
 				/* translators: %s singular */
-				'view_item'          => sprintf( __( 'View %s', 'bsfsidebars' ), $singular ),
+				'view_item'          => sprintf( __( 'View %s', 'sidebar-manager' ), $singular ),
 				/* translators: %s plural */
-				'search_items'       => sprintf( __( 'Search %s', 'bsfsidebars' ), $plural ),
+				'search_items'       => sprintf( __( 'Search %s', 'sidebar-manager' ), $plural ),
 				/* translators: %s plural */
-				'not_found'          => sprintf( __( 'No %s Found', 'bsfsidebars' ), $plural ),
+				'not_found'          => sprintf( __( 'No %s Found', 'sidebar-manager' ), $plural ),
 				/* translators: %s plural */
-				'not_found_in_trash' => sprintf( __( 'No %s Found In Trash', 'bsfsidebars' ), $plural ),
+				'not_found_in_trash' => sprintf( __( 'No %s Found In Trash', 'sidebar-manager' ), $plural ),
 				'parent_item_colon'  => '',
 
 			);
-			$args   = array(
+			$args = array(
 				'labels'             => $labels,
 				'public'             => false,
 				'publicly_queryable' => true,
