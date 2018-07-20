@@ -1,5 +1,5 @@
 # Lightweight Sidebar Manager #
-**Contributors:** BrainstormForce  
+**Contributors:** [BrainstormForce](https://profiles.wordpress.org/BrainstormForce)  
 **Donate link:** https://www.brainstormforce.com/payment/  
 **Tags:** custom sidebar, sidebar manager, custom widget areas, widgets, conditional sidebar  
 **Requires at least:** 4.0  
@@ -44,23 +44,17 @@ Other plugins we found are heavy with ugly interface, non supported, developed o
 
 ## Screenshots ##
 
-### 1. Add a New Sidebar from Appearance -> Sidebars -> Add New. ###
-![Add a New Sidebar from Appearance -> Sidebars -> Add New.](http://ps.w.org/lightweight-sidebar-manager/assets/screenshot-1.png)
-
-### 2. Give sidebar a name, Select a sidebar that is to be replaced and locations where the sidebar should appear. ###
-![Give sidebar a name, Select a sidebar that is to be replaced and locations where the sidebar should appear.](http://ps.w.org/lightweight-sidebar-manager/assets/screenshot-2.png)
-
-### 3. Add Content to the newly created sidebar. ###
-![Add Content to the newly created sidebar.](http://ps.w.org/lightweight-sidebar-manager/assets/screenshot-3.png)
-
+1. Add a New Sidebar from Appearance -> Sidebars -> Add New.
+1. Give sidebar a name, Select a sidebar that is to be replaced and locations where the sidebar should appear.
+1. Add Content to the newly created sidebar.
 
 
 ## Changelog ##
 
 v1.0.2
-* Listed WooCommerce shop page inside special pages section from display rules.
-* Support for targetting all singular from the specific taxonomy.
-* Fixed display issues for category archive display rule when multiple post types attached to the same taxonomy. 
+* Improvement: Update target rules with support for targeting all posts inside taxonomies and terms.
+* Fix: If a taxonomy is used for multiple post types, it was not displayed in target rules.
+* Fix: Load correct textdomain and allow the plugin to be translated from translate.W.org
 
 v1.0.1
 * White Label support added from the [Astra Pro](https://wpastra.com/pro/) plugin.
