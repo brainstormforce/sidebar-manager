@@ -36,6 +36,12 @@ if ( ! class_exists( 'BSF_SB_Loader' ) ) {
 		 */
 		public function __construct() {
 			$this->load_files();
+
+			add_action( 'plugins_loaded', array( $this, 'load_textdomain' ) );
+		}
+
+		public function load_textdomain() {
+			load_plugin_textdomain( 'sidebar-manager' );
 		}
 
 		/**
@@ -45,7 +51,6 @@ if ( ! class_exists( 'BSF_SB_Loader' ) ) {
 		 * @return void
 		 */
 		private function load_files() {
-
 			/* Classes */
 			require_once BSF_SB_DIR . 'classes/modules/target-rule/class-bsf-sb-target-rules-fields.php';
 			require_once BSF_SB_DIR . 'classes/class-bsf-sb-post-type.php';

@@ -54,7 +54,7 @@ if ( ! class_exists( 'BSF_SB_Metabox' ) ) {
 		 */
 		public function change_post_name_palceholder( $title ) {
 			if ( get_post_type() == BSF_SB_POST_TYPE ) {
-				$title = __( 'Enter sidebar title here', 'bsfsidebars' );
+				$title = __( 'Enter sidebar title here', 'sidebar-manager' );
 			}
 			return $title;
 		}
@@ -70,7 +70,7 @@ if ( ! class_exists( 'BSF_SB_Metabox' ) ) {
 			remove_meta_box( 'postexcerpt', BSF_SB_POST_TYPE, 'normal' );
 
 			/* Target Rule */
-			add_meta_box( 'sidebar-settings', __( 'Sidebar Settings', 'bsfsidebars' ), array( $this, 'sidebar_settings' ), BSF_SB_POST_TYPE, 'normal', 'core' );
+			add_meta_box( 'sidebar-settings', __( 'Sidebar Settings', 'sidebar-manager' ), array( $this, 'sidebar_settings' ), BSF_SB_POST_TYPE, 'normal', 'core' );
 		}
 
 		/**
@@ -141,14 +141,14 @@ if ( ! class_exists( 'BSF_SB_Metabox' ) ) {
 				$out             .= '<tbody>';
 					$out         .= '<tr class="bsf-sb-row">';
 						$out     .= '<td class="bsf-sb-row-heading">';
-							$out .= '<label>' . esc_html__( 'Sidebar To Replace', 'bsfsidebars' ) . '</label>';
-							$out .= '<i class="bsf-sb-help dashicons dashicons-editor-help" title="' . esc_attr__( 'Choose which sidebar you want to replace. Select None to disable this sidebar.', 'bsfsidebars' ) . '"></i>';
+							$out .= '<label>' . esc_html__( 'Sidebar To Replace', 'sidebar-manager' ) . '</label>';
+							$out .= '<i class="bsf-sb-help dashicons dashicons-editor-help" title="' . esc_attr__( 'Choose which sidebar you want to replace. Select None to disable this sidebar.', 'sidebar-manager' ) . '"></i>';
 						$out     .= '</td>';
 						$out     .= '<td class="bsf-sb-row-content">';
 
 			if ( ! empty( $sidebars ) ) {
 				$out .= '<select name="replace_this_sidebar" class="widefat">';
-				$out .= '<option value=""' . selected( $replace_sidebar, '', false ) . '>' . __( 'None', 'bsfsidebars' ) . '</option>';
+				$out .= '<option value=""' . selected( $replace_sidebar, '', false ) . '>' . __( 'None', 'sidebar-manager' ) . '</option>';
 
 				foreach ( $sidebars as $slug => $name ) {
 					if ( strrpos( $slug, BSF_SB_PREFIX ) !== false ) {
@@ -158,7 +158,7 @@ if ( ! class_exists( 'BSF_SB_Metabox' ) ) {
 				}
 				$out .= '</select>';
 			} else {
-				$out .= '<p>' . __( 'Sidebars are not available.', 'bsfsidebars' ) . '</p>';
+				$out .= '<p>' . __( 'Sidebars are not available.', 'sidebar-manager' ) . '</p>';
 			}
 
 						$out .= '</td>';
@@ -166,8 +166,8 @@ if ( ! class_exists( 'BSF_SB_Metabox' ) ) {
 
 					$out         .= '<tr class="bsf-sb-row">';
 						$out     .= '<td class="bsf-sb-row-heading">';
-							$out .= '<label>' . esc_html__( 'Description', 'bsfsidebars' ) . '</label>';
-							$out .= '<i class="bsf-sb-help dashicons dashicons-editor-help" title="' . esc_attr__( 'Add an optional description fot the Widgets screen.', 'bsfsidebars' ) . '"></i>';
+							$out .= '<label>' . esc_html__( 'Description', 'sidebar-manager' ) . '</label>';
+							$out .= '<i class="bsf-sb-help dashicons dashicons-editor-help" title="' . esc_attr__( 'Add an optional description fot the Widgets screen.', 'sidebar-manager' ) . '"></i>';
 						$out     .= '</td>';
 						$out     .= '<td class="bsf-sb-row-content">';
 							$out .= '<input type="text" rows="1" name="excerpt" value="' . $post->post_excerpt . '">';
@@ -177,8 +177,8 @@ if ( ! class_exists( 'BSF_SB_Metabox' ) ) {
 
 					$out         .= '<tr class="bsf-sb-row">';
 						$out     .= '<td class="bsf-sb-row-heading">';
-							$out .= '<label>' . esc_html__( 'Display On', 'bsfsidebars' ) . '</label>';
-							$out .= '<i class="bsf-sb-help dashicons dashicons-editor-help" title="' . esc_attr__( 'Add locations for where this sidebar should appear.', 'bsfsidebars' ) . '"></i>';
+							$out .= '<label>' . esc_html__( 'Display On', 'sidebar-manager' ) . '</label>';
+							$out .= '<i class="bsf-sb-help dashicons dashicons-editor-help" title="' . esc_attr__( 'Add locations for where this sidebar should appear.', 'sidebar-manager' ) . '"></i>';
 						$out     .= '</td>';
 						$out     .= '<td class="bsf-sb-row-content">';
 
@@ -186,11 +186,11 @@ if ( ! class_exists( 'BSF_SB_Metabox' ) ) {
 							BSF_SB_Target_Rules_Fields::target_rule_settings_field(
 								'bsf-sb-location',
 								array(
-									'title'          => __( 'Display Rules', 'bsfsidebars' ),
+									'title'          => __( 'Display Rules', 'sidebar-manager' ),
 									'value'          => '[{"type":"basic-global","specific":null}]',
 									'tags'           => 'site,enable,target,pages',
 									'rule_type'      => 'display',
-									'add_rule_label' => __( 'Add Display Rule', 'bsfsidebars' ),
+									'add_rule_label' => __( 'Add Display Rule', 'sidebar-manager' ),
 								),
 								$include_locations
 							);
@@ -200,18 +200,18 @@ if ( ! class_exists( 'BSF_SB_Metabox' ) ) {
 
 					$out         .= '<tr class="bsf-sb-row bsf-sb-hidden">';
 						$out     .= '<td class="bsf-sb-row-heading">';
-							$out .= '<label>' . esc_html__( 'Do Not Display On', 'bsfsidebars' ) . '</label>';
-							$out .= '<i class="bsf-sb-help dashicons dashicons-editor-help" title="' . esc_attr__( 'This Sidebar will not appear at these locations.', 'bsfsidebars' ) . '"></i>';
+							$out .= '<label>' . esc_html__( 'Do Not Display On', 'sidebar-manager' ) . '</label>';
+							$out .= '<i class="bsf-sb-help dashicons dashicons-editor-help" title="' . esc_attr__( 'This Sidebar will not appear at these locations.', 'sidebar-manager' ) . '"></i>';
 						$out     .= '</td>';
 						$out     .= '<td class="bsf-sb-row-content">';
 							ob_start();
 							BSF_SB_Target_Rules_Fields::target_rule_settings_field(
 								'bsf-sb-exclusion',
 								array(
-									'title'          => __( 'Exclude On', 'bsfsidebars' ),
+									'title'          => __( 'Exclude On', 'sidebar-manager' ),
 									'value'          => '[]',
 									'tags'           => 'site,enable,target,pages',
-									'add_rule_label' => __( 'Add Excludion Rule', 'bsfsidebars' ),
+									'add_rule_label' => __( 'Add Excludion Rule', 'sidebar-manager' ),
 									'rule_type'      => 'exclude',
 								),
 								$exclude_locations
@@ -222,18 +222,18 @@ if ( ! class_exists( 'BSF_SB_Metabox' ) ) {
 
 					$out         .= '<tr class="bsf-sb-row">';
 						$out     .= '<td class="bsf-sb-row-heading">';
-							$out .= '<label>' . esc_html__( 'User Roles', 'bsfsidebars' ) . '</label>';
-							$out .= '<i class="bsf-sb-help dashicons dashicons-editor-help" title="' . esc_attr__( 'Target header based on user role.', 'bsfsidebars' ) . '"></i>';
+							$out .= '<label>' . esc_html__( 'User Roles', 'sidebar-manager' ) . '</label>';
+							$out .= '<i class="bsf-sb-help dashicons dashicons-editor-help" title="' . esc_attr__( 'Target header based on user role.', 'sidebar-manager' ) . '"></i>';
 						$out     .= '</td>';
 						$out     .= '<td class="bsf-sb-row-content">';
 							ob_start();
 							BSF_SB_Target_Rules_Fields::target_user_role_settings_field(
 								'bsf-sb-users',
 								array(
-									'title'          => __( 'Users', 'bsfsidebars' ),
+									'title'          => __( 'Users', 'sidebar-manager' ),
 									'value'          => '[]',
 									'tags'           => 'site,enable,target,pages',
-									'add_rule_label' => __( 'Add User Rule', 'bsfsidebars' ),
+									'add_rule_label' => __( 'Add User Rule', 'sidebar-manager' ),
 								),
 								$users
 							);
