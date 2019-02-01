@@ -1,6 +1,6 @@
 === Lightweight Sidebar Manager ===
 Contributors: BrainstormForce
-Donate link: https://www.brainstormforce.com/payment/
+Donate link: https://www.paypal.me/BrainstormForce
 Tags: custom sidebar, sidebar manager, custom widget areas, widgets, conditional sidebar
 Requires at least: 4.0
 Tested up to: 4.9.7
