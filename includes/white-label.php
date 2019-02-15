@@ -6,6 +6,12 @@
  */
 
 ?>
+<?php
+// Bail from displaying settings screen if Astra Pro is older version.
+if ( ! is_callable( 'Astra_Ext_White_Label_Markup::get_whitelabel_strings', true ) ) {
+	return;
+}
+?>
 <li>
 	<div class="branding-form postbox">
 		<button type="button" class="handlediv button-link" aria-expanded="true">
@@ -19,12 +25,12 @@
 			<div class="form-wrap">
 				<div class="form-field">
 					<label><?php _e( 'Plugin Name:', 'sidebar-manager' ); ?>
-						<input type="text" name="ast_white_label[bsf-lw-sb][name]" class="placeholder placeholder-active" value="<?php echo esc_attr( $settings['bsf-lw-sb']['name'] ); ?>">
+						<input type="text" name="ast_white_label[bsf-lw-sb][name]" class="placeholder placeholder-active" <?php disabled( defined( Astra_Ext_White_Label_Markup::branding_key_to_constant( 'bsf-lw-sb', 'name' ) ), true, true ); ?> value="<?php echo esc_attr( Astra_Ext_White_Label_Markup::get_whitelabel_string( 'bsf-lw-sb', 'name' ) ); ?>">
 					</label>
 				</div>
 				<div class="form-field">
 					<label><?php _e( 'Plugin Description:', 'sidebar-manager' ); ?>
-						<textarea name="ast_white_label[bsf-lw-sb][description]" class="placeholder placeholder-active" rows="2"><?php echo esc_attr( $settings['bsf-lw-sb']['description'] ); ?></textarea>
+						<textarea name="ast_white_label[bsf-lw-sb][description]" class="placeholder placeholder-active" <?php disabled( defined( Astra_Ext_White_Label_Markup::branding_key_to_constant( 'bsf-lw-sb', 'description' ) ), true, true ); ?> rows="2"><?php echo esc_attr( Astra_Ext_White_Label_Markup::get_whitelabel_string( 'bsf-lw-sb', 'description' ) ); ?></textarea>
 					</label>
 				</div>
 				<div class="clear"></div>
