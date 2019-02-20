@@ -8,14 +8,14 @@
 ?>
 <?php
 // Bail from displaying settings screen if Astra Pro is older version.
-if ( ! is_callable( 'Astra_Ext_White_Label_Markup::get_whitelabel_strings' ) ) {
+if ( ! is_callable( 'Astra_Ext_White_Label_Markup::branding_key_to_constant' ) ) {
 	return;
 }
 ?>
 <li>
 	<div class="branding-form postbox">
 		<button type="button" class="handlediv button-link" aria-expanded="true">
-			<span class="screen-reader-text"><?php _e( 'Astra SideBar Branding', 'sidebar-manager' ); ?></span>
+			<span class="screen-reader-text"><?php _e( 'Sidebar Manager', 'sidebar-manager' ); ?></span>
 			<span class="toggle-indicator" aria-hidden="true"></span>
 		</button>
 		<h2 class="hndle ui-sortable-handle">
