@@ -46,6 +46,7 @@ if ( ! class_exists( 'BSF_SB_Post_Type' ) ) {
 		 */
 		private function load_actions() {
 			add_action( 'init', array( $this, 'register_post_type' ), 25 );
+			add_action( 'admin_enqueue_scripts', array( $this, 'register_scripts' ) );
 		}
 
 		/**
@@ -60,8 +61,8 @@ if ( ! class_exists( 'BSF_SB_Post_Type' ) ) {
 				return;
 			}
 
-			$singular = __( 'Sidebar', 'sidebar-manager' );
-			$plural   = __( 'Sidebars', 'sidebar-manager' );
+			$singular = apply_filters( 'bsf_custom_fonts_menu_title', __( 'Sidebar', 'sidebar-manager' ) );
+			$plural   = apply_filters( 'bsf_custom_fonts_menu_title', __( 'Sidebars', 'sidebar-manager' ) );
 			$rewrite  = array(
 				'slug' => BSF_SB_POST_TYPE,
 			);
@@ -107,6 +108,28 @@ if ( ! class_exists( 'BSF_SB_Post_Type' ) ) {
 				'supports'           => $supports,
 			);
 			register_post_type( BSF_SB_POST_TYPE, $args );
+		}
+
+		/**
+		 * Register admin scripts.
+		 *
+		 * @param String $hook Screen name where the hook is fired.
+		 * @return void
+		 */
+		public function register_scripts( ) {
+			
+			/* Add CSS for the Submenu for BSF plugins added in Appearance Menu */
+
+			if ( ! is_customize_preview() ) {
+				// die();
+				echo '<style class="astra-menu-appearance-style">
+					#menu-appearance a[href^="edit.php?post_type=bsf-sidebar"]:before {
+					    content: "\21B3";
+					    margin-right: 0.5em;
+					    opacity: 0.5;
+					}
+				</style>';
+			}
 		}
 	}
 }
