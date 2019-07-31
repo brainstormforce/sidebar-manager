@@ -76,8 +76,8 @@ if ( ! class_exists( 'BSF_SB_Post_Type' ) ) {
 				return;
 			}
 
-			$singular = apply_filters( 'bsf_custom_fonts_menu_title', __( 'Sidebar', 'sidebar-manager' ) );
-			$plural   = apply_filters( 'bsf_custom_fonts_menu_title', __( 'Sidebars', 'sidebar-manager' ) );
+			$singular = __( 'Sidebar', 'sidebar-manager' );
+			$plural   = __( 'Sidebars', 'sidebar-manager' );
 			$rewrite  = array(
 				'slug' => BSF_SB_POST_TYPE,
 			);
