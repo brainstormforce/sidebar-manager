@@ -124,7 +124,7 @@ if ( ! class_exists( 'BSF_SB_Post_Type' ) ) {
 			);
 			register_post_type( BSF_SB_POST_TYPE, $args );
 		}
-		
+
 		/**
 		 * Register custom font menu
 		 *
@@ -138,7 +138,7 @@ if ( ! class_exists( 'BSF_SB_Post_Type' ) ) {
 				$title,
 				$title,
 				'edit_pages',
-				'edit.php?post_type='. BSF_SB_POST_TYPE
+				'edit.php?post_type=' . BSF_SB_POST_TYPE
 			);
 		}
 	}
