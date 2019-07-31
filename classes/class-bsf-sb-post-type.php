@@ -49,22 +49,6 @@ if ( ! class_exists( 'BSF_SB_Post_Type' ) ) {
 			add_action( 'admin_menu', array( $this, 'register_sidebar_manager_menu' ), 101 );
 		}
 
-		/**
-		 * Register custom font menu
-		 *
-		 * @since 1.0.0
-		 */
-		public function register_sidebar_manager_menu() {
-
-			$title = apply_filters( 'bsf_sidebar_manager_menu_title', __( 'Sidebars', 'sidebar-manager' ) );
-			add_submenu_page(
-				'themes.php',
-				$title,
-				$title,
-				'manage_options',
-				'edit.php?post_type=bsf-sidebar'
-			);
-		}
 
 		/**
 		 * Register post-type for sidebars.
@@ -115,7 +99,7 @@ if ( ! class_exists( 'BSF_SB_Post_Type' ) ) {
 				'show_ui'            => true,
 				'show_in_nav_menus'  => false,
 				'show_in_admin_bar'  => false,
-				'show_in_menu'       => '',
+				'show_in_menu'       => false,
 				'query_var'          => true,
 				'rewrite'            => $rewrite,
 				'capability_type'    => 'post',
@@ -125,6 +109,23 @@ if ( ! class_exists( 'BSF_SB_Post_Type' ) ) {
 				'supports'           => $supports,
 			);
 			register_post_type( BSF_SB_POST_TYPE, $args );
+		}
+		
+		/**
+		 * Register custom font menu
+		 *
+		 * @since 1.0.0
+		 */
+		public function register_sidebar_manager_menu() {
+
+			$title = apply_filters( 'bsf_sidebar_manager_menu_title', __( 'Sidebars', 'sidebar-manager' ) );
+			add_submenu_page(
+				'themes.php',
+				$title,
+				$title,
+				'edit_pages',
+				'edit.php?post_type='. BSF_SB_POST_TYPE
+			);
 		}
 	}
 }
