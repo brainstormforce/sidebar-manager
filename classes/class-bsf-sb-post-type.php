@@ -47,8 +47,22 @@ if ( ! class_exists( 'BSF_SB_Post_Type' ) ) {
 		private function load_actions() {
 			add_action( 'init', array( $this, 'register_post_type' ), 25 );
 			add_action( 'admin_menu', array( $this, 'register_sidebar_manager_menu' ), 101 );
+			add_action( 'admin_head', array( $this, 'menu_highlight' ) );
 		}
 
+		/**
+		 * Highlight themes.php and sidebars menu when editing sidebars.
+		 *
+		 * @since x.x.x
+		 * @return void
+		 */
+		public function menu_highlight() {
+			global $parent_file, $submenu_file, $post_type;
+			if ( BSF_SB_POST_TYPE == $post_type ) {
+				$parent_file  = 'themes.php';
+				$submenu_file = 'edit.php?post_type=' . BSF_SB_POST_TYPE;
+			}
+		}
 
 		/**
 		 * Register post-type for sidebars.
