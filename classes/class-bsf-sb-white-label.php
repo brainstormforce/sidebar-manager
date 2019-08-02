@@ -71,7 +71,7 @@ if ( ! class_exists( 'Bsf_Sb_White_Label' ) ) :
 		 */
 		function plugins_page( $plugins ) {
 
-			if ( ! is_callable( 'Astra_Ext_White_Label_Markup::get_white_label' ) ) {
+			if ( ! is_callable( 'Astra_Ext_White_Label_Markup::get_whitelabel_string' ) ) {
 				return $plugins;
 			}
 
@@ -80,10 +80,10 @@ if ( ! class_exists( 'Bsf_Sb_White_Label' ) ) :
 			}
 
 			// Set White Labels.
-			$name        = Astra_Ext_White_Label_Markup::get_white_label( 'bsf-lw-sb', 'name' );
-			$description = Astra_Ext_White_Label_Markup::get_white_label( 'bsf-lw-sb', 'description' );
-			$author      = Astra_Ext_White_Label_Markup::get_white_label( 'astra-agency', 'author' );
-			$author_uri  = Astra_Ext_White_Label_Markup::get_white_label( 'astra-agency', 'author_url' );
+			$name        = Astra_Ext_White_Label_Markup::get_whitelabel_string( 'bsf-lw-sb', 'name' );
+			$description = Astra_Ext_White_Label_Markup::get_whitelabel_string( 'bsf-lw-sb', 'description' );
+			$author      = Astra_Ext_White_Label_Markup::get_whitelabel_string( 'astra-agency', 'author' );
+			$author_uri  = Astra_Ext_White_Label_Markup::get_whitelabel_string( 'astra-agency', 'author_url' );
 
 			if ( ! empty( $name ) ) {
 				$plugins[ BSF_SB_BASE ]['Name'] = $name;
@@ -119,11 +119,11 @@ if ( ! class_exists( 'Bsf_Sb_White_Label' ) ) :
 		 */
 		public function plugin_links( $plugin_meta, $plugin_file, $plugin_data ) {
 
-			if ( is_callable( 'Astra_Ext_White_Label_Markup::get_white_label' ) ) {
+			if ( is_callable( 'Astra_Ext_White_Label_Markup::get_whitelabel_string' ) ) {
 				if ( BSF_SB_BASE == $plugin_file ) {
 					// Set White Labels.
-					$name        = Astra_Ext_White_Label_Markup::get_white_label( 'bsf-lw-sb', 'name' );
-					$description = Astra_Ext_White_Label_Markup::get_white_label( 'bsf-lw-sb', 'description' );
+					$name        = Astra_Ext_White_Label_Markup::get_whitelabel_string( 'bsf-lw-sb', 'name' );
+					$description = Astra_Ext_White_Label_Markup::get_whitelabel_string( 'bsf-lw-sb', 'description' );
 
 					if ( ! empty( $name ) ) {
 						// Remove Plugin URI if Agency White Label name is set.

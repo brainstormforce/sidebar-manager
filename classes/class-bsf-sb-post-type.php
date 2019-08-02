@@ -46,6 +46,8 @@ if ( ! class_exists( 'BSF_SB_Post_Type' ) ) {
 		 */
 		private function load_actions() {
 			add_action( 'init', array( $this, 'register_post_type' ), 25 );
+			add_action( 'admin_menu', array( $this, 'register_sidebar_manager_menu' ), 101 );
+			add_action( 'admin_head', array( $this, 'menu_highlight' ) );
 
 			if ( is_admin() ) {
 				add_action( 'manage_bsf-sidebar_posts_custom_column', array( $this, 'column_content' ), 10, 2 );
@@ -142,6 +144,21 @@ if ( ! class_exists( 'BSF_SB_Post_Type' ) ) {
 			}
 
 			echo join( ', ', $location_label );
+
+		}
+
+		/**
+		 * Highlight themes.php and sidebars menu when editing sidebars.
+		 *
+		 * @since x.x.x
+		 * @return void
+		 */
+		public function menu_highlight() {
+			global $parent_file, $submenu_file, $post_type;
+			if ( BSF_SB_POST_TYPE == $post_type ) {
+				$parent_file  = 'themes.php';
+				$submenu_file = 'edit.php?post_type=' . BSF_SB_POST_TYPE;
+			}
 		}
 
 		/**
@@ -193,7 +210,7 @@ if ( ! class_exists( 'BSF_SB_Post_Type' ) ) {
 				'show_ui'            => true,
 				'show_in_nav_menus'  => false,
 				'show_in_admin_bar'  => false,
-				'show_in_menu'       => 'themes.php',
+				'show_in_menu'       => false,
 				'query_var'          => true,
 				'rewrite'            => $rewrite,
 				'capability_type'    => 'post',
@@ -203,6 +220,23 @@ if ( ! class_exists( 'BSF_SB_Post_Type' ) ) {
 				'supports'           => $supports,
 			);
 			register_post_type( BSF_SB_POST_TYPE, $args );
+		}
+
+		/**
+		 * Register custom font menu
+		 *
+		 * @since 1.0.0
+		 */
+		public function register_sidebar_manager_menu() {
+
+			$title = apply_filters( 'bsf_sidebar_manager_menu_title', __( 'Sidebars', 'sidebar-manager' ) );
+			add_submenu_page(
+				'themes.php',
+				$title,
+				$title,
+				'edit_pages',
+				'edit.php?post_type=' . BSF_SB_POST_TYPE
+			);
 		}
 	}
 }
