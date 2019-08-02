@@ -3,8 +3,8 @@
 **Donate link:** https://www.paypal.me/BrainstormForce 
 **Tags:** custom sidebar, sidebar manager, custom widget areas, widgets, conditional sidebar  
 **Requires at least:** 4.0  
-**Tested up to:** 5.1  
-**Stable tag:** 1.0.2  
+**Tested up to:** 5.2  
+**Stable tag:** 1.1.0  
 **License:** GPLv2 or later  
 **License URI:** https://www.gnu.org/licenses/gpl-2.0.html  
 
@@ -50,6 +50,10 @@ Other plugins we found are heavy with ugly interface, non supported, developed o
 
 
 ## Changelog ##
+
+v1.1.0
+* New: Target rules appearing in Display Rules column for sidebars.
+* Improvement: White Label can be set from wp-config.php file.
 
 v1.0.2
 * Improvement: Update target rules with support for targeting all posts inside taxonomies and terms.

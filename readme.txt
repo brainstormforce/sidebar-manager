@@ -51,6 +51,10 @@ Other plugins we found are heavy with ugly interface, non supported, developed o
 
 == Changelog ==
 
+v1.1.0
+* New: Target rules appearing in Display Rules column for sidebars.
+* Improvement: White Label can be set from wp-config.php file.
+
 v1.0.2
 * Improvement: Update target rules with support for targeting all posts inside taxonomies and terms.
 * Fix: If a taxonomy is used for multiple post types, it was not displayed in target rules.
