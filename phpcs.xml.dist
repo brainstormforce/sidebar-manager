@@ -5,6 +5,8 @@
 	 	<exclude name="WordPress.PHP.StrictComparisons.LooseComparison" />
 		<exclude name="WordPress.PHP.StrictInArray.MissingTrueStrict" />
 	</rule>
+	<config name="testVersion" value="5.3-"/>
+
 	<rule ref="WordPress-Core" />
 	<rule ref="WordPress-Docs" />
 
@@ -15,7 +17,9 @@
 	<!-- Show sniff codes in all reports -->
 	<arg value="s"/>
 
+	<exclude-pattern>inc/addons/breadcrumbs/class-astra-breadcrumb-trail.php</exclude-pattern>
 	<exclude-pattern>*/node_modules/*</exclude-pattern>
 	<exclude-pattern>*/vendor/*</exclude-pattern>
-	<exclude-pattern>*/class-bsf-sb-target-rules-fields.php</exclude-pattern>
+	<!-- Exclude Libraries -->
+	<exclude-pattern>*/inc/theme-update/batch-processing/*</exclude-pattern>
 </ruleset>

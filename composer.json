@@ -1,0 +1,22 @@
+{
+    "require-dev": {
+        "dealerdirect/phpcodesniffer-composer-installer": "^0.4.4",
+        "wp-coding-standards/wpcs": "dev-master",
+        "phpcompatibility/phpcompatibility-wp": "*",
+        "brainmaestro/composer-git-hooks": "^2.6"
+    },
+    "scripts": {
+        "format": "phpcbf --standard=phpcs.xml.dist --report-summary --report-source",
+        "lint": "phpcs --standard=phpcs.xml.dist --report-summary --report-source",
+        "post-install-cmd": "vendor/bin/cghooks add --ignore-lock",
+        "post-update-cmd": "vendor/bin/cghooks update"
+    },
+    "extra": {
+        "hooks": {
+            "pre-commit": [
+                "echo committing as $(git config user.name)",
+                "sh bin/block-commits-with-merge-conflict.sh"
+            ]
+        }
+    }
+}
