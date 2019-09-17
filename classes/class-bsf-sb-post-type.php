@@ -150,7 +150,7 @@ if ( ! class_exists( 'BSF_SB_Post_Type' ) ) {
 		/**
 		 * Highlight themes.php and sidebars menu when editing sidebars.
 		 *
-		 * @since x.x.x
+		 * @since 1.1.1
 		 * @return void
 		 */
 		public function menu_highlight() {

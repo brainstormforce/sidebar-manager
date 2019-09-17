@@ -1,11 +1,13 @@
 {
   "name": "sidebar-manager",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "main": "Gruntfile.js",
   "author": "Brainstorm Force",
   "devDependencies": {
     "grunt": "~1.0.4",
     "grunt-wp-i18n": "~1.0.3",
-    "grunt-wp-readme-to-markdown": "~2.0.1"
+    "grunt-wp-readme-to-markdown": "~2.0.1",
+    "grunt-bumpup": "^0.6.3",
+    "grunt-text-replace": "^0.4.0"
   }
 }
