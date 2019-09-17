@@ -106,7 +106,7 @@ if ( ! class_exists( 'BSF_SB_Post_Type' ) ) {
 						$user_label = array();
 
 						foreach ( $users as $user ) {
-							$user_label[] = Astra_Target_Rules_Fields::get_user_by_key( $user );
+							$user_label[] = BSF_SB_Target_Rules_Fields::get_user_by_key( $user );
 						}
 
 						echo '<div class="ast-advanced-headers-users-wrap">';
@@ -134,12 +134,12 @@ if ( ! class_exists( 'BSF_SB_Post_Type' ) ) {
 
 			if ( isset( $locations['rule'] ) && is_array( $locations['rule'] ) ) {
 				foreach ( $locations['rule'] as $location ) {
-					$location_label[] = Astra_Target_Rules_Fields::get_location_by_key( $location );
+					$location_label[] = BSF_SB_Target_Rules_Fields::get_location_by_key( $location );
 				}
 			}
 			if ( isset( $locations['specific'] ) && is_array( $locations['specific'] ) ) {
 				foreach ( $locations['specific'] as $location ) {
-					$location_label[] = Astra_Target_Rules_Fields::get_location_by_key( $location );
+					$location_label[] = BSF_SB_Target_Rules_Fields::get_location_by_key( $location );
 				}
 			}
 
