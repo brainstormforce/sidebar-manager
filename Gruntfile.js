@@ -90,7 +90,67 @@ module.exports = function( grunt ) {
 					}
 				]
 			}
-		}
+		},
+
+		copy: {
+			main: {
+				options: {
+					mode: true
+				},
+				src: [
+					'**',
+					'!node_modules/**',
+					'!build/**',
+					'!css/sourcemap/**',
+					'!.git/**',
+					'!bin/**',
+					'!.gitlab-ci.yml',
+					'!.travis.yml',
+					'!.GitHub/**',
+					'!.wordpress-org/**',
+					'!tests/**',
+					'!phpunit.xml.dist',
+					'!*.sh',
+					'!*.map',
+					'!Gruntfile.js',
+					'!package.json',
+					'!.gitignore',
+					'!phpunit.xml',
+					'!README.md',
+					'!sass/**',
+					'!codesniffer.ruleset.xml',
+					'!vendor/**',
+					'!composer.json',
+					'!composer.lock',
+					'!package-lock.json',
+					'!phpcs.xml.dist',
+				],
+				dest: 'sidebar-manager/'
+			}
+		},
+
+		compress: {
+			main: {
+				options: {
+					archive: 'sidebar-manager-' + pkgInfo.version + '.zip',
+					mode: 'zip'
+				},
+				files: [
+					{
+						src: [
+							'./sidebar-manager/**'
+						]
+
+					}
+				]
+			}
+		},
+
+		clean: {
+			main: ["sidebar-manager"],
+			zip: ["*.zip"]
+
+		},
 
 	} );
 
@@ -98,6 +158,9 @@ module.exports = function( grunt ) {
 	grunt.loadNpmTasks( 'grunt-wp-readme-to-markdown' );
 	grunt.loadNpmTasks('grunt-bumpup');
 	grunt.loadNpmTasks('grunt-text-replace');
+	grunt.loadNpmTasks('grunt-contrib-copy');
+	grunt.loadNpmTasks('grunt-contrib-compress');
+	grunt.loadNpmTasks('grunt-contrib-clean');
 	
 	grunt.registerTask( 'i18n', ['addtextdomain', 'makepot'] );
 	grunt.registerTask( 'readme', ['wp_readme_to_markdown'] );
@@ -114,6 +177,9 @@ module.exports = function( grunt ) {
             grunt.task.run('replace');
         }
     });
+
+	// Grunt release - Create installable package of the local files
+	grunt.registerTask('release', ['clean:zip', 'copy:main', 'compress:main', 'clean:main']);
 
 	grunt.util.linefeed = '\n';
 
