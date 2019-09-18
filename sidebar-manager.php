@@ -3,7 +3,7 @@
  * Plugin Name:     Sidebar Manager
  * Plugin URI:      http://www.brainstormforce.com
  * Description:     This is the plugin to create custom siderbars to your site.
- * Version: 		1.1.1
+ * Version:         1.1.1
  * Author:          Brainstorm Force
  * Author URI:      https://www.brainstormforce.com/
  * Text Domain:     bsfsidebars
