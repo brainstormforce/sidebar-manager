@@ -2,6 +2,9 @@ module.exports = function( grunt ) {
 
 	'use strict';
 	var banner = '/**\n * <%= pkg.homepage %>\n * Copyright (c) <%= grunt.template.today("yyyy") %>\n * This file is generated automatically. Do not edit.\n */\n';
+
+	var pkgInfo = grunt.file.readJSON('package.json');
+
 	// Project configuration
 	grunt.initConfig( {
 
@@ -149,7 +152,6 @@ module.exports = function( grunt ) {
 		clean: {
 			main: ["sidebar-manager"],
 			zip: ["*.zip"]
-
 		},
 
 	} );
