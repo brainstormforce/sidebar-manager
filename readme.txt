@@ -52,20 +52,20 @@ Other plugins we found are heavy with ugly interface, non supported, developed o
 == Changelog ==
 
 v1.1.1
-* Fix: Fixes a fatal error on Sidebar list page. 
+- Fix: Fixes a fatal error on Sidebar list page. 
 
 v1.1.0
-* New: Target rules appearing in Display Rules column for sidebars.
-* Improvement: White Label can be set from wp-config.php file.
+- New: Target rules appearing in Display Rules column for sidebars.
+- Improvement: White Label can be set from wp-config.php file.
 
 v1.0.2
-* Improvement: Update target rules with support for targeting all posts inside taxonomies and terms.
-* Fix: If a taxonomy is used for multiple post types, it was not displayed in target rules.
-* Fix: Load correct textdomain and allow the plugin to be translated from translate.W.org
+- Improvement: Update target rules with support for targeting all posts inside taxonomies and terms.
+- Fix: If a taxonomy is used for multiple post types, it was not displayed in target rules.
+- Fix: Load correct textdomain and allow the plugin to be translated from translate.W.org
 
 v1.0.1
-* White Label support added from the [Astra Pro](https://wpastra.com/pro/) plugin.
-* Optimized target rules query to be even more lightweight.
+- White Label support added from the [Astra Pro](https://wpastra.com/pro/) plugin.
+- Optimized target rules query to be even more lightweight.
 
 v1.0.0
-* Initial release
+- Initial release
