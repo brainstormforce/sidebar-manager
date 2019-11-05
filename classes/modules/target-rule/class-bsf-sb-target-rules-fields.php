@@ -100,7 +100,7 @@ if ( ! class_exists( 'BSF_SB_Target_Rules_Fields' ) ) {
 		 * @return void
 		 */
 		public function initialize_options() {
-			self::$user_selection = self::get_user_selections();
+			self::$user_selection     = self::get_user_selections();
 			self::$location_selection = self::get_location_selections();
 		}
 
@@ -135,7 +135,7 @@ if ( ! class_exists( 'BSF_SB_Target_Rules_Fields' ) ) {
 			unset( $post_types['attachment'] );
 
 			$args['_builtin'] = false;
-			$custom_post_type  = get_post_types( $args, 'objects' );
+			$custom_post_type = get_post_types( $args, 'objects' );
 
 			$post_types = apply_filters( 'astra_location_rule_post_types', array_merge( $post_types, $custom_post_type ) );
 
@@ -153,7 +153,7 @@ if ( ! class_exists( 'BSF_SB_Target_Rules_Fields' ) ) {
 			}
 
 			$selection_options = array(
-				'basic' => array(
+				'basic'         => array(
 					'label' => __( 'Basic', 'sidebar-manager' ),
 					'value' => array(
 						'basic-global'    => __( 'Entire Website', 'sidebar-manager' ),
@@ -230,12 +230,12 @@ if ( ! class_exists( 'BSF_SB_Target_Rules_Fields' ) ) {
 		 */
 		public static function get_user_selections() {
 			$selection_options = array(
-				'basic' => array(
+				'basic'    => array(
 					'label' => __( 'Basic', 'sidebar-manager' ),
 					'value' => array(
-						'all'           => __( 'All', 'sidebar-manager' ),
-						'logged-in'     => __( 'Logged In', 'sidebar-manager' ),
-						'logged-out'    => __( 'Logged Out', 'sidebar-manager' ),
+						'all'        => __( 'All', 'sidebar-manager' ),
+						'logged-in'  => __( 'Logged In', 'sidebar-manager' ),
+						'logged-out' => __( 'Logged Out', 'sidebar-manager' ),
 					),
 				),
 
@@ -274,14 +274,14 @@ if ( ! class_exists( 'BSF_SB_Target_Rules_Fields' ) ) {
 			}
 
 			if ( strpos( $key, 'post-' ) !== false ) {
-				$post_id    = (int) str_replace( 'post-', '', $key );
+				$post_id = (int) str_replace( 'post-', '', $key );
 				return get_the_title( $post_id );
 			}
 
 			// taxonomy options.
 			if ( strpos( $key, 'tax-' ) !== false ) {
-				$tax_id        = (int) str_replace( 'tax-', '', $key );
-				$term          = get_term( $tax_id );
+				$tax_id = (int) str_replace( 'tax-', '', $key );
+				$term   = get_term( $tax_id );
 
 				if ( ! is_wp_error( $term ) ) {
 					$term_taxonomy = ucfirst( str_replace( '_', ' ', $term->taxonomy ) );
@@ -355,7 +355,7 @@ if ( ! class_exists( 'BSF_SB_Target_Rules_Fields' ) ) {
 				if ( $query->have_posts() ) {
 					while ( $query->have_posts() ) {
 						$query->the_post();
-						$title = get_the_title();
+						$title  = get_the_title();
 						$title .= ( 0 != $query->post->post_parent ) ? ' (' . get_the_title( $query->post->post_parent ) . ')' : '';
 						$id     = get_the_id();
 						$data[] = array(
@@ -387,7 +387,8 @@ if ( ! class_exists( 'BSF_SB_Target_Rules_Fields' ) ) {
 
 			foreach ( $taxonomies as $taxonomy ) {
 				$terms = get_terms(
-					$taxonomy->name, array(
+					$taxonomy->name,
+					array(
 						'orderby'    => 'count',
 						'hide_empty' => 0,
 						'name__like' => $search_string,
@@ -473,16 +474,24 @@ if ( ! class_exists( 'BSF_SB_Target_Rules_Fields' ) ) {
 
 				wp_enqueue_script( 'bsf-sb-select2', BSF_SB_URL . 'classes/modules/target-rule/select2.js', array( 'jquery' ), BSF_SB_VER, true );
 				wp_enqueue_script(
-					'bsf-sb-target-rule', BSF_SB_URL . 'classes/modules/target-rule/target-rule.js', array(
+					'bsf-sb-target-rule',
+					BSF_SB_URL . 'classes/modules/target-rule/target-rule.js',
+					array(
 						'jquery',
 						'wp-util',
 						'bsf-sb-select2',
-					), BSF_SB_VER, true
+					),
+					BSF_SB_VER,
+					true
 				);
 				wp_enqueue_script(
-					'bsf-sb-user-role', BSF_SB_URL . 'classes/modules/target-rule/user-role.js', array(
+					'bsf-sb-user-role',
+					BSF_SB_URL . 'classes/modules/target-rule/user-role.js',
+					array(
 						'jquery',
-					), BSF_SB_VER, true
+					),
+					BSF_SB_VER,
+					true
 				);
 				wp_enqueue_style( 'bsf-sb-select2', BSF_SB_URL . 'classes/modules/target-rule/select2.css', '', BSF_SB_VER );
 				wp_enqueue_style( 'bsf-sb-target-rule', BSF_SB_URL . 'classes/modules/target-rule/target-rule.css', '', BSF_SB_VER );
@@ -562,7 +571,7 @@ if ( ! class_exists( 'BSF_SB_Target_Rules_Fields' ) ) {
 		 * @since  1.0.0
 		 *
 		 * @param object $post_type post type parameter.
-		 * @param object $taxonomies Taxanomies for creating the target rule markup.
+		 * @param object $taxonomy Taxanomies for creating the target rule markup.
 		 */
 		public static function get_post_target_rule_options( $post_type, $taxonomy ) {
 
@@ -660,7 +669,7 @@ if ( ! class_exists( 'BSF_SB_Target_Rules_Fields' ) ) {
 						if ( strpos( $sel_value, 'post-' ) !== false ) {
 							$post_id    = (int) str_replace( 'post-', '', $sel_value );
 							$post_title = get_the_title( $post_id );
-							$output .= '<option value="post-' . $post_id . '" selected="selected" >' . $post_title . '</option>';
+							$output    .= '<option value="post-' . $post_id . '" selected="selected" >' . $post_title . '</option>';
 						}
 
 						// taxonomy options.
@@ -668,7 +677,7 @@ if ( ! class_exists( 'BSF_SB_Target_Rules_Fields' ) ) {
 							$tax_id        = (int) str_replace( 'tax-', '', $sel_value );
 							$term          = get_term( $tax_id );
 							$term_taxonomy = ucfirst( str_replace( '_', ' ', $term->taxonomy ) );
-							$output .= '<option value="tax-' . $tax_id . '" selected="selected" >' . $term->name . ' - ' . $term_taxonomy . '</option>';
+							$output       .= '<option value="tax-' . $tax_id . '" selected="selected" >' . $term->name . ' - ' . $term_taxonomy . '</option>';
 
 						}
 					}
@@ -740,7 +749,7 @@ if ( ! class_exists( 'BSF_SB_Target_Rules_Fields' ) ) {
 		 */
 		public function parse_layout_display_condition( $post_id, $rules ) {
 
-			$display        = false;
+			$display           = false;
 			$current_post_type = get_post_type( $post_id );
 
 			if ( isset( $rules['rule'] ) && is_array( $rules['rule'] ) && ! empty( $rules['rule'] ) ) {
@@ -923,11 +932,11 @@ if ( ! class_exists( 'BSF_SB_Target_Rules_Fields' ) ) {
 			$selection_options = self::$user_selection;
 
 			/* WP Template Format */
-			$output .= '<script type="text/html" id="tmpl-bsf-sb-user-role-condition">';
-				$output .= '<div class="bsf-sb-user-role-condition bsf-sb-user-role-{{data.id}}" data-rule="{{data.id}}" >';
+			$output         .= '<script type="text/html" id="tmpl-bsf-sb-user-role-condition">';
+				$output     .= '<div class="bsf-sb-user-role-condition bsf-sb-user-role-{{data.id}}" data-rule="{{data.id}}" >';
 					$output .= '<span class="user_role-condition-delete dashicons dashicons-dismiss"></span>';
 					/* Condition Selection */
-					$output .= '<div class="user_role-condition-wrap" >';
+					$output     .= '<div class="user_role-condition-wrap" >';
 						$output .= '<select name="' . esc_attr( $input_name ) . '[{{data.id}}]" class="user_role-condition form-control bsf-sb-input">';
 						$output .= '<option value="">' . __( 'Select', 'sidebar-manager' ) . '</option>';
 
@@ -940,26 +949,26 @@ if ( ! class_exists( 'BSF_SB_Target_Rules_Fields' ) ) {
 				$output .= '</optgroup>';
 			}
 						$output .= '</select>';
-					$output .= '</div>';
-				$output .= '</div> <!-- bsf-sb-user-role-condition -->';
-			$output .= '</script>';
+					$output     .= '</div>';
+				$output         .= '</div> <!-- bsf-sb-user-role-condition -->';
+			$output             .= '</script>';
 
 			if ( ! is_array( $saved_values ) || ( is_array( $saved_values ) && empty( $saved_values ) ) ) {
 
-				$saved_values        = array();
-				$saved_values[0]     = '';
+				$saved_values    = array();
+				$saved_values[0] = '';
 			}
 
 			$index = 0;
 
-			$output .= '<div class="bsf-sb-user-role-wrapper bsf-sb-user-role-display-on-wrap" data-type="display">';
-				$output .= '<div class="bsf-sb-user-role-selector-wrapper bsf-sb-user-role-display-on">';
+			$output         .= '<div class="bsf-sb-user-role-wrapper bsf-sb-user-role-display-on-wrap" data-type="display">';
+				$output     .= '<div class="bsf-sb-user-role-selector-wrapper bsf-sb-user-role-display-on">';
 					$output .= '<div class="user_role-builder-wrap">';
 			foreach ( $saved_values as $index => $data ) {
-				$output .= '<div class="bsf-sb-user-role-condition bsf-sb-user-role-' . $index . '" data-rule="' . $index . '" >';
+				$output     .= '<div class="bsf-sb-user-role-condition bsf-sb-user-role-' . $index . '" data-rule="' . $index . '" >';
 					$output .= '<span class="user_role-condition-delete dashicons dashicons-dismiss"></span>';
 					/* Condition Selection */
-					$output .= '<div class="user_role-condition-wrap" >';
+					$output     .= '<div class="user_role-condition-wrap" >';
 						$output .= '<select name="' . esc_attr( $input_name ) . '[' . $index . ']" class="user_role-condition form-control bsf-sb-input">';
 						$output .= '<option value="">' . __( 'Select', 'sidebar-manager' ) . '</option>';
 
@@ -973,7 +982,7 @@ if ( ! class_exists( 'BSF_SB_Target_Rules_Fields' ) ) {
 					$output .= '</optgroup>';
 				}
 						$output .= '</select>';
-					$output .= '</div>';
+					$output     .= '</div>';
 						$output .= '</div> <!-- bsf-sb-user-role-condition -->';
 			}
 					$output .= '</div>';
@@ -981,8 +990,8 @@ if ( ! class_exists( 'BSF_SB_Target_Rules_Fields' ) ) {
 					$output .= '<div class="user_role-add-rule-wrap">';
 					$output .= '<a href="#" class="button" data-rule-id="' . absint( $index ) . '">' . $add_rule_label . '</a>';
 					$output .= '</div>';
-				$output .= '</div>';
-			$output .= '</div>';
+				$output     .= '</div>';
+			$output         .= '</div>';
 
 			echo $output;
 		}
@@ -1008,7 +1017,7 @@ if ( ! class_exists( 'BSF_SB_Target_Rules_Fields' ) ) {
 					switch ( $rule ) {
 						case '':
 						case 'all':
-							$show_popup        = true;
+							$show_popup = true;
 							break;
 
 						case 'logged-in':
@@ -1059,7 +1068,7 @@ if ( ! class_exists( 'BSF_SB_Target_Rules_Fields' ) ) {
 
 			if ( null === self::$current_page_type ) {
 
-				$page_type = '';
+				$page_type  = '';
 				$current_id = false;
 
 				if ( is_404() ) {
@@ -1081,10 +1090,10 @@ if ( ! class_exists( 'BSF_SB_Target_Rules_Fields' ) ) {
 				} elseif ( is_home() ) {
 					$page_type = 'is_home';
 				} elseif ( is_front_page() ) {
-					$page_type = 'is_front_page';
+					$page_type  = 'is_front_page';
 					$current_id = get_the_id();
 				} elseif ( is_singular() ) {
-					$page_type = 'is_singular';
+					$page_type  = 'is_singular';
 					$current_id = get_the_id();
 				} else {
 					$current_id = get_the_id();
@@ -1210,9 +1219,9 @@ if ( ! class_exists( 'BSF_SB_Target_Rules_Fields' ) ) {
 
 				foreach ( $posts as $local_post ) {
 					self::$current_page_data[ $post_type ][ $local_post->ID ] = array(
-						'id'         => $local_post->ID,
-						'post_name'  => $local_post->post_name,
-						'location' => unserialize( $local_post->meta_value ),
+						'id'        => $local_post->ID,
+						'post_name' => $local_post->post_name,
+						'location'  => unserialize( $local_post->meta_value ),
 					);
 				}
 
@@ -1234,13 +1243,13 @@ if ( ! class_exists( 'BSF_SB_Target_Rules_Fields' ) ) {
 		 */
 		public function remove_exclusion_rule_posts( $post_type, $option ) {
 
-			$exclusion          = isset( $option['exclusion'] ) ? $option['exclusion'] : '';
-			$current_post_id    = isset( $option['current_post_id'] ) ? $option['current_post_id'] : false;
+			$exclusion       = isset( $option['exclusion'] ) ? $option['exclusion'] : '';
+			$current_post_id = isset( $option['current_post_id'] ) ? $option['current_post_id'] : false;
 
 			foreach ( self::$current_page_data[ $post_type ] as $c_post_id => $c_data ) {
 
-				$exclusion_rules    = get_post_meta( $c_post_id, $exclusion, true );
-				$is_exclude         = $this->parse_layout_display_condition( $current_post_id, $exclusion_rules );
+				$exclusion_rules = get_post_meta( $c_post_id, $exclusion, true );
+				$is_exclude      = $this->parse_layout_display_condition( $current_post_id, $exclusion_rules );
 
 				if ( $is_exclude ) {
 					unset( self::$current_page_data[ $post_type ][ $c_post_id ] );
@@ -1257,8 +1266,8 @@ if ( ! class_exists( 'BSF_SB_Target_Rules_Fields' ) ) {
 		 */
 		public function remove_user_rule_posts( $post_type, $option ) {
 
-			$users              = isset( $option['users'] ) ? $option['users'] : '';
-			$current_post_id    = isset( $option['current_post_id'] ) ? $option['current_post_id'] : false;
+			$users           = isset( $option['users'] ) ? $option['users'] : '';
+			$current_post_id = isset( $option['current_post_id'] ) ? $option['current_post_id'] : false;
 
 			foreach ( self::$current_page_data[ $post_type ] as $c_post_id => $c_data ) {
 
@@ -1282,8 +1291,8 @@ if ( ! class_exists( 'BSF_SB_Target_Rules_Fields' ) ) {
 			global $wpdb;
 			global $post;
 
-			$all_rules          = array();
-			$already_set_rule   = array();
+			$all_rules        = array();
+			$already_set_rule = array();
 
 			$location = isset( $option['location'] ) ? $option['location'] : '';
 
@@ -1291,9 +1300,10 @@ if ( ! class_exists( 'BSF_SB_Target_Rules_Fields' ) ) {
 				$wpdb->prepare(
 					"SELECT p.ID, p.post_title, pm.meta_value FROM {$wpdb->postmeta} as pm
 			   INNER JOIN {$wpdb->posts} as p ON pm.post_id = p.ID
-			   WHERE pm.meta_key = '%s'
-			   AND p.post_type = '%s'
-			   AND p.post_status = 'publish'", $location,
+			   WHERE pm.meta_key = %s
+			   AND p.post_type = %s
+			   AND p.post_status = 'publish'",
+					$location,
 					$post_type
 				)
 			);
@@ -1315,14 +1325,14 @@ if ( ! class_exists( 'BSF_SB_Target_Rules_Fields' ) ) {
 							foreach ( $location_rules['specific'] as $s_index => $s_value ) {
 
 								$all_rules[ $rule ][ $s_value ][ $header->ID ] = array(
-									'ID'    => $header->ID,
-									'name'  => $header->post_title,
+									'ID'   => $header->ID,
+									'name' => $header->post_title,
 								);
 							}
 						} else {
 							$all_rules[ $rule ][ $header->ID ] = array(
-								'ID'    => $header->ID,
-								'name'  => $header->post_title,
+								'ID'   => $header->ID,
+								'name' => $header->post_title,
 							);
 						}
 					}
@@ -1371,7 +1381,8 @@ if ( ! class_exists( 'BSF_SB_Target_Rules_Fields' ) ) {
 
 			if ( ! empty( $already_set_rule ) ) {
 				add_action(
-					'admin_notices', function() use ( $already_set_rule ) {
+					'admin_notices',
+					function() use ( $already_set_rule ) {
 
 						$rule_set_titles = '<strong>' . implode( ',', $already_set_rule ) . '</strong>';
 
