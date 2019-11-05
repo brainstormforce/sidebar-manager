@@ -35,10 +35,10 @@ require_once BSF_SB_DIR . 'includes/lib/notices/class-astra-notices.php';
 if ( ! function_exists( 'register_notices' ) ) :
 
 	/**
-	* Ask Theme Rating
-	*
-	* @since 1.4.0
-	*/
+	 * Ask Theme Rating
+	 *
+	 * @since 1.4.0
+	 */
 	function register_notices() {
 		$image_path = BSF_SB_URL . 'includes/assets/images/sidebar-manager-icon.png';
 		Astra_Notices::add_notice(
