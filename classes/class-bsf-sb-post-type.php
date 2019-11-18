@@ -26,7 +26,7 @@ if ( ! class_exists( 'BSF_SB_Post_Type' ) ) {
 		 */
 		public static function get_instance() {
 			if ( ! isset( self::$instance ) ) {
-				self::$instance = new self;
+				self::$instance = new self();
 			}
 			return self::$instance;
 		}
@@ -62,7 +62,7 @@ if ( ! class_exists( 'BSF_SB_Post_Type' ) ) {
 		 * @param array $columns Array of columns.
 		 * @return array
 		 */
-		static public function column_headings( $columns ) {
+		public static function column_headings( $columns ) {
 
 			unset( $columns['date'] );
 
@@ -111,7 +111,8 @@ if ( ! class_exists( 'BSF_SB_Post_Type' ) ) {
 
 						echo '<div class="ast-advanced-headers-users-wrap">';
 						echo '<strong>Users: </strong>';
-						echo join( ', ', $user_label );
+						$usr_label = join( ', ', $user_label );
+						echo esc_attr( $usr_label );
 						echo '</div>';
 					}
 				}
@@ -143,7 +144,8 @@ if ( ! class_exists( 'BSF_SB_Post_Type' ) ) {
 				}
 			}
 
-			echo join( ', ', $location_label );
+			$lct = join( ', ', $location_label );
+			echo esc_attr( $lct );
 
 		}
 
@@ -156,8 +158,8 @@ if ( ! class_exists( 'BSF_SB_Post_Type' ) ) {
 		public function menu_highlight() {
 			global $parent_file, $submenu_file, $post_type;
 			if ( BSF_SB_POST_TYPE == $post_type ) {
-				$parent_file  = 'themes.php';
-				$submenu_file = 'edit.php?post_type=' . BSF_SB_POST_TYPE;
+				$parent_file  = 'themes.php'; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
+				$submenu_file = 'edit.php?post_type=' . BSF_SB_POST_TYPE; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
 			}
 		}
 

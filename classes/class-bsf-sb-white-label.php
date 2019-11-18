@@ -41,7 +41,7 @@ if ( ! class_exists( 'Bsf_Sb_White_Label' ) ) :
 		 */
 		public static function set_instance() {
 			if ( ! isset( self::$instance ) ) {
-				self::$instance = new self;
+				self::$instance = new self();
 			}
 			return self::$instance;
 		}
@@ -69,7 +69,7 @@ if ( ! class_exists( 'Bsf_Sb_White_Label' ) ) :
 		 * @param array $plugins Plugins Array.
 		 * @return array
 		 */
-		function plugins_page( $plugins ) {
+		public function plugins_page( $plugins ) {
 
 			if ( ! is_callable( 'Astra_Ext_White_Label_Markup::get_whitelabel_string' ) ) {
 				return $plugins;

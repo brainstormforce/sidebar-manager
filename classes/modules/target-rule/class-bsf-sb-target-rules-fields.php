@@ -77,7 +77,7 @@ if ( ! class_exists( 'BSF_SB_Target_Rules_Fields' ) ) {
 		 */
 		public static function get_instance() {
 			if ( ! isset( self::$instance ) ) {
-				self::$instance = new self;
+				self::$instance = new self();
 			}
 
 			return self::$instance;
@@ -320,8 +320,9 @@ if ( ! class_exists( 'BSF_SB_Target_Rules_Fields' ) ) {
 		 *
 		 * @since  1.0.0
 		 */
-		function get_posts_by_query() {
+		public function get_posts_by_query() {
 
+			check_ajax_referer( 'ajax_target_url_nonce', 'security' );
 			$search_string = isset( $_POST['q'] ) ? sanitize_text_field( $_POST['q'] ) : '';
 			$data          = array();
 			$result        = array();
@@ -331,8 +332,9 @@ if ( ! class_exists( 'BSF_SB_Target_Rules_Fields' ) ) {
 				'_builtin' => false,
 			);
 
-			$output     = 'names'; // names or objects, note names is the default.
-			$operator   = 'and'; // 'and' or 'or'.
+			// names or objects, note names is the default.
+			$output     = 'names';
+			$operator   = 'and';
 			$post_types = get_post_types( $args, $output, $operator );
 
 			$post_types['Posts'] = 'post';
@@ -382,7 +384,7 @@ if ( ! class_exists( 'BSF_SB_Target_Rules_Fields' ) ) {
 			);
 
 			$output     = 'objects'; // names or objects, note names is the default.
-			$operator   = 'and'; // 'and' or 'or'.
+			$operator   = 'and';
 			$taxonomies = get_taxonomies( $args, $output, $operator );
 
 			foreach ( $taxonomies as $taxonomy ) {
@@ -439,7 +441,7 @@ if ( ! class_exists( 'BSF_SB_Target_Rules_Fields' ) ) {
 		 *
 		 * @return (string) The Modified Search SQL for WHERE clause.
 		 */
-		function search_only_titles( $search, $wp_query ) {
+		public function search_only_titles( $search, $wp_query ) {
 			if ( ! empty( $search ) && ! empty( $wp_query->query_vars['search_terms'] ) ) {
 				global $wpdb;
 
@@ -484,6 +486,11 @@ if ( ! class_exists( 'BSF_SB_Target_Rules_Fields' ) ) {
 					BSF_SB_VER,
 					true
 				);
+				$params = array(
+					'ajaxurl'    => admin_url( 'admin-ajax.php', $protocol ),
+					'ajax_nonce' => wp_create_nonce( 'ajax_target_url_nonce' ),
+				);
+				wp_localize_script( 'targeturl_nonce_script', 'sb_ajax_object', $params );
 				wp_enqueue_script(
 					'bsf-sb-user-role',
 					BSF_SB_URL . 'classes/modules/target-rule/user-role.js',
@@ -562,7 +569,7 @@ if ( ! class_exists( 'BSF_SB_Target_Rules_Fields' ) ) {
 			/* Wrapper end */
 			$output .= '</div>';
 
-			echo $output;
+			echo $output; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		}
 
 		/**
@@ -993,7 +1000,7 @@ if ( ! class_exists( 'BSF_SB_Target_Rules_Fields' ) ) {
 				$output     .= '</div>';
 			$output         .= '</div>';
 
-			echo $output;
+			echo $output; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		}
 
 		/**
@@ -1221,7 +1228,7 @@ if ( ! class_exists( 'BSF_SB_Target_Rules_Fields' ) ) {
 					self::$current_page_data[ $post_type ][ $local_post->ID ] = array(
 						'id'        => $local_post->ID,
 						'post_name' => $local_post->post_name,
-						'location'  => unserialize( $local_post->meta_value ),
+						'location'  => json_decode( $local_post->meta_value ),
 					);
 				}
 
@@ -1287,7 +1294,7 @@ if ( ! class_exists( 'BSF_SB_Target_Rules_Fields' ) ) {
 		 * @param  int   $post_type Post Type.
 		 * @param  array $option meta option name.
 		 */
-		static public function same_display_on_notice( $post_type, $option ) {
+		public static function same_display_on_notice( $post_type, $option ) {
 			global $wpdb;
 			global $post;
 
@@ -1310,7 +1317,7 @@ if ( ! class_exists( 'BSF_SB_Target_Rules_Fields' ) ) {
 
 			foreach ( $all_headers as $header ) {
 
-				$location_rules = unserialize( $header->meta_value );
+				$location_rules = json_decode( $header->meta_value );
 
 				if ( is_array( $location_rules ) && isset( $location_rules['rule'] ) ) {
 
@@ -1390,7 +1397,7 @@ if ( ! class_exists( 'BSF_SB_Target_Rules_Fields' ) ) {
 						$notice = sprintf( __( 'The same display setting is already exist in %s post/s.', 'sidebar-manager' ), $rule_set_titles );
 
 						echo '<div class="error">';
-						echo '<p>' . $notice . '</p>';
+						echo '<p>' . esc_attr( $notice ) . '</p>';
 						echo '</div>';
 
 					}
@@ -1407,7 +1414,7 @@ if ( ! class_exists( 'BSF_SB_Target_Rules_Fields' ) ) {
 		 *
 		 * @return false | object
 		 */
-		static public function get_meta_option_post( $post_type, $option ) {
+		public static function get_meta_option_post( $post_type, $option ) {
 			$page_meta = ( isset( $option['page_meta'] ) && '' != $option['page_meta'] ) ? $option['page_meta'] : false;
 
 			if ( false !== $page_meta ) {
@@ -1435,7 +1442,7 @@ if ( ! class_exists( 'BSF_SB_Target_Rules_Fields' ) ) {
 		 *
 		 * @return object  Posts.
 		 */
-		static public function get_post_selection( $post_type ) {
+		public static function get_post_selection( $post_type ) {
 			$query_args = array(
 				'post_type'      => $post_type,
 				'posts_per_page' => -1,
@@ -1468,7 +1475,7 @@ if ( ! class_exists( 'BSF_SB_Target_Rules_Fields' ) ) {
 		 *
 		 * @return array Rule data.
 		 */
-		static public function get_format_rule_value( $save_data, $key ) {
+		public static function get_format_rule_value( $save_data, $key ) {
 			$meta_value = array();
 
 			if ( isset( $save_data[ $key ]['rule'] ) ) {
@@ -1509,7 +1516,7 @@ if ( ! class_exists( 'BSF_SB_Target_Rules_Fields' ) ) {
 			return $meta_value;
 		}
 	}
-}// End if().
+}
 
 /**
  * Kicking this off by calling 'get_instance()' method
