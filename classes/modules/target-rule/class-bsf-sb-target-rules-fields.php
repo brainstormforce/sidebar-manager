@@ -186,10 +186,6 @@ if ( ! class_exists( 'BSF_SB_Target_Rules_Fields' ) ) {
 
 					foreach ( $post_types as $post_type ) {
 
-						if ( ! in_array( $post_type->name, $attached_post_types ) ) {
-							continue;
-						}
-
 						$post_opt = self::get_post_target_rule_options( $post_type, $taxonomy );
 
 						if ( isset( $selection_options[ $post_opt['post_key'] ] ) ) {
