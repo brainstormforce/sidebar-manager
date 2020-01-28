@@ -487,10 +487,10 @@ if ( ! class_exists( 'BSF_SB_Target_Rules_Fields' ) ) {
 					true
 				);
 				$params = array(
-					'ajaxurl'    => admin_url( 'admin-ajax.php', $protocol ),
+					'ajaxurl'    => admin_url( 'admin-ajax.php' ),
 					'ajax_nonce' => wp_create_nonce( 'ajax_target_url_nonce' ),
 				);
-				wp_localize_script( 'targeturl_nonce_script', 'sb_ajax_object', $params );
+				wp_localize_script( 'bsf-sb-target-rule', 'sb_ajax_object', $params );
 				wp_enqueue_script(
 					'bsf-sb-user-role',
 					BSF_SB_URL . 'classes/modules/target-rule/user-role.js',
