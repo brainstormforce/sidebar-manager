@@ -1317,7 +1317,7 @@ if ( ! class_exists( 'BSF_SB_Target_Rules_Fields' ) ) {
 
 			foreach ( $all_headers as $header ) {
 
-				$location_rules = json_decode( $header->meta_value );
+				$location_rules = maybe_unserialize( $header->meta_value );
 
 				if ( is_array( $location_rules ) && isset( $location_rules['rule'] ) ) {
 
@@ -1397,7 +1397,7 @@ if ( ! class_exists( 'BSF_SB_Target_Rules_Fields' ) ) {
 						$notice = sprintf( __( 'The same display setting is already exist in %s post/s.', 'sidebar-manager' ), $rule_set_titles );
 
 						echo '<div class="error">';
-						echo '<p>' . esc_attr( $notice ) . '</p>';
+						echo '<p>' . esc_html( $notice ) . '</p>';
 						echo '</div>';
 
 					}

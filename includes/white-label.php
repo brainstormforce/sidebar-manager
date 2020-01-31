@@ -11,8 +11,6 @@
 if ( ! is_callable( 'Astra_Ext_White_Label_Markup::branding_key_to_constant' ) ) {
 	return;
 }
-echo 'ndxzfkljndzn';
-wp_die();
 ?>
 <li>
 	<div class="branding-form postbox">
