@@ -112,7 +112,7 @@ if ( ! class_exists( 'BSF_SB_Post_Type' ) ) {
 						echo '<div class="ast-advanced-headers-users-wrap">';
 						echo '<strong>Users: </strong>';
 						$usr_label = join( ', ', $user_label );
-						echo esc_attr( $usr_label );
+						echo esc_html( $usr_label );
 						echo '</div>';
 					}
 				}
@@ -145,7 +145,7 @@ if ( ! class_exists( 'BSF_SB_Post_Type' ) ) {
 			}
 
 			$lct = join( ', ', $location_label );
-			echo esc_attr( $lct );
+			echo esc_html( $lct );
 
 		}
 

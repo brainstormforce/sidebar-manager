@@ -1228,7 +1228,7 @@ if ( ! class_exists( 'BSF_SB_Target_Rules_Fields' ) ) {
 					self::$current_page_data[ $post_type ][ $local_post->ID ] = array(
 						'id'        => $local_post->ID,
 						'post_name' => $local_post->post_name,
-						'location'  => json_decode( $local_post->meta_value ),
+						'location'  => maybe_unserialize( $local_post->meta_value ),
 					);
 				}
 
