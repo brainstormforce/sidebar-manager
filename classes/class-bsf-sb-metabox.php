@@ -26,7 +26,7 @@ if ( ! class_exists( 'BSF_SB_Metabox' ) ) {
 		 */
 		public static function get_instance() {
 			if ( ! isset( self::$instance ) ) {
-				self::$instance = new self;
+				self::$instance = new self();
 			}
 			return self::$instance;
 		}
@@ -171,9 +171,8 @@ if ( ! class_exists( 'BSF_SB_Metabox' ) ) {
 						$out     .= '</td>';
 						$out     .= '<td class="bsf-sb-row-content">';
 							$out .= '<input type="text" rows="1" name="excerpt" value="' . $post->post_excerpt . '">';
-							// $out .= '<textarea rows="1" name="excerpt">' . $post->post_excerpt . '</textarea>';
-						$out .= '</td>';
-					$out     .= '</tr>';
+						$out     .= '</td>';
+					$out         .= '</tr>';
 
 					$out         .= '<tr class="bsf-sb-row">';
 						$out     .= '<td class="bsf-sb-row-heading">';
@@ -243,7 +242,7 @@ if ( ! class_exists( 'BSF_SB_Metabox' ) ) {
 				$out             .= '</tbody>';
 			$out                 .= '</table>';
 
-			echo $out;
+			echo $out; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		}
 
 		/**

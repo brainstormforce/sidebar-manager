@@ -1,13 +1,13 @@
 ;(function ( $, window, undefined ) {
 
 	var init_target_rule_select2  = function( selector ) {
-		
+		var admin_url = sb_ajax_object.ajaxurl;
 		$(selector).select2({
 
 			placeholder: "Search pages / post / categories",
 
 			ajax: {
-			    url: ajaxurl,
+			    url: admin_url,
 			    dataType: 'json',
 			    method: 'post',
 			    delay: 250,
@@ -15,6 +15,7 @@
 			      	return {
 			        	q: params.term, // search term
 				        page: params.page,
+				        security: sb_ajax_object.ajax_nonce,
 				        action: 'bsf_sb_get_posts_by_query'
 			    	};
 				},
