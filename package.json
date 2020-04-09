@@ -9,7 +9,8 @@
     "grunt-contrib-jshint": "^2.1.0",
     "grunt-text-replace": "^0.4.0",
     "grunt-wp-i18n": "~1.0.3",
-    "grunt-wp-readme-to-markdown": "~2.0.1"
+    "grunt-wp-readme-to-markdown": "~2.0.1",
+    "minimist": ">=1.2.3"
   },
   "dependencies": {
     "grunt-contrib-clean": "^2.0.0",
