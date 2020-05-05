@@ -43,6 +43,18 @@ if ( ! class_exists( 'BSF_SB_Sidebar' ) ) {
 		 */
 		public function __construct() {
 			$this->load_actions();
+			add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_scripts' ) );
+		}
+
+		/**
+		 * Enqueue Admin Scripts
+		 *
+		 * @since 1.0.0
+		 */
+		public function enqueue_admin_scripts() {
+
+			wp_enqueue_style( 'bsf-sidebar-manager-css', BSF_SB_URL . 'includes/assets/css/sidebar-manager.css', array(), BSF_SB_VER );
+
 		}
 
 		/**
