@@ -1,14 +1,14 @@
-# Copyright (C) 2019 Brainstorm Force
+# Copyright (C) 2020 Brainstorm Force
 # This file is distributed under the same license as the Sidebar Manager package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Sidebar Manager 1.1.0\n"
+"Project-Id-Version: Sidebar Manager 1.1.2\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/sidebar-manager\n"
-"POT-Creation-Date: 2019-08-02 09:21:17+00:00\n"
+"POT-Creation-Date: 2020-06-09 08:14:11+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2019-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2020-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: en\n"
@@ -23,6 +23,50 @@ msgstr ""
 "X-Poedit-Bookmarks: \n"
 "X-Textdomain-Support: yes\n"
 "X-Generator: grunt-wp-i18n 1.0.3\n"
+
+#: admin/bsf-analytics/class-bsf-analytics.php:183
+#. translators: %s product name
+msgid ""
+"Want to help make <strong>%1s</strong> even more awesome? Allow us to "
+"collect non-sensitive diagnostic data and usage information. "
+msgstr ""
+
+#: admin/bsf-analytics/class-bsf-analytics.php:186
+msgid "This will be applicable for all sites from the network."
+msgstr ""
+
+#: admin/bsf-analytics/class-bsf-analytics.php:208
+#. translators: %s usage doc link
+msgid " Know More."
+msgstr ""
+
+#: admin/bsf-analytics/class-bsf-analytics.php:215
+msgid "Yes! Allow it"
+msgstr ""
+
+#: admin/bsf-analytics/class-bsf-analytics.php:223
+msgid "No Thanks"
+msgstr ""
+
+#: admin/bsf-analytics/class-bsf-analytics.php:292
+msgid "Every two days"
+msgstr ""
+
+#: admin/bsf-analytics/class-bsf-analytics.php:346
+msgid "Usage Tracking"
+msgstr ""
+
+#: admin/bsf-analytics/class-bsf-analytics.php:377
+msgid "Allow Brainstorm Force products to track non-sensitive usage tracking data."
+msgstr ""
+
+#: admin/bsf-analytics/class-bsf-analytics.php:380
+msgid " This will be applicable for all sites from the network."
+msgstr ""
+
+#: admin/bsf-analytics/class-bsf-analytics.php:385
+msgid "Learn More."
+msgstr ""
 
 #: classes/class-bsf-sb-metabox.php:57
 msgid "Enter sidebar title here"
@@ -58,51 +102,51 @@ msgstr ""
 msgid "Add an optional description fot the Widgets screen."
 msgstr ""
 
-#: classes/class-bsf-sb-metabox.php:180
+#: classes/class-bsf-sb-metabox.php:179
 msgid "Display On"
 msgstr ""
 
-#: classes/class-bsf-sb-metabox.php:181
+#: classes/class-bsf-sb-metabox.php:180
 msgid "Add locations for where this sidebar should appear."
 msgstr ""
 
-#: classes/class-bsf-sb-metabox.php:189 classes/class-bsf-sb-post-type.php:69
+#: classes/class-bsf-sb-metabox.php:188 classes/class-bsf-sb-post-type.php:69
 msgid "Display Rules"
 msgstr ""
 
-#: classes/class-bsf-sb-metabox.php:193
+#: classes/class-bsf-sb-metabox.php:192
 msgid "Add Display Rule"
 msgstr ""
 
-#: classes/class-bsf-sb-metabox.php:203
+#: classes/class-bsf-sb-metabox.php:202
 msgid "Do Not Display On"
 msgstr ""
 
-#: classes/class-bsf-sb-metabox.php:204
+#: classes/class-bsf-sb-metabox.php:203
 msgid "This Sidebar will not appear at these locations."
 msgstr ""
 
-#: classes/class-bsf-sb-metabox.php:211
+#: classes/class-bsf-sb-metabox.php:210
 msgid "Exclude On"
 msgstr ""
 
-#: classes/class-bsf-sb-metabox.php:214
+#: classes/class-bsf-sb-metabox.php:213
 msgid "Add Excludion Rule"
 msgstr ""
 
-#: classes/class-bsf-sb-metabox.php:225
+#: classes/class-bsf-sb-metabox.php:224
 msgid "User Roles"
 msgstr ""
 
-#: classes/class-bsf-sb-metabox.php:226
+#: classes/class-bsf-sb-metabox.php:225
 msgid "Target header based on user role."
 msgstr ""
 
-#: classes/class-bsf-sb-metabox.php:233
+#: classes/class-bsf-sb-metabox.php:232
 msgid "Users"
 msgstr ""
 
-#: classes/class-bsf-sb-metabox.php:236
+#: classes/class-bsf-sb-metabox.php:235
 msgid "Add User Rule"
 msgstr ""
 
@@ -110,50 +154,50 @@ msgstr ""
 msgid "Date"
 msgstr ""
 
-#: classes/class-bsf-sb-post-type.php:176
+#: classes/class-bsf-sb-post-type.php:178
 msgid "Sidebar"
 msgstr ""
 
-#: classes/class-bsf-sb-post-type.php:177
-#: classes/class-bsf-sb-post-type.php:232
+#: classes/class-bsf-sb-post-type.php:179
+#: classes/class-bsf-sb-post-type.php:234
 msgid "Sidebars"
 msgstr ""
 
-#: classes/class-bsf-sb-post-type.php:187
-msgid "Add New"
-msgstr ""
-
 #: classes/class-bsf-sb-post-type.php:189
-#. translators: %s singular
-msgid "Add New %s"
+msgid "Add New"
 msgstr ""
 
 #: classes/class-bsf-sb-post-type.php:191
 #. translators: %s singular
-msgid "Edit %s"
+msgid "Add New %s"
 msgstr ""
 
 #: classes/class-bsf-sb-post-type.php:193
 #. translators: %s singular
+msgid "Edit %s"
+msgstr ""
+
+#: classes/class-bsf-sb-post-type.php:195
+#. translators: %s singular
 msgid "New %s"
 msgstr ""
 
-#: classes/class-bsf-sb-post-type.php:196
+#: classes/class-bsf-sb-post-type.php:198
 #. translators: %s singular
 msgid "View %s"
 msgstr ""
 
-#: classes/class-bsf-sb-post-type.php:198
+#: classes/class-bsf-sb-post-type.php:200
 #. translators: %s plural
 msgid "Search %s"
 msgstr ""
 
-#: classes/class-bsf-sb-post-type.php:200
+#: classes/class-bsf-sb-post-type.php:202
 #. translators: %s plural
 msgid "No %s Found"
 msgstr ""
 
-#: classes/class-bsf-sb-post-type.php:202
+#: classes/class-bsf-sb-post-type.php:204
 #. translators: %s plural
 msgid "No %s Found In Trash"
 msgstr ""
@@ -231,36 +275,36 @@ msgstr ""
 msgid "Advanced"
 msgstr ""
 
-#: classes/modules/target-rule/class-bsf-sb-target-rules-fields.php:515
-#: classes/modules/target-rule/class-bsf-sb-target-rules-fields.php:924
+#: classes/modules/target-rule/class-bsf-sb-target-rules-fields.php:522
+#: classes/modules/target-rule/class-bsf-sb-target-rules-fields.php:931
 msgid "Add Rule"
 msgstr ""
 
-#: classes/modules/target-rule/class-bsf-sb-target-rules-fields.php:532
-#: classes/modules/target-rule/class-bsf-sb-target-rules-fields.php:639
-#: classes/modules/target-rule/class-bsf-sb-target-rules-fields.php:941
-#: classes/modules/target-rule/class-bsf-sb-target-rules-fields.php:973
-#: classes/modules/target-rule/class-bsf-sb-target-rules-fields.php:1450
+#: classes/modules/target-rule/class-bsf-sb-target-rules-fields.php:539
+#: classes/modules/target-rule/class-bsf-sb-target-rules-fields.php:646
+#: classes/modules/target-rule/class-bsf-sb-target-rules-fields.php:948
+#: classes/modules/target-rule/class-bsf-sb-target-rules-fields.php:980
+#: classes/modules/target-rule/class-bsf-sb-target-rules-fields.php:1457
 msgid "Select"
 msgstr ""
 
-#: classes/modules/target-rule/class-bsf-sb-target-rules-fields.php:584
+#: classes/modules/target-rule/class-bsf-sb-target-rules-fields.php:591
 #. translators: %s post label
 msgid "All %s"
 msgstr ""
 
-#: classes/modules/target-rule/class-bsf-sb-target-rules-fields.php:589
-#: classes/modules/target-rule/class-bsf-sb-target-rules-fields.php:597
+#: classes/modules/target-rule/class-bsf-sb-target-rules-fields.php:596
+#: classes/modules/target-rule/class-bsf-sb-target-rules-fields.php:604
 #. translators: %s post label
 #. translators: %s taxonomy label
 msgid "All %s Archive"
 msgstr ""
 
-#: classes/modules/target-rule/class-bsf-sb-target-rules-fields.php:699
+#: classes/modules/target-rule/class-bsf-sb-target-rules-fields.php:706
 msgid "Add Exclusion Rule"
 msgstr ""
 
-#: classes/modules/target-rule/class-bsf-sb-target-rules-fields.php:1390
+#: classes/modules/target-rule/class-bsf-sb-target-rules-fields.php:1397
 #. translators: %s post title.
 msgid "The same display setting is already exist in %s post/s."
 msgstr ""
@@ -297,17 +341,17 @@ msgstr ""
 msgid "https://www.brainstormforce.com/"
 msgstr ""
 
-#: classes/class-bsf-sb-post-type.php:184
+#: classes/class-bsf-sb-post-type.php:186
 msgctxt "post type general name"
 msgid "Sidebars"
 msgstr ""
 
-#: classes/class-bsf-sb-post-type.php:185
+#: classes/class-bsf-sb-post-type.php:187
 msgctxt "post type singular name"
 msgid "Sidebar"
 msgstr ""
 
-#: classes/class-bsf-sb-post-type.php:186
+#: classes/class-bsf-sb-post-type.php:188
 msgctxt "admin menu"
 msgid "Sidebars"
 msgstr ""

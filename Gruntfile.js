@@ -127,6 +127,15 @@ module.exports = function( grunt ) {
 					'!composer.lock',
 					'!package-lock.json',
 					'!phpcs.xml.dist',
+					'!admin/bsf-analytics/.git/**',
+                    '!admin/bsf-analytics/bin/**',
+                    '!admin/bsf-analytics/.gitignore',
+                    '!admin/bsf-analytics/composer.json',
+                    '!admin/bsf-analytics/composer.lock',
+                    '!admin/bsf-analytics/Gruntfile.js',
+                    '!admin/bsf-analytics/package.json',
+                    '!admin/bsf-analytics/package-lock.json',
+                    '!admin/bsf-analytics/phpcs.xml.dist',
 				],
 				dest: 'sidebar-manager/'
 			}

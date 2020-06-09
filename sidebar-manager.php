@@ -25,8 +25,11 @@ define( 'BSF_SB_FILE', __FILE__ );
 define( 'BSF_SB_BASE', plugin_basename( BSF_SB_FILE ) );
 define( 'BSF_SB_DIR', plugin_dir_path( BSF_SB_FILE ) );
 define( 'BSF_SB_URL', plugins_url( '/', BSF_SB_FILE ) );
-define( 'BSF_SB_VER', '1.1.2' );
+define( 'BSF_SB_VER', '1.1.3' );
 define( 'BSF_SB_PREFIX', 'bsf-sb' );
 define( 'BSF_SB_POST_TYPE', 'bsf-sidebar' );
 
 require_once 'classes/class-bsf-sb-loader.php';
+
+// BSF Analytics library.
+require_once BSF_SB_DIR . 'admin/bsf-analytics/class-bsf-analytics.php';
