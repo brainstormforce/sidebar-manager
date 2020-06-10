@@ -31,5 +31,10 @@ define( 'BSF_SB_POST_TYPE', 'bsf-sidebar' );
 
 require_once 'classes/class-bsf-sb-loader.php';
 
+if ( is_admin() ) {
+	// Admin Notice Library Settings.
+	require_once BSF_SB_DIR . 'lib/notices/class-astra-notices.php';
+}
+
 // BSF Analytics library.
 require_once BSF_SB_DIR . 'admin/bsf-analytics/class-bsf-analytics.php';
