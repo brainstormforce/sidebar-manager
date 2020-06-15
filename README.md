@@ -3,8 +3,8 @@
 **Donate link:** https://www.paypal.me/BrainstormForce  
 **Tags:** custom sidebar, sidebar manager, custom widget areas, widgets, conditional sidebar  
 **Requires at least:** 4.0  
-**Tested up to:** 5.4  
-**Stable tag:** 1.1.2  
+**Tested up to:** 5.4.2  
+**Stable tag:** 1.1.3  
 **License:** GPLv2 or later  
 **License URI:** https://www.gnu.org/licenses/gpl-2.0.html  
 
@@ -51,25 +51,28 @@ Other plugins we found are heavy with ugly interface, non supported, developed o
 
 ## Changelog ##
 
+### 1.1.3 ###
+- New: Users can now share non-personal usage data to help us test and develop better products. ( https://store.brainstormforce.com/usage-tracking/?utm_source=wp_dashboard&utm_medium=general_settings&utm_campaign=usage_tracking )
+
 ### 1.1.2 ###
 - Improvement: Hardened the security of plugin
 - Improvement: Compatibility with latest WordPress PHP_CodeSniffer rules
 
-v1.1.1
+### 1.1.1 ###
 - Fix: Fixes a fatal error on Sidebar list page. 
 
-v1.1.0
+### 1.1.0 ###
 - New: Target rules appearing in Display Rules column for sidebars.
 - Improvement: White Label can be set from wp-config.php file.
 
-v1.0.2
+### 1.0.2 ###
 - Improvement: Update target rules with support for targeting all posts inside taxonomies and terms.
 - Fix: If a taxonomy is used for multiple post types, it was not displayed in target rules.
 - Fix: Load correct textdomain and allow the plugin to be translated from translate.W.org
 
-v1.0.1
+### 1.0.1 ###
 - White Label support added from the [Astra Pro](https://wpastra.com/pro/) plugin.
 - Optimized target rules query to be even more lightweight.
 
-v1.0.0
+### 1.0.0 ###
 - Initial release
