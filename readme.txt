@@ -3,7 +3,7 @@ Contributors: BrainstormForce
 Donate link: https://www.paypal.me/BrainstormForce
 Tags: custom sidebar, sidebar manager, custom widget areas, widgets, conditional sidebar
 Requires at least: 4.0
-Tested up to: 5.4.2
+Tested up to: 5.5
 Stable tag: 1.1.3
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
