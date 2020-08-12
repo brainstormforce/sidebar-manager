@@ -54,7 +54,6 @@ Other plugins we found are heavy with ugly interface, non supported, developed o
 = 1.1.4 =
 - New: Users can now share non-personal usage data to help us test and develop better products. ( https://store.brainstormforce.com/usage-tracking/?utm_source=wp_dashboard&utm_medium=general_settings&utm_campaign=usage_tracking )
 
-
 = 1.1.3 =
 - New: Users can now share non-personal usage data to help us test and develop better products. ( https://store.brainstormforce.com/usage-tracking/?utm_source=wp_dashboard&utm_medium=general_settings&utm_campaign=usage_tracking )
 
