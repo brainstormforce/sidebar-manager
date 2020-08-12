@@ -4,7 +4,7 @@
 **Tags:** custom sidebar, sidebar manager, custom widget areas, widgets, conditional sidebar  
 **Requires at least:** 4.0  
 **Tested up to:** 5.5  
-**Stable tag:** 1.1.3  
+**Stable tag:** 1.1.4  
 **License:** GPLv2 or later  
 **License URI:** https://www.gnu.org/licenses/gpl-2.0.html  
 
@@ -50,6 +50,10 @@ Other plugins we found are heavy with ugly interface, non supported, developed o
 
 
 ## Changelog ##
+
+### 1.1.4 ###
+- New: Users can now share non-personal usage data to help us test and develop better products. ( https://store.brainstormforce.com/usage-tracking/?utm_source=wp_dashboard&utm_medium=general_settings&utm_campaign=usage_tracking )
+
 
 ### 1.1.3 ###
 - New: Users can now share non-personal usage data to help us test and develop better products. ( https://store.brainstormforce.com/usage-tracking/?utm_source=wp_dashboard&utm_medium=general_settings&utm_campaign=usage_tracking )

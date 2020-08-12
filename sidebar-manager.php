@@ -37,4 +37,19 @@ if ( is_admin() ) {
 }
 
 // BSF Analytics library.
-require_once BSF_SB_DIR . 'admin/bsf-analytics/class-bsf-analytics.php';
+if ( ! class_exists( 'BSF_Analytics_Loader' ) ) {
+	require_once ASTRA_WIDGETS_DIR . 'admin/bsf-analytics/class-bsf-analytics-loader.php';
+}
+
+$bsf_analytics = BSF_Analytics_Loader::get_instance();
+
+$bsf_analytics->set_entity(
+	array(
+		'bsf' => array(
+			'product_name'    => 'Astra Widgets',
+			'path'            => ASTRA_WIDGETS_DIR . 'admin/bsf-analytics',
+			'author'          => 'Brainstorm Force',
+			'time_to_display' => '+24 hours',
+		),
+	)
+);
