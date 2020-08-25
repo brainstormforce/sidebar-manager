@@ -81,8 +81,12 @@ if ( ! class_exists( 'BSF_SB_Metabox' ) ) {
 		 */
 		public function metabox_save( $post_id ) {
 
+			if( ! isset( $_POST[ BSF_SB_POST_TYPE . '-nonce' ] ) ) {
+				return;
+			}
+
 			if ( get_post_type() != BSF_SB_POST_TYPE
-				|| ( isset( $_POST[ BSF_SB_POST_TYPE . '-nonce' ] ) && ! wp_verify_nonce( $_POST[ BSF_SB_POST_TYPE . '-nonce' ], BSF_SB_POST_TYPE ) )
+				|| ! wp_verify_nonce( $_POST[ BSF_SB_POST_TYPE . '-nonce' ], BSF_SB_POST_TYPE )
 			) {
 				return $post_id;
 			}
