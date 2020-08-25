@@ -322,7 +322,10 @@ if ( ! class_exists( 'BSF_SB_Target_Rules_Fields' ) ) {
 		 */
 		public function get_posts_by_query() {
 
-			check_ajax_referer( 'ajax_target_url_nonce', 'security' );
+			if( ! check_ajax_referer( 'ajax_target_url_nonce', 'security' ) ) {
+				wp_die( __( "You are not authorized to perform this action", 'bsfsidebars' ) );
+			}
+
 			$search_string = isset( $_POST['q'] ) ? sanitize_text_field( $_POST['q'] ) : '';
 			$data          = array();
 			$result        = array();
