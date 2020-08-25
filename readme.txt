@@ -52,7 +52,7 @@ Other plugins we found are heavy with ugly interface, non supported, developed o
 == Changelog ==
 
 = 1.1.5 = 
-- Fix: Security fixes. 
+- Fix: Security hardening. 
 
 = 1.1.4 =
 - Fix: Fixed compatibility with other plugins with respect to the admin notice.
