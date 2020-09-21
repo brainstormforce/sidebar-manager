@@ -116,7 +116,7 @@ if ( ! class_exists( 'BSF_SB_Metabox' ) ) {
 
 			if ( isset( $_POST['replace_this_sidebar'] ) ) {
 
-				$replace_sidebar = sanitize_text_field( esc_attr( $_POST['replace_this_sidebar'] ) );
+				$replace_sidebar = sanitize_text_field( $_POST['replace_this_sidebar'] );
 
 				update_post_meta( $post_id, '_replace_this_sidebar', $replace_sidebar );
 			}
