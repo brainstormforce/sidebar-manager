@@ -81,7 +81,7 @@ if ( ! class_exists( 'BSF_SB_Metabox' ) ) {
 		 */
 		public function metabox_save( $post_id ) {
 
-			if( ! isset( $_POST[ BSF_SB_POST_TYPE . '-nonce' ] ) ) {
+			if ( ! isset( $_POST[ BSF_SB_POST_TYPE . '-nonce' ] ) ) {
 				return;
 			}
 
@@ -110,12 +110,13 @@ if ( ! class_exists( 'BSF_SB_Metabox' ) ) {
 			}
 
 			if ( isset( $_POST['bsf-sb-users'] ) ) {
-				update_post_meta( $post_id, '_bsf-sb-users', $_POST['bsf-sb-users'] );
+				$bsf_sb_user_roles = array_map( 'sanitize_text_field', $_POST['bsf-sb-users'] );
+				update_post_meta( $post_id, '_bsf-sb-users', $bsf_sb_user_roles );
 			}
 
 			if ( isset( $_POST['replace_this_sidebar'] ) ) {
 
-				$replace_sidebar = esc_attr( $_POST['replace_this_sidebar'] );
+				$replace_sidebar = sanitize_text_field( $_POST['replace_this_sidebar'] );
 
 				update_post_meta( $post_id, '_replace_this_sidebar', $replace_sidebar );
 			}
@@ -158,7 +159,7 @@ if ( ! class_exists( 'BSF_SB_Metabox' ) ) {
 					if ( strrpos( $slug, BSF_SB_PREFIX ) !== false ) {
 						continue;
 					}
-					$out .= '<option value="' . $slug . '"' . selected( $replace_sidebar, $slug, false ) . '>' . $name . '</option>';
+					$out .= '<option value="' . esc_attr( $slug ) . '"' . selected( $replace_sidebar, $slug, false ) . '>' . esc_attr( $name ) . '</option>';
 				}
 				$out .= '</select>';
 			} else {
@@ -174,7 +175,7 @@ if ( ! class_exists( 'BSF_SB_Metabox' ) ) {
 							$out .= '<i class="bsf-sb-help dashicons dashicons-editor-help" title="' . esc_attr__( 'Add an optional description fot the Widgets screen.', 'sidebar-manager' ) . '"></i>';
 						$out     .= '</td>';
 						$out     .= '<td class="bsf-sb-row-content">';
-							$out .= '<input type="text" rows="1" name="excerpt" value="' . $post->post_excerpt . '">';
+							$out .= '<input type="text" rows="1" name="excerpt" value="' . esc_attr( $post->post_excerpt ) . '">';
 						$out     .= '</td>';
 					$out         .= '</tr>';
 
