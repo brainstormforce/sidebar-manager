@@ -51,6 +51,9 @@ Other plugins we found are heavy with ugly interface, non supported, developed o
 
 == Changelog ==
 
+= 1.1.7 =
+- Fix: Added compatibility with WordPress v5.7.
+
 = 1.1.6 =
 - Improvement: Hardened the security of plugin.
 
