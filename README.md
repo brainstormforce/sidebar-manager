@@ -4,7 +4,7 @@
 **Tags:** custom sidebar, sidebar manager, custom widget areas, widgets, conditional sidebar  
 **Requires at least:** 4.0  
 **Tested up to:** 5.7  
-**Stable tag:** 1.1.6  
+**Stable tag:** 1.1.7  
 **License:** GPLv2 or later  
 **License URI:** https://www.gnu.org/licenses/gpl-2.0.html  
 
@@ -50,6 +50,9 @@ Other plugins we found are heavy with ugly interface, non supported, developed o
 
 
 ## Changelog ##
+
+### 1.1.7 ###
+- Fix: Added compatibility with WordPress v5.7 for jQuery migration warnings on admin page.
 
 ### 1.1.6 ###
 - Improvement: Hardened the security of plugin.
