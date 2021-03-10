@@ -3,7 +3,7 @@ Contributors: BrainstormForce
 Donate link: https://www.paypal.me/BrainstormForce
 Tags: custom sidebar, sidebar manager, custom widget areas, widgets, conditional sidebar
 Requires at least: 4.0
-Tested up to: 5.6
+Tested up to: 5.7
 Stable tag: 1.1.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -54,8 +54,8 @@ Other plugins we found are heavy with ugly interface, non supported, developed o
 = 1.1.6 =
 - Improvement: Hardened the security of plugin.
 
-= 1.1.5 = 
-- Fix: Security hardening. 
+= 1.1.5 =
+- Fix: Security hardening.
 
 = 1.1.4 =
 - Fix: Fixed compatibility with other plugins with respect to the admin notice.
@@ -68,7 +68,7 @@ Other plugins we found are heavy with ugly interface, non supported, developed o
 - Improvement: Compatibility with latest WordPress PHP_CodeSniffer rules
 
 = 1.1.1 =
-- Fix: Fixes a fatal error on Sidebar list page. 
+- Fix: Fixes a fatal error on Sidebar list page.
 
 = 1.1.0 =
 - New: Target rules appearing in Display Rules column for sidebars.
