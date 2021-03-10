@@ -25,7 +25,7 @@ define( 'BSF_SB_FILE', __FILE__ );
 define( 'BSF_SB_BASE', plugin_basename( BSF_SB_FILE ) );
 define( 'BSF_SB_DIR', plugin_dir_path( BSF_SB_FILE ) );
 define( 'BSF_SB_URL', plugins_url( '/', BSF_SB_FILE ) );
-define( 'BSF_SB_VER', '1.1.6' );
+define( 'BSF_SB_VER', '1.1.7' );
 define( 'BSF_SB_PREFIX', 'bsf-sb' );
 define( 'BSF_SB_POST_TYPE', 'bsf-sidebar' );
 
