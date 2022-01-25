@@ -1,14 +1,14 @@
-# Copyright (C) 2020 Brainstorm Force
+# Copyright (C) 2022 Brainstorm Force
 # This file is distributed under the same license as the Sidebar Manager package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Sidebar Manager 1.1.4\n"
+"Project-Id-Version: Sidebar Manager 1.1.7\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/sidebar-manager\n"
-"POT-Creation-Date: 2020-08-18 09:23:55+00:00\n"
+"POT-Creation-Date: 2022-01-25 12:14:11+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2020-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2022-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: en\n"
@@ -73,77 +73,77 @@ msgstr ""
 msgid "Sidebar Settings"
 msgstr ""
 
-#: classes/class-bsf-sb-metabox.php:144
+#: classes/class-bsf-sb-metabox.php:149
 msgid "Sidebar To Replace"
 msgstr ""
 
-#: classes/class-bsf-sb-metabox.php:145
+#: classes/class-bsf-sb-metabox.php:150
 msgid ""
 "Choose which sidebar you want to replace. Select None to disable this "
 "sidebar."
 msgstr ""
 
-#: classes/class-bsf-sb-metabox.php:151
+#: classes/class-bsf-sb-metabox.php:156
 msgid "None"
 msgstr ""
 
-#: classes/class-bsf-sb-metabox.php:161
+#: classes/class-bsf-sb-metabox.php:166
 msgid "Sidebars are not available."
 msgstr ""
 
-#: classes/class-bsf-sb-metabox.php:169
+#: classes/class-bsf-sb-metabox.php:174
 msgid "Description"
 msgstr ""
 
-#: classes/class-bsf-sb-metabox.php:170
+#: classes/class-bsf-sb-metabox.php:175
 msgid "Add an optional description fot the Widgets screen."
 msgstr ""
 
-#: classes/class-bsf-sb-metabox.php:179
+#: classes/class-bsf-sb-metabox.php:184
 msgid "Display On"
 msgstr ""
 
-#: classes/class-bsf-sb-metabox.php:180
+#: classes/class-bsf-sb-metabox.php:185
 msgid "Add locations for where this sidebar should appear."
 msgstr ""
 
-#: classes/class-bsf-sb-metabox.php:188 classes/class-bsf-sb-post-type.php:69
+#: classes/class-bsf-sb-metabox.php:193 classes/class-bsf-sb-post-type.php:69
 msgid "Display Rules"
 msgstr ""
 
-#: classes/class-bsf-sb-metabox.php:192
+#: classes/class-bsf-sb-metabox.php:197
 msgid "Add Display Rule"
 msgstr ""
 
-#: classes/class-bsf-sb-metabox.php:202
+#: classes/class-bsf-sb-metabox.php:207
 msgid "Do Not Display On"
 msgstr ""
 
-#: classes/class-bsf-sb-metabox.php:203
+#: classes/class-bsf-sb-metabox.php:208
 msgid "This Sidebar will not appear at these locations."
 msgstr ""
 
-#: classes/class-bsf-sb-metabox.php:210
+#: classes/class-bsf-sb-metabox.php:215
 msgid "Exclude On"
 msgstr ""
 
-#: classes/class-bsf-sb-metabox.php:213
+#: classes/class-bsf-sb-metabox.php:218
 msgid "Add Excludion Rule"
 msgstr ""
 
-#: classes/class-bsf-sb-metabox.php:224
+#: classes/class-bsf-sb-metabox.php:229
 msgid "User Roles"
 msgstr ""
 
-#: classes/class-bsf-sb-metabox.php:225
+#: classes/class-bsf-sb-metabox.php:230
 msgid "Target header based on user role."
 msgstr ""
 
-#: classes/class-bsf-sb-metabox.php:232
+#: classes/class-bsf-sb-metabox.php:237
 msgid "Users"
 msgstr ""
 
-#: classes/class-bsf-sb-metabox.php:235
+#: classes/class-bsf-sb-metabox.php:240
 msgid "Add User Rule"
 msgstr ""
 
