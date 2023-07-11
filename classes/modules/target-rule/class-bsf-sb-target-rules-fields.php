@@ -682,7 +682,6 @@ if ( ! class_exists( 'BSF_SB_Target_Rules_Fields' ) ) {
 						// taxonomy options.
 						if ( strpos( $sel_value, 'tax-' ) !== false ) {
 						
-						
 							$suffix = "";
 						
 							$term_suffix = "";
@@ -695,9 +694,7 @@ if ( ! class_exists( 'BSF_SB_Target_Rules_Fields' ) ) {
 						
 							}
 						
-						
-						
-							$tax_id = (int) str_replace( 'tax-', '', $sel_value ); // THIS BIT HERE WOULD CHOP OFF TEXT AFTER THE TERM-ID
+							$tax_id = (int) str_replace( 'tax-', '', $sel_value );
 						
 							$term = get_term( $tax_id );
 						
