@@ -51,6 +51,9 @@ Other plugins we found are heavy with ugly interface, non supported, developed o
 
 ## Changelog ##
 
+### 1.1.8 ###
+- Fix: Sidebar rendering issue where specifying "All Singulars from {{category}}" resulted in incorrect display of "{{category}} - Category" after saving.
+
 ### 1.1.7 ###
 - Fix: Added compatibility with WordPress v5.7 for jQuery migration warnings on admin page.
 
