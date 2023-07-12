@@ -16,6 +16,8 @@ Normally you have a sidebar that appears throughout the website. However, someti
 
 This plugin helps you solve that problem as it allows you to create new sidebars and display them conditionally on certain locations of the website easily. Once the sidebar is created and displayed on pages you like, you can add relevant widgets in it.
 
+[Try it out on a free dummy site](https://bsf.io/sidebar-manager-demo)
+
 Some of the Features:
 
 1. Create unlimited sidebars
