@@ -691,8 +691,8 @@ if ( ! class_exists( 'BSF_SB_Target_Rules_Fields' ) ) {
 							$tax_id = (int) str_replace( 'tax-', '', $sel_value );
 							$term = get_term( $tax_id );
 							$term_taxonomy = ucfirst( str_replace( '_', ' ', $term->taxonomy ) );
-							$output .= '<option value="tax-' . $tax_id . $suffix . '" selected="selected" >' . $term->name . ' - ' . $term_taxonomy . $term_suffix . '</option>';
-						}
+							$output .= '<option value="tax-' . $tax_id . $suffix . '" selected="selected">' . $term->name . ' - ' . $term_taxonomy . $term_suffix . '</option>';
+						}						
 					}
 				}
 				$output .= '</select>';
