@@ -681,18 +681,18 @@ if ( ! class_exists( 'BSF_SB_Target_Rules_Fields' ) ) {
 
 						// taxonomy options.
 						if ( strpos( $sel_value, 'tax-' ) !== false ) {
-							$suffix = '';
+							$suffix      = '';
 							$term_suffix = '';
 							if ( preg_match( '/\d+(-single-.+)$/', $sel_value, $m ) ) {
-								$suffix = $m[1];
+								$suffix      = $m[1];
 								$term_suffix = ' (Singulars)';
 							}
-						
-							$tax_id = (int) str_replace( 'tax-', '', $sel_value );
-							$term = get_term( $tax_id );
+
+							$tax_id        = (int) str_replace( 'tax-', '', $sel_value );
+							$term          = get_term( $tax_id );
 							$term_taxonomy = ucfirst( str_replace( '_', ' ', $term->taxonomy ) );
-							$output .= '<option value="tax-' . $tax_id . $suffix . '" selected="selected">' . $term->name . ' - ' . $term_taxonomy . $term_suffix . '</option>';
-						}						
+							$output       .= '<option value="tax-' . $tax_id . $suffix . '" selected="selected">' . $term->name . ' - ' . $term_taxonomy . $term_suffix . '</option>';
+						}			
 					}
 				}
 				$output .= '</select>';
