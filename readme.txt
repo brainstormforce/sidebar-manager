@@ -3,8 +3,8 @@ Contributors: BrainstormForce
 Donate link: https://www.paypal.me/BrainstormForce
 Tags: custom sidebar, sidebar manager, custom widget areas, widgets, conditional sidebar
 Requires at least: 4.0
-Tested up to: 6.1
-Stable tag: 1.1.7
+Tested up to: 6.2
+Stable tag: 1.1.8
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -15,6 +15,8 @@ Create new sidebar areas and display them conditionally on certain pages. Works 
 Normally you have a sidebar that appears throughout the website. However, sometimes it is necessary to display a relevant, different sidebar on certain pages on the website. For an example: on WooCommerce pages, a sidebar with related or top seller products would be more relevant than latest comments, blog posts right?
 
 This plugin helps you solve that problem as it allows you to create new sidebars and display them conditionally on certain locations of the website easily. Once the sidebar is created and displayed on pages you like, you can add relevant widgets in it.
+
+[Try it out on a free dummy site](https://bsf.io/sidebar-manager-demo)
 
 Some of the Features:
 
@@ -49,7 +51,11 @@ Other plugins we found are heavy with ugly interface, non supported, developed o
 1. Add Content to the newly created sidebar.
 
 
+
 == Changelog ==
+
+= 1.1.8 =
+- Fix: Sidebar rendering issue where specifying "All Singulars from {{category}}" resulted in incorrect display of "{{category}} - Category" after saving.
 
 = 1.1.7 =
 - Fix: Added compatibility with WordPress v5.7 for jQuery migration warnings on admin page.

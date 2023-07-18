@@ -20,5 +20,10 @@
                 "sh bin/block-commits-with-merge-conflict.sh"
             ]
         }
+    },
+    "config": {
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
     }
 }
