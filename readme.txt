@@ -12,7 +12,7 @@ Create new sidebar areas and display them conditionally on certain pages. Works 
 
 == Description ==
 
-Normally you have a sidebar that appears throughout the website. However, sometimes it is necessary to display a relevant, different sidebar on certain pages on the website. For an example: on WooCommerce pages, a sidebar with related or top seller products would be more relevant than latest comments, blog posts right?
+Normally you have a sidebar that appears throughout the website. However, sometimes it is necessary to display a relevant, different sidebar on certain pages on the website. For an example: on WooCommerce pages, a sidebar with related or top seller products would be more relevant than the latest comments, blog posts right?
 
 This plugin helps you solve that problem as it allows you to create new sidebars and display them conditionally on certain locations of the website easily. Once the sidebar is created and displayed on pages you like, you can add relevant widgets in it.
 
