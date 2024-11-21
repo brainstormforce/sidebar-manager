@@ -231,12 +231,13 @@ if ( ! class_exists( 'BSF_SB_Post_Type' ) ) {
 		 */
 		public function register_sidebar_manager_menu() {
 
-			$title = apply_filters( 'bsf_sidebar_manager_menu_title', __( 'Sidebars', 'sidebar-manager' ) );
+			$sidebar_capability = apply_filters( 'sidebar_capability', 'edit_theme_options' );
+			$title              = apply_filters( 'bsf_sidebar_manager_menu_title', __( 'Sidebars', 'sidebar-manager' ) );
 			add_submenu_page(
 				'themes.php',
 				$title,
 				$title,
-				'edit_pages',
+				$sidebar_capability,
 				'edit.php?post_type=' . BSF_SB_POST_TYPE
 			);
 		}
