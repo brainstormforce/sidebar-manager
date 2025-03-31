@@ -54,6 +54,9 @@ Other plugins we found are heavy with ugly interface, non supported, developed o
 
 == Changelog ==
 
+= 1.1.9 =
+- Fix: Fixed security issue from astra-notice library.
+
 = 1.1.8 =
 - Fix: Sidebar rendering issue where specifying "All Singulars from {{category}}" resulted in incorrect display of "{{category}} - Category" after saving.
 
