@@ -34,3 +34,4 @@ defaults.json
 no-toggle-border-fix.json
 cghooks.lock
 wp-cli.local.yml
+.claude/settings.local.json

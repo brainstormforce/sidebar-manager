@@ -136,6 +136,9 @@ module.exports = function( grunt ) {
                     '!admin/bsf-analytics/package.json',
                     '!admin/bsf-analytics/package-lock.json',
                     '!admin/bsf-analytics/phpcs.xml.dist',
+					'!CLAUDE.md',
+					'!.claude/**',
+					'!internal-docs/**',
 				],
 				dest: 'sidebar-manager/'
 			}
